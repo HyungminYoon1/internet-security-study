@@ -2163,8 +2163,14 @@
         {
           "title": "NIST FIPS 197: AES",
           "url": "https://csrc.nist.gov/pubs/fips/197/final"
+        },
+        {
+          "title": "NIST: DES의 16라운드 구조",
+          "url": "https://nvlpubs.nist.gov/nistpubs/sp958-lide/html/250-253.html"
         }
-      ]
+      ],
+      "handoutExplanation": "4주차 16쪽은 DES 암호화를 9번 반복한다고 설명한다. 같은 교과의 2주차 17쪽과 18쪽에서는 16라운드로 제시한다.",
+      "verificationReason": "NIST는 DES가 16라운드의 연산을 수행한다고 명시한다. 교안 내부에서도 2주차의 16라운드와 4주차의 9번 반복이 충돌하므로 DES 본체의 반복 횟수는 16으로 바로잡는다. 이는 3DES의 결합 적용 횟수와 다른 수치다."
     },
     {
       "id": "w04-correction-07",

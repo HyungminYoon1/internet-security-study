@@ -2814,8 +2814,14 @@
         {
           "title": "OWASP SQL Injection Prevention",
           "url": "https://cheatsheetseries.owasp.org/cheatsheets/SQL_Injection_Prevention_Cheat_Sheet.html"
+        },
+        {
+          "title": "Microsoft SQL Server: GROUP BY 없는 HAVING · 한국어",
+          "url": "https://learn.microsoft.com/ko-kr/sql/t-sql/queries/select-having-transact-sql?view=sql-server-ver17"
         }
-      ]
+      ],
+      "handoutExplanation": "12주차 3쪽은 GROUP BY 없이 HAVING만 쓰면 오류가 발생한다고 설명하며, 500 응답이나 따옴표 오류를 SQL 주입 취약점 확인과 연결한다.",
+      "verificationReason": "Microsoft의 SQL Server HAVING 문서는 GROUP BY가 없으면 암시적인 단일 집계 그룹이 있다고 설명한다. 특정 쿼리의 다른 오류와 GROUP BY 부재를 구분해야 한다. HTTP 500 역시 서버 오류라는 상태만 나타내므로 SQL 주입의 성공이나 존재를 단독으로 증명하지 않는다."
     },
     {
       "id": "w12-correction-03",

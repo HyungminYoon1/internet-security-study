@@ -1,6 +1,8 @@
 import { el, fragment, btn, link, pill, eyebrow, pageHead, note, progress, meta, source, sectionHead, stat, empty } from './ui.js';
 import { recommend, reviewState, studyPlan } from '../domain/learning.js';
 import { PATHWAYS, prerequisiteIds } from '../domain/pathways.js';
+import { objectiveCorrections } from '../domain/corrections.js';
+import { correctionCard } from './corrections.js';
 
 const scopeLabel = exam => exam === 'midterm' ? '중간 · 1–7주차' : '기말 · 9–14주차';
 
@@ -52,9 +54,10 @@ export function lessonView(api, objectiveId) {
   else if (step === 2) body = fragment(eyebrow('RETRIEVE BEFORE REVEAL'), el('h2', {}, '자신의 말로 설명해 보세요.'), el('p', {}, '잠시 화면에서 눈을 떼고, 이유까지 설명한 뒤 아래 답과 비교해 보세요.'), el('div', { class: 'retrieval' }, el('p', {}, o.check.prompt), el('details', {}, el('summary', {}, '생각한 뒤 해설 보기'), el('p', {}, o.check.answer))), el('h3', {}, '설명에 막혔다면'), el('p', {}, '정답 문장을 외우기보다 어떤 조건을 놓쳤는지 확인하세요. 예제로 돌아가 판단 순서를 다시 따라가도 좋습니다.'));
   else body = fragment(eyebrow('APPLY THE IDEA'), el('h2', {}, '이제 다른 상황에 적용해요.'), el('p', {}, '배운 내용을 문제에 적용하고, 각 보기가 맞거나 틀린 이유를 확인합니다. 추측해서 맞힌 문제도 복습 대상으로 남깁니다.'), el('div', { class: 'takeaway' }, el('strong', {}, '이번 개념의 판단 기준'), el('p', {}, o.keyTakeaway)), el('div', { class: 'button-row' }, btn('개념 적용 문제 풀기 →', () => api.startPractice({ objectiveId: o.id, exam: o.exam, count: 5 }))), note('문제 연습은 점수가 아니라 이해를 확인하는 과정입니다. 틀려도 바로 설명을 읽고 다시 시도할 수 있습니다.'));
   const controls = el('div', { class: 'button-row' }, step > 0 && btn('← 이전 단계', () => api.lessonStep(o.id, step - 1), 'secondary'), step < 3 && btn(`${steps[step + 1]} →`, () => api.lessonStep(o.id, step + 1)));
-  const corrections = o.correctionIds.map(id => data.corrections.find(c => c.id === id)).filter(Boolean);
+  const corrections = objectiveCorrections(data, o.id);
   const aside = el('aside', { class: 'lesson-side' }, el('div', { class: 'panel' }, meta(pill(`${o.week}주차`)), el('h3', {}, '이번 학습의 기준'), el('p', {}, o.keyTakeaway), el('p', {}, source(o.week, o.pages)), ...prerequisiteIds(o.id, data).map(id => link(`먼저 보면 좋아요: ${data.objectiveMap.get(id).title}`, `#lesson/${id}`, 'link')), link('주차의 다른 개념', `#learn/w${String(o.week).padStart(2, '0')}`, 'link'), link('범위·정정 확인', '#scope', 'link')));
-  return fragment(pageHead(o.title, `${o.weekTitle} · ${scopeLabel(o.exam)}`, link('주차 목록', `#learn/w${String(o.week).padStart(2, '0')}`, 'button secondary small'), `LESSON ${String(o.week).padStart(2, '0')}`), el('div', { class: 'lesson-layout' }, el('article', { class: 'lesson-body' }, tabs, body, controls, corrections.map(c => note(`교안 보완 · ${c.corrected}`, 'tip'))), aside));
+  return fragment(pageHead(o.title, `${o.weekTitle} · ${scopeLabel(o.exam)}`, link('주차 목록', `#learn/w${String(o.week).padStart(2, '0')}`, 'button secondary small'), `LESSON ${String(o.week).padStart(2, '0')}`), el('div', { class: 'lesson-layout' }, el('article', { class: 'lesson-body' }, tabs, body, controls,
+    corrections.length > 0 && el('section', { class: 'lesson-corrections' }, el('h3', {}, '교안과 다르게 설명한 이유'), corrections.map(c => correctionCard(c)))), aside));
 }
 
 export function reviewView(api) {

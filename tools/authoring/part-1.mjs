@@ -3,6 +3,7 @@ import { mkdirSync, writeFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { dirname, resolve } from 'node:path';
 import { validateWeek } from '../../dist/src/domain/content.js';
+import { applyCorrectionComparisons } from './correction-comparisons.mjs';
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '../..');
 const ref = (title, url) => ({ title, url });
 const R = {
@@ -861,6 +862,7 @@ for(const w of weeks){for(const c of w.corrections){for(const r of c.references)
 mkdirSync(resolve(root,'dist/content'),{recursive:true});
 // Serialization runs only after the independently authored weeks are complete.
 for(const w of weeks){
+ applyCorrectionComparisons(w);
  validateWeek(w);
  for(const o of w.objectives){if(w.questions.filter(q=>q.objectiveId===o.id).length<3)throw Error(`${o.id}: fewer than three questions`);}
  const families=w.questions.map(q=>q.family);if(new Set(families).size!==families.length)throw Error(`${w.id}: duplicate families require explicit review`);

@@ -1,5 +1,7 @@
 import { el, fragment, btn, link, pill, pageHead, note, progress, meta, source, field, select, prettyTime, empty, stat } from './ui.js';
 import { remainingMs } from '../domain/learning.js';
+import { objectiveCorrections } from '../domain/corrections.js';
+import { correctionCard } from './corrections.js';
 
 const typeLabels = { concept: '개념 확인', contrast: '차이 구분', application: '상황 적용', evidence: '자료 해석' };
 const levels = { 1: '기본', 2: '응용', 3: '복합 판단' };
@@ -26,7 +28,8 @@ export function practiceView(api) {
   const controls = el('div', { class: 'button-row' }, !feedback ? btn('정답 확인', () => api.gradePractice()) : btn(session.position + 1 === session.questionIds.length ? '연습 마치기 →' : '다음 문제 →', () => api.nextPractice()), btn(api.state.bookmarks.includes(q.id) ? '저장한 문제 ✓' : '문제 저장', () => api.bookmark(q.id), 'secondary small'), btn('연습 목록', () => api.endPractice(), 'ghost small'));
   const confidences = el('div', { class: 'confidence', role: 'group', 'aria-label': '답에 대한 확신' }, el('span', {}, '얼마나 확신하나요?'), [['sure', '확실해요'], ['unsure', '헷갈려요'], ['guess', '추측했어요']].map(([id, label]) => el('button', { type: 'button', 'aria-pressed': String(session.confidence === id), disabled: Boolean(feedback), onclick: () => api.setConfidence(id) }, label)));
   const hint = !feedback && el('details', { ontoggle: event => { if (event.target.open) api.hintUsed(); } }, el('summary', { class: 'link' }, '개념 힌트'), el('p', { class: 'notice' }, objective.keyTakeaway));
-  const result = feedback && el('section', { id: 'feedback', tabindex: '-1', class: `feedback ${feedback.correct ? '' : 'wrong'}` }, el('h3', {}, feedback.correct ? '판단이 맞았습니다.' : '판단 기준을 다시 살펴보세요.'), el('p', {}, q.explanation), el('div', { class: 'button-row' }, link(`개념: ${objective.title} ↗`, `#lesson/${objective.id}`, 'link')));
+  const result = feedback && el('section', { id: 'feedback', tabindex: '-1', class: `feedback ${feedback.correct ? '' : 'wrong'}` }, el('h3', {}, feedback.correct ? '판단이 맞았습니다.' : '판단 기준을 다시 살펴보세요.'), el('p', {}, q.explanation), el('div', { class: 'button-row' }, link(`개념: ${objective.title} ↗`, `#lesson/${objective.id}`, 'link')),
+    objectiveCorrections(api.data, q.objectiveId).map(c => correctionCard(c)));
   return fragment(pageHead('문제 연습', objective.title, null, session.label), el('div', { class: 'practice-top' }, el('span', {}, `${session.position + 1} / ${session.questionIds.length}`), progress(session.position, session.questionIds.length, '이번 연습 진행')), questionCard(q, { order: session.optionOrders[q.id], selected: session.selected, graded: Boolean(feedback), onChoose: id => api.choosePractice(id), extras: [confidences, hint, result, controls] }));
 }
 
@@ -56,6 +59,6 @@ export function resultView(api, id) {
   const weak = [...new Set(result.questionIds.filter(qid => result.answers[qid] !== api.data.questionMap.get(qid).answerId).map(qid => api.data.questionMap.get(qid).objectiveId))];
   return fragment(pageHead('모의고사 결과', `${result.exam === 'midterm' ? '중간' : '기말'} · ${result.questionIds.length}문항 · ${new Date(result.finishedAt).toLocaleString('ko-KR')}`, link('다른 모의고사', '#exam', 'button secondary small')), el('section', { class: 'score-panel' }, el('div', { class: 'score-large' }, result.score, el('small', {}, '점')), el('div', {}, el('h2', {}, `정답 ${result.correct} / ${result.questionIds.length}`), el('p', {}, `미응답 ${result.unanswered}문항 · 풀이 시간 ${prettyTime(result.finishedAt - result.startAt)}`), el('p', {}, '연습 결과이며 실제 시험 점수나 합격 가능성의 예측은 아닙니다.'))), weak.length && el('section', { class: 'panel' }, el('h2', {}, '다음에 확인할 개념'), el('div', { class: 'button-row' }, weak.map(oid => link(api.data.objectiveMap.get(oid).title, `#lesson/${oid}`, 'button secondary small')))), el('h2', { class: 'section-head' }, '문제별 해설'), result.questionIds.map((qid, i) => {
     const q = api.data.questionMap.get(qid), right = result.answers[qid] === q.answerId;
-    return el('details', { class: 'audit-week' }, el('summary', {}, `${i + 1}. ${q.prompt}`, pill(right ? '정답' : result.answers[qid] ? '오답' : '미응답', right ? 'green' : 'amber')), el('div', { class: 'audit-detail' }, questionCard(q, { order: result.optionOrders[qid], selected: result.answers[qid], graded: true, titleId: `result-${qid}`, extras: [el('p', { class: 'notice' }, q.explanation), link('관련 개념 학습 →', `#lesson/${q.objectiveId}`, 'link')] })));
+    return el('details', { class: 'audit-week' }, el('summary', {}, `${i + 1}. ${q.prompt}`, pill(right ? '정답' : result.answers[qid] ? '오답' : '미응답', right ? 'green' : 'amber')), el('div', { class: 'audit-detail' }, questionCard(q, { order: result.optionOrders[qid], selected: result.answers[qid], graded: true, titleId: `result-${qid}`, extras: [el('p', { class: 'notice' }, q.explanation), link('관련 개념 학습 →', `#lesson/${q.objectiveId}`, 'link'), ...objectiveCorrections(api.data, q.objectiveId).map(c => correctionCard(c))] })));
   }));
 }

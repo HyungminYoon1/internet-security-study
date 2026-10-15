@@ -1,11 +1,44 @@
-import { el, fragment, btn, link, pill, pageHead, note, meta, field, source, empty } from './ui.js';
+import { el, fragment, btn, link, pageHead, note, field, select, empty } from './ui.js';
+import { filterCorrections } from '../domain/corrections.js';
+import { correctionCard } from './corrections.js';
 
 export function scopeView(api) {
   const { data } = api;
-  return fragment(pageHead('학습 범위와 정정 안내', '교안의 어떤 내용을 다루는지, 무엇을 바로잡았는지 확인하세요.', null, 'SCOPE & EVIDENCE'), el('div', { class: 'scope-stats' }, el('span', {}, el('strong', {}, '13'), '개 교안'), el('span', {}, el('strong', {}, '315'), '쪽 확인'), el('span', {}, el('strong', {}, data.objectives.length), '개 학습 개념'), el('span', {}, el('strong', {}, data.questions.length), '개 문항'), el('span', {}, el('strong', {}, data.corrections.length), '개 정정·맥락 보완')), note('중간 1–7주차 · 기말 9–14주차. 아래 목록은 제공된 교안의 범위 대응표입니다. 강의 중 구두 설명, 실제 시험 문항과 출제 비중까지 확인했다는 의미는 아닙니다.'), ...data.weeks.map(w => {
+  const filters = { search: '', week: 'all', status: 'all' };
+  const count = el('p', { id: 'correction-count', class: 'muted', role: 'status', 'aria-live': 'polite' });
+  const list = el('div', { id: 'correction-list' });
+  function update(patch) {
+    Object.assign(filters, patch);
+    const matches = filterCorrections(data.corrections, filters);
+    count.textContent = `${matches.length}개 항목 · 주차를 열고 비교할 항목을 선택하세요.`;
+    const expanded = Boolean(filters.search.trim()) || filters.week !== 'all' || filters.status !== 'all';
+    list.replaceChildren(...data.weeks.flatMap(w => {
+      const own = matches.filter(c => c.week === w.number);
+      return own.length ? [el('details', { class: 'audit-week', open: expanded },
+        el('summary', {}, `${w.number}주차 · ${w.title}`, el('small', {}, `${own.length}개 항목`)),
+        el('div', { class: 'audit-detail' }, own.map(c => correctionCard(c, { id: c.id }))))] : [];
+    }));
+    if (!matches.length) list.append(empty('조건에 맞는 정정 항목이 없습니다.', '검색어 또는 주차·확인 상태를 바꿔 보세요.'));
+  }
+  const controls = el('div', { class: 'filters correction-filters' },
+    field('교안·검증 내용 검색', el('input', { type: 'search', id: 'correction-search', maxlength: 200, placeholder: '예: 전자서명, DES, ctime', oninput: e => update({ search: e.target.value }) })),
+    field('주차', select([['all', '전체 주차'], ...data.weeks.map(w => [String(w.number), `${w.number}주차`])], 'all', e => update({ week: e.target.value }), { id: 'correction-week' })),
+    field('확인할 항목', select([['all', '모든 정정·보완'], ['pending', '교수님 확인 필요'], ['contextualized', '조건·맥락 보완'], ['excluded', '근거 미확인 · 앱 채점 제외']], 'all', e => update({ status: e.target.value }), { id: 'correction-filter' })));
+  update({});
+  const coverage = data.weeks.map(w => {
     const rows = w.coverage.map(c => el('tr', {}, el('td', {}, c.pages.join(', ')), el('td', {}, c.topic, c.note && el('p', { class: 'muted' }, c.note)), el('td', {}, c.objectiveIds.length ? c.objectiveIds.map((id, i) => fragment(i ? el('br') : null, link(data.objectiveMap.get(id).title, `#lesson/${id}`, 'link'))) : (c.status === 'blank' ? '빈 페이지' : '안내 페이지'))));
-    return el('details', { class: 'audit-week', id: `scope-${w.id}` }, el('summary', {}, `${w.number}주차 · ${w.title}`, el('small', {}, `${w.source.pages}쪽 · ${w.objectives.length}개 개념 · ${w.questions.length}문항`)), el('div', { class: 'audit-detail' }, el('p', { class: 'muted' }, w.source.filename), el('div', { class: 'table-wrap' }, el('table', { class: 'comparison coverage-table' }, el('thead', {}, el('tr', {}, ['쪽', '교안 내용', '연결된 학습'].map(t => el('th', { scope: 'col' }, t)))), el('tbody', {}, rows))), w.corrections.length ? w.corrections.map(c => el('section', { class: 'correction', id: c.id }, meta(pill(c.status === 'verified' ? '정정 확인' : c.status === 'contextualized' ? '환경·버전 구분' : '논란 표현 출제 제외', c.status === 'excluded' ? 'amber' : ''), source(w.number, c.pages)), el('h3', {}, c.issue), el('p', {}, el('strong', {}, '정확한 설명 · '), c.corrected), el('p', {}, el('strong', {}, '학습할 때 · '), c.examGuidance), c.references.map(ref => el('a', { href: ref.url, target: '_blank', rel: 'noopener noreferrer' }, `${ref.title} ↗`)))) : el('p', { class: 'notice' }, '이 주차에서 별도로 기록한 정정 항목은 없습니다. 이것이 모든 기술 표현의 무오류를 보증하는 것은 아닙니다.'), w.references.length > 0 && el('details', {}, el('summary', { class: 'link' }, '추가 참고자료'), el('ul', { class: 'privacy-list' }, w.references.map(ref => el('li', {}, el('a', { href: ref.url, target: '_blank', rel: 'noopener noreferrer', class: 'link' }, ref.title)))))));
-  }), note('교안 원문과 캡처는 재배포하지 않습니다. 이 앱의 설명·예제·문항은 새로 작성했으며, 출처 페이지는 원본 교안의 PDF 쪽 번호입니다. 검토 기준일: 2026-10-15.'));
+    return el('details', { class: 'audit-week', id: `scope-${w.id}` }, el('summary', {}, `${w.number}주차 · ${w.title}`, el('small', {}, `${w.source.pages}쪽 · ${w.objectives.length}개 개념 · ${w.questions.length}문항`)),
+      el('div', { class: 'audit-detail' }, el('p', { class: 'muted' }, w.source.filename),
+        el('div', { class: 'table-wrap' }, el('table', { class: 'comparison coverage-table' }, el('thead', {}, el('tr', {}, ['쪽', '교안 내용', '연결된 학습'].map(t => el('th', { scope: 'col' }, t)))), el('tbody', {}, rows))),
+        w.references.length > 0 && el('details', {}, el('summary', { class: 'link' }, '추가 참고자료'), el('ul', { class: 'privacy-list' }, w.references.map(ref => el('li', {}, el('a', { href: ref.url, target: '_blank', rel: 'noopener noreferrer', class: 'link' }, ref.title)))))));
+  });
+  return fragment(pageHead('학습 범위와 정정 안내', '교안의 설명과 검증한 내용을 비교하고, 시험 전에 확인할 항목을 찾아보세요.', null, 'SCOPE & EVIDENCE'),
+    el('div', { class: 'scope-stats' }, el('span', {}, el('strong', {}, '13'), '개 교안'), el('span', {}, el('strong', {}, '315'), '쪽 확인'), el('span', {}, el('strong', {}, data.objectives.length), '개 학습 개념'), el('span', {}, el('strong', {}, data.questions.length), '개 문항'), el('span', {}, el('strong', {}, data.corrections.length), '개 정정·맥락 보완')),
+    note('기술적으로 확인한 내용과 실제 시험의 채점 기준은 별개입니다. 교수님 확인 필요 표시가 있는 항목은 시험 전에 문의하세요. 앱의 학습·채점 기준은 교수님이 확정한 답안이 아닙니다.'),
+    el('section', { 'aria-labelledby': 'correction-heading' }, el('h2', { id: 'correction-heading' }, '교안 설명과 검증 내용 비교'),
+      el('p', { class: 'muted correction-intro' }, '교안의 주장과 검토할 표현을 요약했습니다. 149건에는 기술 내용 정정, 조건 보완, 근거 미확인 항목이 함께 포함됩니다.'), controls, count, list),
+    el('section', { class: 'coverage-section' }, el('h2', {}, '페이지별 학습 범위'), el('p', { class: 'muted' }, '중간 1–7주차 · 기말 9–14주차. 원문 PDF 쪽 번호와 관련 학습을 연결합니다.'), coverage),
+    note('교안 원문과 캡처는 재배포하지 않습니다. 강의 중 구두 설명, 실제 시험 문항·출제 비중·정답표는 확인하지 않았습니다. 검토 기준일: 2026-10-15.'));
 }
 
 export function recordsView(api) {

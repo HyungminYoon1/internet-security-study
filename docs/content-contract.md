@@ -1,5 +1,11 @@
 # Content contract v1
 
+## Correction comparisons and exam uncertainty
+
+Every correction is displayed with the handout explanation/issue summary, `corrected`, primary references, and the app's `examGuidance`. These are paraphrased reviews, not verbatim original PDFs or instructor-approved answers. A correction may additionally contain paired `handoutExplanation` and `verificationReason` strings; either both must be valid text or both omitted. `tools/authoring/correction-comparisons.mjs` is the canonical source of the six detailed, page-rechecked examples and supplements the existing part-1/3/4 manuscripts during serialization.
+
+Pure domain policy in `corrections.js` labels verified technical corrections and excluded/unsubstantiated claims as requiring instructor confirmation of the actual exam. Contextualized records are conditional on the question's stated version/conditions; missing or conflicting conditions require confirmation. All actual exam answer keys remain unconfirmed. `excluded` means excluded from this app's scoring only, never promised to be excluded from the real examination. The UI must show these distinctions together, support source/verification text search, and make the same comparison available in lessons and graded feedback, but not during an active mock exam.
+
 Each dist/content/week-NN.json is a JSON object:
 
 ```json

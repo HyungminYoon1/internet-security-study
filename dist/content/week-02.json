@@ -3406,8 +3406,14 @@
         {
           "title": "IETF RFC 2104: HMAC",
           "url": "https://www.rfc-editor.org/rfc/rfc2104"
+        },
+        {
+          "title": "NIST: 충돌 저항성의 정의",
+          "url": "https://csrc.nist.gov/glossary/term/collision_resistance"
         }
-      ]
+      ],
+      "handoutExplanation": "2주차 21쪽은 해시가 다대일이어서 충돌이 필연적이라고 설명한 뒤, 충돌회피 조건에서는 사실상 1:1이라고 표현한다. 출력 길이는 항상 입력보다 짧다고도 적는다.",
+      "verificationReason": "고정된 유한 출력 공간에 더 많은 입력을 대응시키면 충돌이 존재한다. NIST는 충돌 저항성을 충돌하는 입력 쌍을 계산으로 찾기 매우 어려운 성질로 정의한다. 따라서 충돌이 없거나 일대일이라는 뜻이 아니다. 고정 길이 출력은 짧은 입력보다 길 수도 있다."
     },
     {
       "id": "w02-correction-11",
@@ -3422,8 +3428,14 @@
         {
           "title": "NIST FIPS 186-5: DSS",
           "url": "https://csrc.nist.gov/pubs/fips/186-5/final"
+        },
+        {
+          "title": "NIST: 전자서명의 개인키 생성·공개키 검증",
+          "url": "https://csrc.nist.gov/glossary/term/digital_signature"
         }
-      ]
+      ],
+      "handoutExplanation": "2주차 22쪽 위쪽은 해시값을 수신자 공개키로 암호화한다고 설명하지만, 아래 서명 과정은 송신자 사설키를 사용한다고 설명한다.",
+      "verificationReason": "NIST의 전자서명 정의는 서명 생성에 서명자의 개인키, 검증에 서명자의 공개키를 사용한다. 같은 페이지의 수신자 공개키 설명은 기밀성을 위한 수신자 대상 암호화와 서명 생성을 혼동한다. 모든 서명을 일반적인 개인키 암호화로 정의하지도 않는다."
     },
     {
       "id": "w02-correction-12",

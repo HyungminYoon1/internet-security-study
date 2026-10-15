@@ -2403,8 +2403,14 @@
         {
           "title": "OWASP: CSRF의 원인과 방어",
           "url": "https://cheatsheetseries.owasp.org/cheatsheets/Cross-Site_Request_Forgery_Prevention_Cheat_Sheet.html"
+        },
+        {
+          "title": "IETF RFC 9110 §17.9: URI 노출과 POST 본문",
+          "url": "https://www.rfc-editor.org/rfc/rfc9110.html#section-17.9"
         }
-      ]
+      ],
+      "handoutExplanation": "11주차 2쪽은 POST 파라미터를 본문으로 전송한다고 설명한 뒤, 헤더에 포함되어 노출되지 않고 길이 제한도 없으므로 GET보다 안전하다고 설명한다.",
+      "verificationReason": "RFC 9110 §9.3.1·§17.9는 폼의 민감한 값을 URI 대신 요청 본문으로 보내는 POST의 이점을 설명하지만 POST 자체가 암호화인 것은 아니다. §4.2.2는 HTTPS의 기밀성·무결성 보호를, §15.5.14는 서버가 큰 요청을 413으로 거절할 수 있음을 명시한다."
     },
     {
       "id": "w11-http-version",

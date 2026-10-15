@@ -1,5 +1,14 @@
 # Decision log
 
+## D05 — Compare explanations and distinguish instructor confirmation (2026-10-15)
+
+- Context: the user requested both handout and corrected explanations, supporting evidence, and a separate indicator when the actual exam answer needs instructor confirmation. Earlier wording could conflate app scoring exclusions with the real exam.
+- Options: show corrected-only notices; mark every older statement as an error; present the evidence ledger with separate technical and exam judgments.
+- Decision: reuse all 149 reviewed records, add source-specific summary/rationale metadata for six directly rechecked conflicts, and use one shared comparison component in scope, lessons, graded practice and exam results. Verified technical changes and unsubstantiated app exclusions are marked pending instructor confirmation (81 records); context records show version/condition guidance (68 records) with conditional confirmation. No instructor approval is inferred or fabricated. Search/filter is page-local UI state and is not added to browser persistence. A wrong handout statement is never made the app's answer key.
+- Rationale: learners need to understand the discrepancy without mistaking technical verification for the instructor's grading policy. This is additive within the existing static content/domain/view architecture.
+- Affected: `dist/src/domain/corrections.js`, shared comparison view, scope/lesson/practice views, optional validated content fields, canonical authoring supplement, comparison and browser tests.
+- Follow-up review: add an actual dated instructor response only when supplied; do not promote the current pending labels to confirmed. No instructor message is sent by this change. No new account, DB, data-retention policy or storage key is introduced.
+
 ## D01 — Independent learning application (2026-10-15)
 
 - Context: user approved the whole proposed app, full midterm/final coverage, verified corrections, guided understanding, tests, GitHub Pages and WEB LAB integration.

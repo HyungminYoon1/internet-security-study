@@ -11,6 +11,7 @@ import { STORAGE_KEY } from '../dist/src/storage.js';
 const data = buildCatalog(await Promise.all(WEEK_NUMBERS.map(n => readFile(new URL(`../dist/content/week-${String(n).padStart(2,'0')}.json`, import.meta.url), 'utf8').then(JSON.parse))));
 const output = resolve('output/playwright'); await mkdir(output, { recursive: true });
 const browserName = process.argv.find(a => a.startsWith('--engine='))?.slice(9) ?? 'chromium';
+const scenarioMatch = process.argv.find(a => a.startsWith('--match='))?.slice(8);
 assert(['chromium', 'firefox'].includes(browserName), 'Supported verification engines: chromium, firefox');
 let server, browser;
 let base = process.argv.find(a => a.startsWith('--base='))?.slice(7);
@@ -38,6 +39,7 @@ async function fresh({ state, raw, mobile = false, init } = {}) {
 async function readState(page) { return page.evaluate(key => JSON.parse(localStorage.getItem(key)), STORAGE_KEY); }
 async function goto(page, hash) { await page.goto(`${base}#${hash}`); await page.locator('#view h1').waitFor(); }
 async function check(name, fn) {
+  if (scenarioMatch && !name.includes(scenarioMatch)) return;
   const firstContext = contexts.length;
   try { await fn(); results.push({ name, status: 'PASS' }); console.log(`PASS ${name}`); }
   catch (error) {
@@ -49,6 +51,75 @@ async function check(name, fn) {
 }
 try {
   browser = await ({ chromium, firefox }[browserName]).launch({ headless: true });
+  await check('correction comparisons show both explanations, evidence and unconfirmed exam guidance', async () => {
+    const { page } = await fresh(); await goto(page, 'scope');
+    await page.locator('#correction-search').fill('수신자 공개키');
+    const card = page.locator('.correction').filter({ hasText: '수신자 공개키' }).first();
+    await card.locator('summary').first().click();
+    assert.match(await card.innerText(), /교안의 설명/);
+    assert.match(await card.innerText(), /검증한 내용/);
+    assert.match(await card.innerText(), /수정·보완 근거/);
+    assert.match(await card.innerText(), /교수님 확인 필요/);
+    assert.match(await card.innerText(), /실제 시험.*미확인/);
+    assert(await card.locator('a[href^="https://"]').count() > 0);
+    await page.screenshot({ path: resolve(output, 'corrections-desktop.png'), fullPage: true });
+    await page.locator('#correction-search').fill('존재하지않는검색어9876');
+    await page.getByRole('heading', { name: '조건에 맞는 정정 항목이 없습니다.', exact: true }).waitFor();
+    await page.locator('#correction-search').fill('');
+    await page.locator('#correction-filter').selectOption('pending');
+    assert.match(await page.locator('#correction-count').innerText(), /81개/);
+    assert.equal(await page.locator('.correction[data-review="conditional"]').count(), 0);
+    await page.locator('#correction-filter').selectOption('contextualized');
+    await page.locator('#correction-week').selectOption('3');
+    const contextual = page.locator('.correction').filter({ hasText: 'NTLDR' });
+    await contextual.locator('summary').first().click();
+    assert.match(await contextual.innerText(), /조건·버전 확인/);
+    assert.match(await contextual.innerText(), /문항에 조건이 없거나/);
+    await page.setViewportSize({ width: 320, height: 844 });
+    assert(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth + 1));
+    await page.screenshot({ path: resolve(output, 'corrections-mobile.png'), fullPage: true });
+  });
+  await check('correction comparisons remain available inside the relevant lesson', async () => {
+    const { page } = await fresh();
+    const objective = data.objectives.find(o => o.correctionIds.includes('w02-correction-11'));
+    await goto(page, `lesson/${objective.id}`);
+    const card = page.locator('.lesson-body .correction').filter({ hasText: '수신자 공개키' });
+    assert.equal(await card.count(), 1, 'a corrected-only notice hides the handout conflict');
+    await card.locator('summary').first().focus(); await page.keyboard.press('Enter');
+    assert.match(await card.innerText(), /교안의 설명/);
+    assert.match(await card.innerText(), /수정·보완 근거/);
+  });
+  await check('correction comparisons appear after grading but never inside an active mock exam', async () => {
+    const { page } = await fresh(); await goto(page, 'practice');
+    const q = data.questionMap.get('w02-q046');
+    await page.locator('#question-search').fill(q.prompt);
+    await page.getByRole('button', { name: '검색', exact: true }).click();
+    await page.getByRole('button', { name: '이 문제 풀기', exact: true }).click();
+    assert.equal(await page.locator('.correction').count(), 0);
+    await page.getByRole('radio').first().check();
+    await page.getByRole('button', { name: '정답 확인', exact: true }).click();
+    await page.locator('#feedback').waitFor();
+    assert(await page.locator('#feedback .correction').count() > 0, 'question explanations need the same comparison');
+    await goto(page, 'exam'); await page.locator('#mock-count').selectOption('20');
+    await page.getByRole('button', { name: '60분 모의고사 시작 →' }).click();
+    assert.equal(await page.locator('.correction').count(), 0);
+  });
+  await check('correction comparisons treat source summaries and rationales as text at mobile width', async () => {
+    const { page } = await fresh();
+    const original = JSON.parse(await readFile(new URL('../dist/content/week-02.json', import.meta.url), 'utf8'));
+    const c = original.corrections.find(c => c.id === 'w02-correction-11');
+    c.handoutExplanation = '교안 요약 <img src=x onerror=window.injectedCorrection=1> 내용은 문자로 표시해야 합니다.';
+    c.verificationReason = '검증 근거 <script>window.injectedCorrection=1</script> 내용도 문자입니다.';
+    await page.route('**/content/week-02.json', route => route.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify(original) }));
+    await page.reload(); await page.getByRole('heading', { name: '오늘의 학습', exact: true }).waitFor();
+    await goto(page, 'scope'); await page.locator('#correction-search').fill('injectedCorrection');
+    const card = page.locator('.correction'); await card.locator('summary').first().click();
+    assert.equal(await page.evaluate(() => window.injectedCorrection), undefined);
+    assert.equal(await card.locator('img, script').count(), 0);
+    assert.match(await card.innerText(), /<script>/);
+    await page.setViewportSize({ width: 320, height: 844 });
+    assert(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth + 1));
+  });
   await check('guided concept/example/retrieval/application flow and persisted step', async () => {
     const { page } = await fresh();
     await page.getByRole('link', { name: '첫 개념 시작하기 →' }).click();
@@ -241,5 +312,5 @@ try {
   if (server) server.kill();
   await writeFile(resolve(output, `browser-results-${browserName}.json`), JSON.stringify({ engine: browserName, target: base, checkedAt: new Date().toISOString(), results }, null, 2), 'utf8');
 }
-if (results.some(r => r.status !== 'PASS')) process.exitCode = 1;
+if (!results.length || results.some(r => r.status !== 'PASS')) process.exitCode = 1;
 console.log(`${results.filter(r => r.status === 'PASS').length}/${results.length} browser scenarios passed.`);

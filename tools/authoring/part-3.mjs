@@ -1,6 +1,7 @@
 import { mkdirSync, writeFileSync, readFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import path from 'node:path';
+import { applyCorrectionComparisons } from './correction-comparisons.mjs';
 
 // Explicitly authored content only: one q() call produces one question.
 const root = fileURLToPath(new URL('../../', import.meta.url));
@@ -694,6 +695,7 @@ for (const w of weeks) {
     seen.add(item.id); seen.add(item.prompt);
   }
   const filename = path.join(root, 'dist', 'content', `week-${String(w.number).padStart(2,'0')}.json`);
+  applyCorrectionComparisons(w);
   mkdirSync(path.dirname(filename), { recursive: true });
   writeFileSync(filename, JSON.stringify(w, null, 2).replace(/\n/g, '\r\n') + '\r\n', 'utf8');
   const raw = readFileSync(filename);

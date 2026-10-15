@@ -2457,7 +2457,9 @@
           "title": "Linux man-pages inode(7)",
           "url": "https://man7.org/linux/man-pages/man7/inode.7.html"
         }
-      ]
+      ],
+      "handoutExplanation": "14주차 17쪽은 find의 -ctime 검색을 최근 10일 동안 수정되거나 새롭게 생성된 파일 찾기로 설명한다.",
+      "verificationReason": "Linux inode(7)은 ctime을 마지막 상태 변경 시각으로 정의하며 내용 쓰기 외에 소유자·권한 변경으로도 갱신된다고 설명한다. 내용 수정은 mtime, 지원되는 환경의 생성 시각은 btime으로 구분하므로 ctime만으로 최근 생성 파일이라고 판단할 수 없다."
     },
     {
       "id": "w14-correction-09",

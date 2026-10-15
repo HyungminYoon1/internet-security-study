@@ -50,6 +50,9 @@ export function validateWeek(w) {
   for (const c of w.corrections) {
     id(c.id, w.id); pages(c.pages, c.id);
     for (const field of ['issue', 'corrected', 'examGuidance']) text(c[field], c.id, 10);
+    if (c.handoutExplanation !== undefined || c.verificationReason !== undefined) {
+      text(c.handoutExplanation, c.id, 10); text(c.verificationReason, c.id, 10);
+    }
     assert(['verified', 'contextualized', 'excluded'].includes(c.status), '정정 상태 오류');
     references(c.references); assert(c.references.length > 0, `${c.id}: 검증 출처가 없습니다.`);
   }
