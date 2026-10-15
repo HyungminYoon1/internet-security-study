@@ -55,4 +55,8 @@
 
 2026-10-15 로컬 Windows/Node.js 22.23.2에서 전체 63/63 테스트, 정적 검사 PASS. Chromium·Firefox에서 각각 21/21 시나리오 PASS. 콘텐츠 수정은 네 부분 모두 인계 완료했으며 독립 리뷰의 해결 기록을 읽어 통합했다. 브라우저 21개에 날짜 입력 경계도 포함한다. npm audit에서 실행 패키지 취약점 보고 0건(실행 외부 패키지는 없음)이며 이것을 모든 보안 취약점 부재로 확대하지 않는다.
 
-콘텐츠 수정본의 통합 검증과 GitHub Actions/실제 Pages 확인 후 이 절에 실행 ID·커밋을 기록한다. 이 문장만으로 배포 성공을 주장하지 않는다.
+- 코드 커밋: `451c6e3fac444423040d90de1d9de7594456303b`.
+- [GitHub Actions 38711115933](https://github.com/HyungminYoon1/internet-security-study/actions/runs/38711115933): Windows/Linux verify, Linux Chromium 21시나리오, package, deploy 모두 SUCCESS.
+- [실제 Pages](https://hyungminyoon1.github.io/internet-security-study/): 배포된 HTML/CSS/JS/JSON/SVG 29개 모두 HTTP 200이며 로컬 파일과 바이트 단위 일치. .nojekyll 플래그는 HTTP 대상에서 제외했다.
+- 실제 Pages 주소를 대상으로 Chromium 21/21 재통과. 학습·답안·제출·백업 등은 실제 배포 코드로 실행했다. 저장 고장·변조 콘텐츠·시계 경과는 격리된 브라우저 테스트 더블이며 실제 GitHub 인프라 장애를 발생시킨 것이 아니다.
+- 공개 앱의 홈을 1440×1000 JPEG로 캡처하여 WEB LAB에 제공했다. gallery 등록·CI·공개 확인 기록은 별도 web-lab 저장소에서 관리한다.
