@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="인터넷보안 중간·기말 범위의 개념, 풀이 예제, 사건 분석과 60분 모의고사를 연결하는 학습실.">
+  <meta name="theme-color" content="#143e3a">
+  <meta name="referrer" content="no-referrer">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'self'; object-src 'none'; frame-src 'none'; base-uri 'self'; form-action 'none'">
+  <title>인터넷보안 학습실</title>
+  <link rel="icon" href="assets/mark.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="styles.css">
+  <script type="module" src="src/app.js"></script>
+</head>
+<body>
+  <a class="skip" href="#main">본문으로 건너뛰기</a>
+  <aside class="sidebar" aria-label="학습실 탐색">
+    <a class="brand" href="#home"><img src="assets/mark.svg" alt="" width="38" height="42"><span>인터넷보안<small>학습실</small></span></a>
+    <p class="nav-label">MY STUDY</p>
+    <nav class="main-nav" aria-label="주 메뉴">
+      <a href="#home" data-route="home"><span aria-hidden="true">⌂</span>오늘의 학습</a>
+      <a href="#learn" data-route="learn"><span aria-hidden="true">▤</span>개념 학습</a>
+      <a href="#practice" data-route="practice"><span aria-hidden="true">✎</span>문제 연습</a>
+      <a href="#review" data-route="review"><span aria-hidden="true">↻</span>복습 노트<span class="nav-count" id="due-count">0</span></a>
+      <a href="#cases" data-route="cases"><span aria-hidden="true">⌘</span>사건 분석</a>
+      <a href="#exam" data-route="exam"><span aria-hidden="true">◷</span>60분 모의고사</a>
+    </nav>
+    <div class="nav-bottom"><a href="#scope" data-route="scope">범위·정정 안내 <span aria-hidden="true">↗</span></a><a href="#records" data-route="records">기록·백업</a><a href="https://hyungminyoon1.github.io/web-lab/">WEB LAB <span aria-hidden="true">↗</span></a><p>기록은 이 브라우저에 저장됩니다.</p></div>
+  </aside>
+  <div class="workspace">
+    <header class="topbar"><div class="course-label"><span class="live-dot" aria-hidden="true"></span>인터넷보안 <span class="muted">/ 학습 과정</span></div><div class="exam-switch" role="group" aria-label="학습 범위"><button type="button" data-exam="midterm" aria-pressed="true">중간 <span>1–7주</span></button><button type="button" data-exam="final" aria-pressed="false">기말 <span>9–14주</span></button></div></header>
+    <div id="storage-notice" class="notice error" role="status" hidden></div>
+    <a id="exam-running" class="exam-running" href="#exam" hidden>모의고사 진행 중 <strong id="running-time"></strong><span>이어서 풀기 →</span></a>
+    <main id="main" tabindex="-1"><div id="view"><section class="loading"><span class="eyebrow">INTERNET SECURITY</span><h1>학습 자료를 불러오고 있습니다.</h1><p>개념과 예제를 읽고, 문제와 사건 분석으로 확인하세요.</p></section></div></main>
+    <footer class="page-footer"><span>인터넷보안 학습실</span><a href="#scope">교안 범위와 검증 출처</a><a href="https://github.com/HyungminYoon1/internet-security-study" target="_blank" rel="noopener noreferrer">소스 코드 ↗</a></footer>
+  </div>
+  <div id="toast" class="toast" role="status" hidden></div>
+  <dialog id="confirm-dialog" aria-labelledby="confirm-title"><h2 id="confirm-title"></h2><p id="confirm-copy"></p><div class="button-row"><button id="confirm-no" type="button" class="button secondary">취소</button><button id="confirm-yes" type="button" class="button">확인</button></div></dialog>
+  <noscript><div class="noscript">학습 기능에는 JavaScript가 필요합니다. 원본 교안 1–7주차는 중간, 9–14주차는 기말 범위입니다. <a href="https://hyungminyoon1.github.io/web-lab/">WEB LAB으로 이동</a></div></noscript>
+</body>
+</html>
