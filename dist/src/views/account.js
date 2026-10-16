@@ -33,7 +33,7 @@ export function accountView(api) {
   const password=['signin','signup','reset-confirm'].includes(mode)&&el('input',{id:'auth-password',name:'password',type:'password',autocomplete:mode==='signin'?'current-password':'new-password',minlength:mode==='signin'?1:12,maxlength:128,required:true,disabled:auth.busy});
   const otp=['verify','reset-confirm'].includes(mode)&&el('input',{id:'auth-otp',name:'otp',type:'text',inputmode:'numeric',autocomplete:'one-time-code',pattern:'[0-9]{6}',maxlength:6,minlength:6,required:true,disabled:auth.busy});
   const form=el('form',{class:'auth-form',onsubmit:event=>{event.preventDefault();const input=event.currentTarget.elements;const values={email:input.email.value.trim(),password:input.password?.value||'',otp:input.otp?.value||''};if(input.password)input.password.value='';if(input.otp)input.otp.value='';void api.authSubmit(mode,values);}},
-    el('h2',{},titles[mode]),field('이메일',email),password&&field(mode==='signin'?'비밀번호':'비밀번호 · 12–128자',password),otp&&field('이메일 인증번호 · 6자리',otp),
+    el('h2',{},titles[mode]),el('p',{class:'muted'},'타사 쿠키가 차단되면 계정 연결이 제한될 수 있습니다. 연결되지 않으면 다른 브라우저나 기록·백업을 이용하세요.'),field('이메일',email),password&&field(mode==='signin'?'비밀번호':'비밀번호 · 12–128자',password),otp&&field('이메일 인증번호 · 6자리',otp),
     mode==='verify'&&el('p',{class:'muted'},'이메일로 받은 인증번호를 입력하세요. 메일이 보이지 않으면 스팸함을 확인해 주세요.'),
     el('button',{class:'button',type:'submit',disabled:auth.busy},auth.busy?'처리 중…':mode==='reset'?'인증번호 요청':titles[mode]),
     mode==='verify'&&btn('인증번호 다시 받기',()=>api.authSubmit('resend',{email:email.value.trim()}),'secondary',{disabled:auth.busy}),

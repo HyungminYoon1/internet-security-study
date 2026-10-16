@@ -3,22 +3,27 @@ import assert from 'node:assert/strict';
 import {randomBytes,randomInt,randomUUID,createHash} from 'node:crypto';
 import {mkdir,writeFile,readFile} from 'node:fs/promises';
 import {resolve} from 'node:path';
-import {chromium,firefox,webkit} from 'playwright';
+import {chromium,firefox,webkit,devices} from 'playwright';
 import {database,diagnostic} from './db-client.mjs';
 import {AUTH_URL,DATA_URL} from '../dist/src/cloud/neon.js';
 
 const base=process.env.STUDY_LIVE_BASE||'http://localhost:52731/';
 assert(['http://localhost:52731/','https://hyungminyoon1.github.io/internet-security-study/'].includes(base));
 const origin=new URL(base).origin,run=randomBytes(8).toString('hex'),created=[],secrets=[],results=[];
-const secondEngine=process.env.STUDY_LIVE_SECOND_ENGINE||'firefox';assert(['firefox','webkit'].includes(secondEngine));
+const secondEngine=process.env.STUDY_LIVE_SECOND_ENGINE||'firefox';assert(['firefox','webkit','chromium'].includes(secondEngine));
 let db,browser,browser2,phase='API';
 const output=resolve('output/account-live');await mkdir(output,{recursive:true});
 const weekOne=JSON.parse(await readFile(new URL('../dist/content/week-01.json',import.meta.url),'utf8'));
 const readId=weekOne.objectives[0].id,lessonId=weekOne.objectives[1].id;
 const scrub=value=>secrets.reduce((s,v)=>v?s.replaceAll(v,'[redacted]'):s,String(value)).replace(/eyJ[A-Za-z0-9_.-]+/g,'[redacted jwt]').slice(0,1800);
 function pass(name){results.push({name,status:'PASS'});console.log('PASS',name);}
-async function auth(path,body,jar=new Map()){
+async function auth(path,body,jar=new Map(),retry=true){
   const r=await fetch(AUTH_URL+path,{method:body?'POST':'GET',headers:{Origin:origin,...(body?{'Content-Type':'application/json'}:{}),...(jar.size?{Cookie:[...jar].map(([k,v])=>`${k}=${v}`).join('; ')}:{})},body:body?JSON.stringify(body):undefined,signal:AbortSignal.timeout(25000)});
+  const retryAfter=Number(r.headers.get('retry-after'))||60;
+  if(r.status===429&&retry&&retryAfter>0&&retryAfter<=60){
+    console.log(`Managed Auth rate limit: waiting ${retryAfter}s before one bounded retry.`);
+    await r.arrayBuffer();await new Promise(resolve=>setTimeout(resolve,retryAfter*1000));return auth(path,body,jar,false);
+  }
   for(const line of r.headers.getSetCookie()){const first=line.split(';')[0],i=first.indexOf('=');jar.set(first.slice(0,i),first.slice(i+1));secrets.push(first.slice(i+1));}
   const data=await r.json().catch(()=>({}));const jwt=r.headers.get('set-auth-jwt');if(jwt)secrets.push(jwt);
   return{status:r.status,data,jwt,jar};
@@ -50,10 +55,21 @@ async function login(f){
   const jwt=session.jwt||session.data?.session?.token;assert.ok(typeof jwt==='string'&&jwt.split('.').length===3,'JWT must be obtained from managed Auth');secrets.push(jwt);f.jwt=jwt;return jwt;
 }
 async function signInPage(page,f){
+  const authResponses=[];
+  const observe=async response=>{
+    if(!response.url().startsWith(AUTH_URL)||!['/sign-in/email','/get-session'].some(path=>response.url().split('?')[0].endsWith(path)))return;
+    const data=await response.json().catch(()=>null);
+    authResponses.push({endpoint:response.url().split('?')[0].endsWith('/get-session')?'session':'sign-in',status:response.status(),hasUser:!!data?.user});
+  };
+  page.on('response',observe);
   await page.goto(base+'#account');await page.getByLabel('이메일',{exact:true}).fill(f.email);await page.getByLabel('비밀번호',{exact:true}).fill(f.password);
   await page.locator('.auth-form').getByRole('button',{name:'로그인',exact:true}).click();
   try{await page.getByRole('button',{name:'지금 동기화',exact:true}).waitFor({timeout:30000});}
-  catch(error){console.log('Sign-in UI',scrub(await page.locator('#view').innerText()));throw error;}
+  catch(error){
+    const cookies=await page.context().cookies(AUTH_URL);
+    console.log('Sign-in diagnostic',{responses:authResponses,managedSessionCookiePresent:cookies.some(c=>c.name.includes('session_token'))});
+    console.log('Sign-in UI',scrub(await page.locator('#view').innerText()));throw error;
+  }finally{page.off('response',observe);}
   await page.getByText(/마지막 동기화 ·/).waitFor({timeout:30000});
 }
 try{
@@ -81,8 +97,8 @@ try{
   for(let i=0;i<8;i++){const f=i%2?a:b;const response=await rpc('study_pull',null,f.jwt);assert.equal(response.status,200);assert.equal(response.data.userId,f.id,'Pooled RPCs must retain request identity');}
   pass('alternating real-account JWT requests retain ownership across pooled connections');
   if(process.env.STUDY_LIVE_MODE!=='probe'){
-    browser=await chromium.launch({headless:true});browser2=await ({firefox,webkit}[secondEngine]).launch({headless:true});
-    const desktop=await browser.newContext({viewport:{width:1440,height:1000},locale:'ko-KR'}),mobile=await browser2.newContext({viewport:{width:390,height:844},locale:'ko-KR'});
+    browser=await chromium.launch({headless:true});browser2=await ({chromium,firefox,webkit}[secondEngine]).launch({headless:true});
+    const desktop=await browser.newContext({viewport:{width:1440,height:1000},locale:'ko-KR'}),mobile=await browser2.newContext({...(secondEngine==='chromium'?devices['Pixel 7']:{viewport:{width:390,height:844}}),locale:'ko-KR'});
     const p=await desktop.newPage(),p2=await mobile.newPage();p.setDefaultTimeout(20000);p2.setDefaultTimeout(20000);
     for(const page of [p,p2])page.on('response',async r=>{if(r.url().startsWith(DATA_URL)&&r.status()>=400){const d=await r.json().catch(()=>({}));console.log('RPC diagnostic',{status:r.status(),code:d.code,message:scrub(d.message)});}});
     phase='Chromium sign-in';await signInPage(p,a);phase=secondEngine+' sign-in';await signInPage(p2,a);pass(`Chromium and ${secondEngine}/mobile-width sign into the same real account`);
@@ -124,7 +140,7 @@ try{
     await p.screenshot({path:resolve(output,'account-desktop.png'),fullPage:true});await p2.screenshot({path:resolve(output,'account-mobile.png'),fullPage:true});
     await desktop.close();await mobile.close();
   }
-  const resetRequest=await auth('/email-otp/request-password-reset',{email:a.email},a.jar);assert.equal(resetRequest.status,200,'Managed reset request endpoint should be available');
+  phase='password recovery';const resetRequest=await auth('/email-otp/request-password-reset',{email:a.email},a.jar);assert.equal(resetRequest.status,200,'Managed reset request endpoint should be available');
   const resetOtp=await seedOtp(a,'forget-password'),newPassword=randomBytes(24).toString('base64url')+'!B8';secrets.push(newPassword);
   const reset=await auth('/email-otp/reset-password',{email:a.email,otp:resetOtp,password:newPassword},a.jar);assert.equal(reset.status,200,'Managed password reset should succeed');
   assert.equal((await auth('/sign-in/email',{email:a.email,password:a.password},new Map())).status,401,'Old password must be rejected');a.password=newPassword;a.jar=new Map();await login(a);pass('controlled recovery OTP changes password; old password no longer works');
@@ -147,7 +163,9 @@ finally{
     const remaining=await db.query('SELECT count(*)::int AS n FROM neon_auth."user" WHERE email=ANY($1::text[])',[created.map(f=>f.email)]);
     results.push({name:'test accounts removed',status:remaining.rows[0].n===0?'PASS':'FAIL',remaining:remaining.rows[0].n});console.log('Test accounts remaining:',remaining.rows[0].n);await db.end();
   }
-  const report={at:new Date().toISOString(),base,secondEngine,mailboxDelivery:'NOT_RUN - controlled test OTP fixtures, not actual inbox delivery',results};
+  const report={at:new Date().toISOString(),base,secondEngine,mobileEmulation:secondEngine==='chromium'?'Pixel 7, not physical hardware':'mobile-width desktop engine',mailboxDelivery:'NOT_RUN - controlled test OTP fixtures, not actual inbox delivery',results};
   await writeFile(resolve(output,'result.json'),JSON.stringify(report,null,2)+'\r\n','utf8');
   await writeFile(resolve(output,`result-${secondEngine}-${process.env.STUDY_LIVE_MODE||'ui'}.json`),JSON.stringify(report,null,2)+'\r\n','utf8');
+  await writeFile(resolve(output,`result-${secondEngine}-${base.startsWith('https:')?'production':'local'}-${process.env.STUDY_LIVE_MODE||'ui'}.json`),JSON.stringify(report,null,2)+'\r\n','utf8');
+  await writeFile(resolve(output,`run-${run}.json`),JSON.stringify(report,null,2)+'\r\n','utf8');
 }

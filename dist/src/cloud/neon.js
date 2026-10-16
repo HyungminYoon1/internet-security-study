@@ -3,6 +3,8 @@ export const DATA_URL='https://ep-raspy-moon-aosbozvt.apirest.c-2.ap-southeast-1
 const codes={INVALID_EMAIL_OR_PASSWORD:'이메일과 비밀번호를 확인해 주세요.',EMAIL_NOT_VERIFIED:'이메일 인증을 완료해 주세요.',INVALID_OTP:'인증번호를 확인해 주세요.',OTP_EXPIRED:'인증번호가 만료되었습니다. 새 번호를 요청해 주세요.',TOO_MANY_ATTEMPTS:'요청이 많습니다. 잠시 후 다시 시도해 주세요.',USER_ALREADY_EXISTS:'가입할 수 없습니다. 기존 계정이라면 로그인 또는 비밀번호 찾기를 이용해 주세요.',PASSWORD_TOO_SHORT:'비밀번호는 12자 이상 입력해 주세요.',PASSWORD_TOO_LONG:'비밀번호는 128자 이하로 입력해 주세요.'};
 export function publicError(error) {
   const code=error?.code||'';
+  if(code==='USER_ALREADY_EXISTS_USE_ANOTHER_EMAIL')return codes.USER_ALREADY_EXISTS;
+  if(code==='EMAIL_ALREADY_VERIFIED')return '이미 이메일 인증을 마쳤습니다. 로그인해 주세요.';
   if(code==='SESSION_UNAVAILABLE')return '이 브라우저에서 로그인 세션을 유지하지 못했습니다. 다른 브라우저에서 다시 시도하거나 기록·백업으로 학습을 이어가세요. 이메일 미인증 오류는 아닙니다.';
   if(code==='INVALID_ORIGIN')return '현재 접속 주소에서는 로그인을 허용하지 않습니다. 공개 사이트 주소에서 다시 시도해 주세요.';
   if(codes[code])return codes[code];

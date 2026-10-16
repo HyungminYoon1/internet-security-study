@@ -26,6 +26,7 @@
 - Rationale: insecure token persistence or a paid/domain/proxy service would violate the security or Neon-only/no-cost scope.
 - Affected: cloud adapter, account UI, live and deterministic browser harnesses, verification notes.
 - Review: final HTTPS deployment is tested separately from localhost. Physical iOS/Android devices and actual mail inbox delivery require separate evidence. Authentication metadata may include IP/user agent; the UI must not claim the provider stores only three application form fields.
+- Result: Chromium/Firefox passed the public HTTPS flow; WebKit sign-in returned a user but the following session lookup was empty and no session cookie was stored. Keep this as a documented unsupported test environment, not a passed mobile claim. Add a visible compatibility notice. Supporting a new shared-domain/proxy arrangement would need a separately reviewed architecture change; this task does not add one.
 
 ## D08 — Narrow JWT initialization wrappers (2026-10-17)
 

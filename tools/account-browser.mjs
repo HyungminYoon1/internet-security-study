@@ -21,6 +21,9 @@ ${authErrors}
 export async function createNeonTransport(){return{
  session:async()=>fixture.user,
  signIn:async()=>fixture.emptySession?null:fixture.user={id:'${userId}',email:'fixture@example.invalid',emailVerified:true},
+ signUp:async()=>{fixture.signups=(fixture.signups||0)+1;fixture.user=null;},
+ verify:async(email,otp)=>{if(otp!=='123456')throw{code:'INVALID_OTP'};fixture.user={id:'${userId}',email,emailVerified:true};},
+ resend:async()=>{},requestReset:async()=>{},resetPassword:async()=>{fixture.resets=(fixture.resets||0)+1;},
  signOut:async()=>{fixture.user=null;},
  rpc:async(name,request)=>{
    fixture.calls++;
@@ -104,9 +107,25 @@ try{
  await check('account controls fit 320px and inputs have accessible labels',async page=>{
   await page.goto(base+'#account');await page.setViewportSize({width:320,height:844});
   await page.getByLabel('이메일',{exact:true}).waitFor();
+  await page.getByText(/타사 쿠키가 차단되면 계정 연결/).waitFor();
   assert(await page.getByLabel('이메일',{exact:true}).isVisible());assert(await page.getByLabel('비밀번호',{exact:true}).isVisible());
   assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1));
   await page.screenshot({path:resolve(output,'account-signin-mobile.png'),fullPage:true});
+ });
+ await check('signup, wrong-code feedback, verification and recovery forms preserve their navigation',async page=>{
+  await page.goto(base+'#account');await page.getByRole('button',{name:'가입',exact:true}).click();
+  await page.getByLabel('이메일',{exact:true}).fill('fixture@example.invalid');await page.getByLabel('비밀번호 · 12–128자',{exact:true}).fill('fixture-password-123');
+  await page.getByRole('button',{name:'계정 만들기',exact:true}).click();await page.getByLabel('이메일 인증번호 · 6자리',{exact:true}).fill('000000');
+  await page.locator('.auth-form').getByRole('button',{name:'이메일 인증',exact:true}).click();await page.getByText('인증번호를 확인해 주세요.',{exact:true}).waitFor();
+  await page.getByLabel('이메일 인증번호 · 6자리',{exact:true}).fill('123456');await page.locator('.auth-form').getByRole('button',{name:'이메일 인증',exact:true}).click();await settle(page);
+  assert.equal(await page.evaluate(()=>window.__accountTest.signups),1);
+  await page.getByRole('button',{name:'로그아웃',exact:true}).click();await page.getByRole('button',{name:'비밀번호 찾기',exact:true}).click();
+  await page.getByRole('button',{name:'인증번호 요청',exact:true}).click();await page.getByLabel('비밀번호 · 12–128자',{exact:true}).fill('new-fixture-password-123');
+  await page.getByLabel('이메일 인증번호 · 6자리',{exact:true}).fill('123456');await page.getByRole('button',{name:'새 비밀번호 설정',exact:true}).click();
+  await page.getByText('비밀번호를 변경했습니다. 새 비밀번호로 로그인해 주세요.',{exact:true}).waitFor();
+  assert.equal(await page.evaluate(()=>window.__accountTest.resets),1);
+  assert.equal(await page.getByLabel('비밀번호',{exact:true}).evaluate(node=>node.value),'');
+  const stored=await page.evaluate(()=>JSON.stringify(localStorage));assert.ok(!stored.includes('fixture-password-123'));assert.ok(!stored.includes('new-fixture-password-123'));
  });
 }finally{await browser?.close();server.kill();await writeFile(resolve(output,'account-ui-results.json'),JSON.stringify({kind:'test-double browser UI',results},null,2),'utf8');}
 console.log(`${results.filter(r=>r.status==='PASS').length}/${results.length} account UI scenarios passed.`);
