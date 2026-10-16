@@ -51,12 +51,14 @@
 
 ## 공개 배포와 브라우저 호환성
 
-- 최초 계정 기능 배포 커밋 `c8487478a17aeb6d61e3932742b014ebbf9d810b`: [Actions 38937276875](https://github.com/HyungminYoon1/internet-security-study/actions/runs/38937276875)의 Windows/Linux verify, package, deploy SUCCESS. 이 시점의 Node 120개·계정 UI 8개 이후 오류 문구·가입/복구 폼 회귀를 추가했으며 최신 로컬 수치는 위와 같다. 후속 커밋의 CI는 [Actions](https://github.com/HyungminYoon1/internet-security-study/actions)에서 구분한다.
+- 최초 계정 기능 배포 커밋 `c8487478a17aeb6d61e3932742b014ebbf9d810b`: [Actions 38937276875](https://github.com/HyungminYoon1/internet-security-study/actions/runs/38937276875)의 Windows/Linux verify, package, deploy SUCCESS. 이후 오류 문구·가입/복구 폼 회귀를 보완한 `42b4c510d9ef54280252af2e37ab355ec12afcc0`의 [Actions 38938864110](https://github.com/HyungminYoon1/internet-security-study/actions/runs/38938864110)도 모두 SUCCESS. Windows/Linux 각각 Node 121/121, Linux 기존 화면 25개·계정 UI 9개를 통과했다. 브라우저 UI 검사는 Windows CI에서는 실행하지 않는다.
 - 공개 HTML/CSS/JS/JSON/SVG 등 38개 파일 HTTP 200 및 로컬 파일 바이트 일치. `.nojekyll` 플래그는 HTTP 비교에서 제외했다. 공개 사이트의 기존 Chromium 회귀 25/25 PASS.
 - 17:16:45 UTC 운영 결과: 공개 GitHub Pages + 실제 Neon에서 Chromium/Firefox 로그인·reload·진도 일치·오프라인 충돌 선택·시험 takeover/제출·복구 API와 기존 비밀번호 거부 PASS. 복구 검사 중 429는 최대 60초의 제공자 제한을 기다린 뒤 한 번만 재시도했다. 테스트 계정 잔여 0건.
+- 17:23:47 UTC 운영 결과: 후속 배포본에서 데스크톱 Chromium과 Pixel 7/Android Chrome 모방 환경의 동일 계정 로그인·reload·진도 일치·충돌 선택·시험 takeover/제출·비밀번호 복구 PASS. 계정 격리·권한 거부·정리를 포함한 14개 확인 항목 PASS, 테스트 계정 잔여 0건. 이는 실제 Android 기기 검증이 아니다. 해당 배포의 공개 파일 38개를 다시 내려받아 로컬 배포 파일과 바이트 일치를 확인했다.
 - **WebKit 계정 로그인 FAIL**: 로컬뿐 아니라 공개 HTTPS에서도 sign-in 200/사용자 있음 → get-session 200/사용자 없음, 관리형 세션 쿠키 없음으로 확인했다. 서버의 비밀번호 거절과 구분되는 세션 유지 문제다. 안전한 크로스 사이트 세션을 유지할 수 없는 현재 조합을 지원 완료로 표시하지 않는다. 안내를 제공하며 쿠키 보호 해제·토큰의 Web Storage 보관·다른 유료 서비스 추가로 우회하지 않았다. 실제 iPhone/Safari 하드웨어를 검사한 것은 아니다.
 - Neon 관리 UI에서 localhost 허용 OFF, 공개 origin 유지, 이메일 가입/로그인/코드 인증 ON, OAuth/전화번호/Organizations/Webhooks OFF를 확인했다. 이후 localhost origin의 실제 sign-in POST가 403 `INVALID_ORIGIN`으로 거절됨을 확인했다. 무세션 get-session GET의 200/null 응답은 로그인 허용을 뜻하지 않는다.
 - 계정 화면 데스크톱·320px 캡처를 확인했고 불필요한 0 표시를 수정했다. 실패한 WebKit 검사도 테스트 계정 정리를 수행했다. 결과 파일은 개인정보 없는 상태 요약만 `output/account-live/`에 보관하며 커밋하지 않는다.
+- 최종 운영 검증 뒤 이 작업에서 생성한 외부 DPAPI 임시 자격증명 파일을 삭제하고 부재를 확인했다. 공개 배포에는 DB 비밀값이 없으며 기존 사용자의 계정·학습 기록을 테스트에 사용하거나 삭제하지 않았다.
 
 ## 아직 검증하지 않은 범위
 

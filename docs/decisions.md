@@ -45,6 +45,7 @@
 - Rationale: privileged deployment capability must be separated from the public browser application. Test fixtures exercise managed verification/recovery without reading the user's mailbox or leaking codes.
 - Affected: tools/private-db.ps1, db-client/migrate and live-account-check, ignored output artifacts, deployment docs.
 - Review: remove the task-created local credential after final verification; preserve migration files and sanitized evidence. Audit candidate commits for credential patterns without printing matches. This operational account-creation/deletion test is never an automatic CI step.
+- Result: public Chromium/Firefox and Chromium/Android-emulation checks completed with zero test accounts remaining. The task-created DPAPI credential file was removed after these checks; migration files and sanitized results remain. No live learner records were altered for verification.
 
 ## D06 — Neon-only optional accounts and loss-aware sync (2026-10-17)
 
