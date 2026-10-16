@@ -377,40 +377,41 @@
   ],
   "questions": [
     {
-      "id": "w10-q001",
+      "id": "w10-q001-r2",
       "objectiveId": "w10-topology",
-      "family": "w10-adhoc-vs-infrastructure",
-      "kind": "contrast",
+      "family": "w10-adhoc-vs-infrastructure-r2",
+      "kind": "application",
       "difficulty": 2,
-      "prompt": "가상 단말들이 AP 없이 서로 직접 자료를 교환한다. 교안의 구성 분류는?",
+      "prompt": "무선 단말들이 AP 없이 서로 직접 자료를 교환한다. 기본 무선망 구성 유형은?",
       "options": [
         {
           "id": "a",
-          "text": "Infrastructure",
-          "explanation": "AP를 중심으로 접속하는 구성과 구분한다."
+          "text": "인터넷 핫스팟 인증",
+          "explanation": "인터넷 서비스나 사용자 인증의 제공 여부는 주어진 조건에서 확인되지 않았다."
         },
         {
           "id": "b",
           "text": "Ad-Hoc",
-          "explanation": "교안에서는 AP 없이 단말이 직접 교환하는 구성을 Ad-Hoc으로 분류한다."
+          "explanation": "AP를 중심으로 하는 Infrastructure 구성과 달리 단말끼리 직접 교환하는 형태다."
         },
         {
           "id": "c",
-          "text": "인프라 AP의 유선 백홀",
-          "explanation": "상위망 연결 방식이며 AP 없는 단말 직접 교환의 분류가 아니다."
+          "text": "Infrastructure",
+          "explanation": "AP를 중심으로 접속하는 구성이므로 제시된 조건과 다르다."
         },
         {
           "id": "d",
-          "text": "인터넷 핫스팟 접속",
-          "explanation": "인터넷 접속 제공 서비스라는 조건은 제시되지 않았다."
+          "text": "AP의 유선 백홀",
+          "explanation": "AP가 상위망과 연결되는 경로이며 AP 없는 단말 간 구성의 이름이 아니다."
         }
       ],
       "answerId": "b",
-      "explanation": "AP의 존재와 역할을 기준으로 두 기본 구성을 구별한다.",
+      "explanation": "AP를 중심으로 하는 Infrastructure 구성과 달리 단말끼리 직접 교환하는 형태다.",
       "sourcePages": [
         2,
         3
-      ]
+      ],
+      "context": ""
     },
     {
       "id": "w10-q002",
@@ -1059,40 +1060,41 @@
       ]
     },
     {
-      "id": "w10-q020",
+      "id": "w10-q020-r2",
       "objectiveId": "w10-radio",
-      "family": "w10-legacy-tool-compatibility",
-      "kind": "evidence",
+      "family": "w10-legacy-tool-compatibility-r2",
+      "kind": "application",
       "difficulty": 2,
-      "prompt": "교안의 구형 PDA·무선 칩셋·탐지 도구 목록을 현재 장비 호환성 증거로 써도 되는가?",
+      "prompt": "모니터 모드로 한 무선 채널만 관찰했는데 대상 AP의 프레임이 보이지 않는다. 먼저 확인할 것은?",
       "options": [
         {
           "id": "a",
-          "text": "예, 칩셋 계열 이름이 비슷하면 모든 현재 드라이버도 같다",
-          "explanation": "제품명 유사성은 기능 호환성을 보증하지 않는다."
+          "text": "수신 신호가 약해도 관찰 결과는 항상 완전하다고 가정",
+          "explanation": "전파 환경은 수집 누락에 영향을 줄 수 있다."
         },
         {
           "id": "b",
-          "text": "아니오, 역사적 예시이고 현재 지원은 별도 확인해야 한다",
-          "explanation": "기기·OS·드라이버·버전별로 실제 지원 조건을 확인해야 한다."
+          "text": "대상 채널·대역과 관찰 장치의 지원 범위·수신 환경",
+          "explanation": "관측 대상과 수집 조건이 다르면 실제 통신이 있어도 보이지 않을 수 있다."
         },
         {
           "id": "c",
-          "text": "예, 구형 도구가 한 OS에서 실행되었으면 현재 모든 OS에서도 실행된다",
-          "explanation": "실행 환경과 지원 버전이 달라질 수 있다."
+          "text": "프레임이 없으므로 모든 채널에 무선 장치가 없다고 확정",
+          "explanation": "한 채널의 관찰을 전체 대역으로 일반화했다."
         },
         {
           "id": "d",
-          "text": "아니오, 오래된 관찰 개념은 현재 교육에도 전혀 사용할 수 없다",
-          "explanation": "역사적 개념 학습과 현재 장비 호환성 주장은 구분할 수 있다."
+          "text": "같은 칩셋 계열이면 모든 드라이버가 같은 모니터 기능을 지원한다고 가정",
+          "explanation": "실제 기능은 장치와 드라이버·운영체제에 따라 확인해야 한다."
         }
       ],
       "answerId": "b",
-      "explanation": "교안의 장비 이름은 원리의 배경이며 설치·실행 활동으로 확장하지 않는다.",
+      "explanation": "관측 대상과 수집 조건이 다르면 실제 통신이 있어도 보이지 않을 수 있다.",
       "sourcePages": [
         14,
         21
-      ]
+      ],
+      "context": ""
     },
     {
       "id": "w10-q021",
@@ -2052,6 +2054,82 @@
     {
       "title": "NIST SP 800-63B-4: 인증 요소와 비밀번호",
       "url": "https://pages.nist.gov/800-63-4/sp800-63b.html"
+    }
+  ],
+  "retiredQuestions": [
+    {
+      "id": "w10-q001",
+      "objectiveId": "w10-topology",
+      "family": "w10-adhoc-vs-infrastructure",
+      "kind": "contrast",
+      "difficulty": 2,
+      "prompt": "가상 단말들이 AP 없이 서로 직접 자료를 교환한다. 교안의 구성 분류는?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Infrastructure",
+          "explanation": "AP를 중심으로 접속하는 구성과 구분한다."
+        },
+        {
+          "id": "b",
+          "text": "Ad-Hoc",
+          "explanation": "교안에서는 AP 없이 단말이 직접 교환하는 구성을 Ad-Hoc으로 분류한다."
+        },
+        {
+          "id": "c",
+          "text": "인프라 AP의 유선 백홀",
+          "explanation": "상위망 연결 방식이며 AP 없는 단말 직접 교환의 분류가 아니다."
+        },
+        {
+          "id": "d",
+          "text": "인터넷 핫스팟 접속",
+          "explanation": "인터넷 접속 제공 서비스라는 조건은 제시되지 않았다."
+        }
+      ],
+      "answerId": "b",
+      "explanation": "AP의 존재와 역할을 기준으로 두 기본 구성을 구별한다.",
+      "sourcePages": [
+        2,
+        3
+      ],
+      "supersededBy": "w10-q001-r2"
+    },
+    {
+      "id": "w10-q020",
+      "objectiveId": "w10-radio",
+      "family": "w10-legacy-tool-compatibility",
+      "kind": "evidence",
+      "difficulty": 2,
+      "prompt": "교안의 구형 PDA·무선 칩셋·탐지 도구 목록을 현재 장비 호환성 증거로 써도 되는가?",
+      "options": [
+        {
+          "id": "a",
+          "text": "예, 칩셋 계열 이름이 비슷하면 모든 현재 드라이버도 같다",
+          "explanation": "제품명 유사성은 기능 호환성을 보증하지 않는다."
+        },
+        {
+          "id": "b",
+          "text": "아니오, 역사적 예시이고 현재 지원은 별도 확인해야 한다",
+          "explanation": "기기·OS·드라이버·버전별로 실제 지원 조건을 확인해야 한다."
+        },
+        {
+          "id": "c",
+          "text": "예, 구형 도구가 한 OS에서 실행되었으면 현재 모든 OS에서도 실행된다",
+          "explanation": "실행 환경과 지원 버전이 달라질 수 있다."
+        },
+        {
+          "id": "d",
+          "text": "아니오, 오래된 관찰 개념은 현재 교육에도 전혀 사용할 수 없다",
+          "explanation": "역사적 개념 학습과 현재 장비 호환성 주장은 구분할 수 있다."
+        }
+      ],
+      "answerId": "b",
+      "explanation": "교안의 장비 이름은 원리의 배경이며 설치·실행 활동으로 확장하지 않는다.",
+      "sourcePages": [
+        14,
+        21
+      ],
+      "supersededBy": "w10-q020-r2"
     }
   ]
 }

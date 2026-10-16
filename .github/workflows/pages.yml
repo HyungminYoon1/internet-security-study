@@ -22,11 +22,15 @@ jobs:
           node-version: '22'
           cache: npm
       - run: npm ci
+      - run: npm run build
+      - run: git diff --exit-code -- dist/vendor/neon.js
       - run: npm test
       - run: npm run check
       - run: npx --no-install playwright install --with-deps chromium
         if: runner.os == 'Linux'
       - run: npm run test:browser
+        if: runner.os == 'Linux'
+      - run: npm run test:account-browser
         if: runner.os == 'Linux'
   package:
     needs: verify

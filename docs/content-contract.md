@@ -1,5 +1,11 @@
 # Content contract v1
 
+## Retired question identity
+
+`questions` contains active questions only. An optional `retiredQuestions` array holds complete immutable prior definitions plus `supersededBy`, which must resolve to an active question with the same objective and exam scope. The catalog's active list excludes retired questions; its identity map includes them for historical attempts, backups and previously generated exams. New selections never use retired definitions. A saved bookmark on an old question opens its replacement; removing that bookmark clears both aliases. Do not reinterpret an old answer using a new answer key.
+
+The 2026-10-17 revision replaces 58 handout-typo/correction-oriented prompts with substantive questions, retaining 631 active questions and all 144 objectives. All 58 retired definitions are compared with hashes captured from the pre-change production commit in `test/fixtures/retired-question-hashes.json`. The content version remains `2026.10.15` because old backups remain compatible; this is not a publication date. `tools/authoring/question-revisions.mjs` is the explicit revision manuscript.
+
 ## Correction comparisons and exam uncertainty
 
 Every correction is displayed with the handout explanation/issue summary, `corrected`, primary references, and the app's `examGuidance`. These are paraphrased reviews, not verbatim original PDFs or instructor-approved answers. A correction may additionally contain paired `handoutExplanation` and `verificationReason` strings; either both must be valid text or both omitted. `tools/authoring/correction-comparisons.mjs` is the canonical source of the six detailed, page-rechecked examples and supplements the existing part-1/3/4 manuscripts during serialization.

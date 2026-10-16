@@ -16,7 +16,13 @@ export function validateWeek(w) {
   const pages = (values, label) => { many(values, label); unique(values, label); for (const p of values) assert(Number.isInteger(p) && p >= 1 && p <= w.source.pages, `${label}: 출처 페이지 오류`); };
   const references = values => { many(values, '참고자료', 0); for (const ref of values) { text(ref.title, '참고자료'); assert(safeReference(ref.url), '안전하지 않은 출처 URL'); } };
   many(w.objectives, '학습목표'); many(w.questions, '문항'); many(w.corrections, '정정', 0); references(w.references);
-  unique(w.objectives.map(o => o.id), '학습목표'); unique(w.questions.map(q => q.id), '문항'); unique(w.corrections.map(c => c.id), '정정');
+  many(w.retiredQuestions ?? [], '이전 문항', 0);
+  const allQuestions = [...w.questions, ...(w.retiredQuestions ?? [])];
+  unique(w.objectives.map(o => o.id), '학습목표'); unique(allQuestions.map(q => q.id), '문항'); unique(w.corrections.map(c => c.id), '정정');
+  for (const q of w.retiredQuestions ?? []) {
+    const next = w.questions.find(item => item.id === q.supersededBy);
+    assert(next && next.objectiveId === q.objectiveId, `${q.id}: 대체 문항 연결 오류`);
+  }
   const objectives = new Set(w.objectives.map(o => o.id));
   const correctionIds = new Set(w.corrections.map(c => c.id));
   for (const o of w.objectives) {
@@ -27,7 +33,7 @@ export function validateWeek(w) {
     many(o.commonMistakes, o.id); o.commonMistakes.forEach(s => text(s, o.id, 10)); text(o.check?.prompt, o.id, 10); text(o.check?.answer, o.id, 15);
     many(o.prerequisites, o.id, 0); many(o.correctionIds, o.id, 0); o.correctionIds.forEach(c => assert(correctionIds.has(c), `${o.id}: 정정 연결 오류`));
   }
-  for (const q of w.questions) {
+  for (const q of allQuestions) {
     id(q.id, w.id); id(q.family, q.id); assert(objectives.has(q.objectiveId), `${q.id}: 개념 연결 오류`);
     assert(['concept', 'contrast', 'application', 'evidence'].includes(q.kind) && [1, 2, 3].includes(q.difficulty), `${q.id}: 유형/난이도 오류`);
     text(q.prompt, q.id, 10); if (q.context !== undefined) text(q.context, q.id, 0);
@@ -65,8 +71,24 @@ export function buildCatalog(weeks) {
   const sorted = [...weeks].sort((a, b) => a.number - b.number);
   const objectives = sorted.flatMap(w => w.objectives.map(o => ({ ...o, week: w.number, exam: w.exam, weekTitle: w.title })));
   const questions = sorted.flatMap(w => w.questions.map(q => ({ ...q, week: w.number, exam: w.exam })));
-  unique(objectives.map(o => o.id), '전체 개념'); unique(questions.map(q => q.id), '전체 문항');
+  const retiredQuestions = sorted.flatMap(w => (w.retiredQuestions ?? []).map(q => ({ ...q, week: w.number, exam: w.exam })));
+  const allQuestions = [...questions, ...retiredQuestions];
+  unique(objectives.map(o => o.id), '전체 개념'); unique(allQuestions.map(q => q.id), '전체 문항');
   const objectiveIds = new Set(objectives.map(o => o.id));
   for (const o of objectives) o.prerequisites.forEach(p => assert(objectiveIds.has(p) && p !== o.id, '선수 개념 연결 오류'));
-  return { weeks: sorted, objectives, questions, objectiveIds, questionIds: new Set(questions.map(q => q.id)), objectiveMap: new Map(objectives.map(o => [o.id, o])), questionMap: new Map(questions.map(q => [q.id, q])), corrections: sorted.flatMap(w => w.corrections.map(c => ({ ...c, week: w.number }))) };
+  return { weeks: sorted, objectives, questions, retiredQuestions, objectiveIds, questionIds: new Set(allQuestions.map(q => q.id)), objectiveMap: new Map(objectives.map(o => [o.id, o])), questionMap: new Map(allQuestions.map(q => [q.id, q])), corrections: sorted.flatMap(w => w.corrections.map(c => ({ ...c, week: w.number }))) };
+}
+
+export function activeQuestionId(catalog, questionId) {
+  const q = catalog.questionMap.get(questionId);
+  return q?.supersededBy ?? questionId;
+}
+
+export function isBookmarked(catalog,bookmarks,questionId) {
+  const active=activeQuestionId(catalog,questionId);
+  return bookmarks.some(id=>activeQuestionId(catalog,id)===active);
+}
+export function toggleBookmark(catalog,bookmarks,questionId) {
+  const active=activeQuestionId(catalog,questionId);
+  return isBookmarked(catalog,bookmarks,active)?bookmarks.filter(id=>activeQuestionId(catalog,id)!==active):[...bookmarks,active];
 }

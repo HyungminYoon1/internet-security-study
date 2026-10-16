@@ -1,5 +1,60 @@
 # Decision log
 
+## D11 — Content replacement without rewriting learning history (2026-10-17)
+
+- Context: the user requested substantive concept learning rather than questions about spotting handout mistakes. Existing records refer to question IDs and answer keys.
+- Options: delete old IDs; replace their meaning in place; issue replacement IDs and retain historical definitions.
+- Decision: replace 58 active questions with authored concept/scenario questions using `-r2` IDs/families. Preserve their exact old definitions in `retiredQuestions` with `supersededBy`; exclude them from all new selections. Resolve old bookmarks to the active replacement. Keep backup schema/content version compatible and seed both generations into the private grading catalog.
+- Rationale: deleting or repurposing IDs would invalidate backups or change the interpretation of already graded answers. Active totals remain 631 questions/144 concepts; retained definitions do not inflate those counts.
+- Affected: authoring manuscripts, week JSON, catalog, practice/exam/history readers, content tests and DB catalog seeding.
+- Review: compare all 58 historical definition hashes with the pre-change commit; validate backup/active-exam/result compatibility and bookmark removal. Semantic review is distinct from a schema test and does not establish official exam coverage.
+
+## D10 — Bounded retention and explicit recovery (2026-10-17)
+
+- Context: multiple devices may retry an uncertain write or continue after another device resets the account; storage and free-plan resources are finite.
+- Options: whole-record last-write-wins; unbounded event history; bounded validated state with versioned intent and reset epochs.
+- Decision: retain 3,000 attempts, 20 exam results, 128 idempotency receipts, 500 queued changes, at most 2 MiB state/normal request, 128 KiB exam request, 256 KiB field versions and 4 MiB local outbox. An account is limited to 120 successful RPC admissions per minute. Receipts preserve the originally accepted field versions. Old reset epochs, too-stale bases, incompatible stored data and permanent validation errors stop automatic sending while keeping exportable local data. Account deletion in managed Auth cascades only that account's application state and receipts; no automatic inactivity deletion or new account-deletion UI is introduced.
+- Rationale: acknowledgment loss must not duplicate answers or turn an old intent into a fresh overwrite. Bounded history and receipts limit routine free-tier use; this is not a global DDoS or billing guarantee. Invalid transactions roll back, including their rate counter.
+- Affected: database migrations 001–004, sync/outbox/session/storage, account/backup UI, regression tests.
+- Review: reset versus offline queue, delayed receipt plus concurrent field change, duplicate IDs with altered contents, account switching, corrupt/quota/readback failures, full bounds. Guest data remains untouched; clearing site data removes unsent records. Historical managed-service backups may outlive row deletion according to the provider's retention policy.
+
+## D09 — Managed sessions and browser compatibility (2026-10-17)
+
+- Context: GitHub Pages and Neon Auth have different sites; some browser privacy policies reject cross-site session cookies. A successful password exchange is not sufficient proof of a usable browser session.
+- Options: store an opaque session token in localStorage; disable browser protections; require a confirmed managed session and provide explicit failure/backup paths.
+- Decision: keep managed HttpOnly cookies and the official SDK; never persist credentials in Web Storage or weaken privacy settings. A missing session after sign-in is reported as session/browser failure, not as an unverified email. Test Chromium, Firefox and WebKit separately and publish the verified limits. Shared SMTP uses the provider's free sender; test OTP fixtures do not demonstrate real mailbox delivery. Repeated operational tests are bounded and do not bypass managed rate limits.
+- Rationale: insecure token persistence or a paid/domain/proxy service would violate the security or Neon-only/no-cost scope.
+- Affected: cloud adapter, account UI, live and deterministic browser harnesses, verification notes.
+- Review: final HTTPS deployment is tested separately from localhost. Physical iOS/Android devices and actual mail inbox delivery require separate evidence. Authentication metadata may include IP/user agent; the UI must not claim the provider stores only three application form fields.
+
+## D08 — Narrow JWT initialization wrappers (2026-10-17)
+
+- Context: real verified test accounts intermittently received `AUTH_REQUIRED` on the first Data API call. An isolated reproduction and the pg_session_jwt issue/source pointed to lazy initialization inside SECURITY DEFINER. The managed `auth` schema does not delegate USAGE to the SQL-created runtime roles.
+- Options: weaken ownership checks; broaden schema/table access; initialize the verified identity in an invoker wrapper and retain restricted implementations.
+- Decision: migrations 005–006 move the privileged RPC implementations to the private schema. Public SECURITY INVOKER wrappers first execute a SQL-standard, CREATE-time-bound `auth.user_id()` helper, then call the implementations. The authenticated role receives only schema USAGE and execution of the four entry implementations plus initializer, not table access or other helpers. The helper accepts no user ID; every implementation independently checks verified email and forced RLS.
+- Rationale: this preserves managed JWT verification and ownership without client-supplied identity or broad managed-schema permissions. New migration 007 separately qualifies a table-function column whose ambiguous `id` join wrongly rejected every new exam when the catalog contained a retired row.
+- Affected: database/005–007, PGlite cold-identity/retired-question tests, live two-account tests.
+- Review: anonymous/cross-account/direct-table denial; alternating A/B JWTs on pooled connections; valid new exams with retired catalog rows and refusal to start an exam containing a retired question. Upstream evidence: https://github.com/neondatabase/pg_session_jwt/issues/51 and https://github.com/neondatabase/pg_session_jwt . The symptom and remediation were observed; no claim is made of rebuilding the provider's C extension.
+
+## D07 — Deployment credentials and isolated operational tests (2026-10-17)
+
+- Context: the user authorized a dedicated free Neon resource and secret use while absent. Migrations and real-account checks need a privileged connection that must never reach Pages, logs or source control.
+- Options: plaintext env file; embedded browser connection string; short-lived child-process environment populated from a Windows user-encrypted external file.
+- Decision: keep the credential only in a current-user DPAPI file outside the repository, use exact project-host allowlisting and TLS verification, and clear the child environment after each command. No plaintext env file, repository credential or Vercel resource is created. Operational tests create unique disposable example.com accounts and delete only their exact IDs/emails and verification identifiers; never inspect or modify existing learners' records. Controlled OTP values are kept in process memory and applied only to these fixtures, not to real users.
+- Rationale: privileged deployment capability must be separated from the public browser application. Test fixtures exercise managed verification/recovery without reading the user's mailbox or leaking codes.
+- Affected: tools/private-db.ps1, db-client/migrate and live-account-check, ignored output artifacts, deployment docs.
+- Review: remove the task-created local credential after final verification; preserve migration files and sanitized evidence. Audit candidate commits for credential patterns without printing matches. This operational account-creation/deletion test is never an automatic CI step.
+
+## D06 — Neon-only optional accounts and loss-aware sync (2026-10-17)
+
+- Context: the user approved a no-cost automatic implementation session, preserving guest records and adding cross-device account progress only to this application. The user explicitly rejected the proposed Vercel API and instructed use of Neon managed browser authentication/data access instead.
+- Options: separate Vercel backend; self-managed password service; GitHub Pages + Neon managed Auth + Data API + PostgreSQL transactions/RLS.
+- Decision: retain GitHub Pages and use a new dedicated Neon Free project. Do not use Vercel, paid plans or the ranking database. Passwords and sessions belong to managed Auth, not custom SQL or browser storage. Use the official pinned SDK, locally bundled. Public endpoints are not credentials; DB/management secrets never enter dist, logs or Git. The user explicitly approved email + password on 2026-10-17 because the current managed plugin list does not expose username authentication. Require email verification; use the provider's shared verification-code/reset delivery within its free limits, without claiming production-scale mail delivery. No paid sender or domain is created.
+- Rationale: this follows the latest requested boundary without exposing a privileged Postgres connection to browser code. A managed service replaces the custom auth server; row ownership and concurrency remain database responsibilities, not just frontend filters.
+- Data policy: no real names, telephone numbers, analytics or ranking. The provider's required name field uses a fixed non-identifying label. Existing guest key remains untouched on login. Only confirmed import attaches guest data. Account queues are identity-bound; acknowledged DB state, not device time, controls synchronization. Bounded append-only attempts/read completion are merged; mutable fields use versions; reset changes epoch. Concurrent exams require an explicit writer transfer without resetting the deadline. Backups remain available.
+- Affected: architecture.md, new database migrations/API contract, cloud adapters and pure sync domain, account UI, content revision/legacy handling, tests and build/CI scripts.
+- Review: test anonymous/cross-account denial, forged IDs, stale/duplicate writes, connection loss and retry, account switching, storage failures, legacy backup preservation, exam takeover and deadline. Real browser/production tests are required separately from local mocks. Shared-origin GitHub Pages and cross-site-cookie limitations must be measured and disclosed, never called complete isolation. No credentials have been added to the repository.
+
 ## D05 — Compare explanations and distinguish instructor confirmation (2026-10-15)
 
 - Context: the user requested both handout and corrected explanations, supporting evidence, and a separate indicator when the actual exam answer needs instructor confirmation. Earlier wording could conflate app scoring exclusions with the real exam.

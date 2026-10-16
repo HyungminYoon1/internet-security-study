@@ -2,6 +2,7 @@ import { mkdirSync, writeFileSync, readFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { resolve, dirname } from 'node:path';
 import { applyCorrectionComparisons } from './correction-comparisons.mjs';
+import { applyQuestionRevisions } from './question-revisions.mjs';
 
 // All teaching and questions below are individually authored. Helpers only serialize fields.
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '../..');
@@ -280,6 +281,7 @@ function emit(week, title, overview, refs, target) {
     questions: ownQuestions, coverage, corrections: ownCorrections, references: refs.map(k => R[k]) };
   const { validateWeek } = awaitValidator;
   applyCorrectionComparisons(data);
+  applyQuestionRevisions(data);
   validateWeek(data);
   if (ownQuestions.length < target) throw new Error(`w${week}: target missing`);
   for (const o of ownObjectives) if (ownQuestions.filter(q => q.objectiveId === o.id).length < 3) throw new Error(`${o.id}: questions missing`);

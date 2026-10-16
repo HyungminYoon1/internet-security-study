@@ -3,6 +3,7 @@
 import { writeFileSync, readFileSync } from 'node:fs';
 import assert from 'node:assert/strict';
 import { validateWeek } from '../../dist/src/domain/content.js';
+import { applyQuestionRevisions } from './question-revisions.mjs';
 const weeks = [];
 let week, objective;
 const ref = (title, url) => ({ title, url });
@@ -1071,6 +1072,7 @@ stateQuestion.explanation=stateQuestion.options.find(o=>o.id===stateQuestion.ans
 console.log(JSON.stringify({peerReview:weeks.map(w=>({week:w.id,questions:w.questions.filter(q=>peerReviewedQuestions.has(q.id)).length,wrongOptions:[...peerReviewedOptions].filter(id=>id.startsWith(w.id+'-')).length})),wrongOptionsRevised:peerReviewedOptions.size}));
 // BUILD_OUTPUT: Explicit authored records above are serialized, never expanded.
 for (const w of weeks) {
+  applyQuestionRevisions(w);
   validateWeek(w);
   const target={5:45,6:50,7:50}[w.number];
   assert(w.questions.length>=target,`${w.id}: minimum ${target}`);

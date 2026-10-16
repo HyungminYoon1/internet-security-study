@@ -2,6 +2,7 @@ import { mkdirSync, writeFileSync, readFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import path from 'node:path';
 import { applyCorrectionComparisons } from './correction-comparisons.mjs';
+import { applyQuestionRevisions } from './question-revisions.mjs';
 
 // Explicitly authored content only: one q() call produces one question.
 const root = fileURLToPath(new URL('../../', import.meta.url));
@@ -682,6 +683,7 @@ w11.objectives.find(o => o.id === csrf).pages = [12,15,20];
 const { validateWeek } = await import('../../dist/src/domain/content.js');
 const seen = new Set();
 for (const w of weeks) {
+  applyQuestionRevisions(w);
   validateWeek(w);
   const pageSet = new Set(w.coverage.flatMap(e => e.pages));
   if (pageSet.size !== w.source.pages) throw new Error(`Missing pages: ${w.id}`);

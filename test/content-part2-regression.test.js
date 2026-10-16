@@ -31,7 +31,8 @@ test('Part 2 retains identities, counts, keyed reasoning and source integrity',(
     w07:'a1b44351eb49d17c8098b0a287f37130ec1d0f269c0f2622eb1cf05143a57b65',
   };
   for(const w of weeks){
-    const identity=w.questions.map(({id,objectiveId,family,answerId,sourcePages})=>({id,objectiveId,family,answerId,sourcePages}));
+    // Replaced IDs remain available unchanged in the history-only catalog.
+    const identity=w.questions.map(q=>(w.retiredQuestions??[]).find(old=>old.supersededBy===q.id)??q).map(({id,objectiveId,family,answerId,sourcePages})=>({id,objectiveId,family,answerId,sourcePages}));
     assert.equal(createHash('sha256').update(JSON.stringify(identity)).digest('hex'),identities[w.id],`${w.id}: IDs, families, keys and page links must not drift`);
   }
   for(const w of weeks){validateWeek(w);assert.equal(new Set(w.coverage.flatMap(c=>c.pages)).size,w.source.pages);for(const q of w.questions)assert(q.sourcePages.every(p=>w.coverage.some(c=>c.pages.includes(p)&&c.objectiveIds.includes(q.objectiveId))));}

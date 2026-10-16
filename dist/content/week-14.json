@@ -482,40 +482,41 @@
   ],
   "questions": [
     {
-      "id": "w14-q001",
+      "id": "w14-q001-r2",
       "objectiveId": "w14-incident-team",
-      "family": "w14-incident-team-five-types",
-      "kind": "concept",
-      "difficulty": 1,
-      "prompt": "교안의 다섯 침해사고 유형에 해당하는 묶음은?",
+      "family": "w14-incident-team-five-types-r2",
+      "kind": "application",
+      "difficulty": 2,
+      "prompt": "허가된 직원이 업무 권한으로 조회한 개인정보를 승인 없이 외부에 전달했다. 사고의 성격으로 가장 적절한 것은?",
       "options": [
         {
           "id": "a",
-          "text": "악성코드 감염·비인가 접근·서비스 거부·웹 해킹·오남용",
-          "explanation": "교안의 교육용 분류를 재구성한 것이며 현행 법률의 완전한 분류라고 주장하지 않는다."
+          "text": "정상 권한의 오남용에 따른 정보 반출",
+          "explanation": "자격이 유효해도 승인된 목적과 범위를 벗어난 사용은 보안 사고가 될 수 있다."
         },
         {
           "id": "b",
-          "text": "악성코드 감염·비인가 접근·서비스 거부·웹 해킹·증거 보존",
-          "explanation": "증거 보존은 조사 절차다. 교안의 다섯 유형에서는 이 자리에 오남용이 들어간다."
+          "text": "권한이 있으므로 모든 목적의 사용은 정상이다.",
+          "explanation": "접근 가능성과 업무 목적상 허용된 이용 범위는 다르다."
         },
         {
           "id": "c",
-          "text": "악성코드 감염·비인가 접근·서비스 거부·위기 경보·오남용",
-          "explanation": "위기 경보는 대응 강도 분류이며 교안 사고 유형의 웹 해킹을 대신하지 않는다."
+          "text": "서비스가 중단되지 않았으므로 사고가 아니다.",
+          "explanation": "가용성 장애 없이도 기밀성 침해가 발생할 수 있다."
         },
         {
           "id": "d",
-          "text": "악성코드 감염·비인가 접근·사고 보고·웹 해킹·오남용",
-          "explanation": "사고 보고는 대응 활동이며 교안의 서비스 거부 유형과 구분한다."
+          "text": "로그인이 성공했으므로 반드시 외부 공격자의 무차별 대입이다.",
+          "explanation": "성공한 자격 사용만으로 행위 주체나 공격 방식을 단정할 수 없다."
         }
       ],
       "answerId": "a",
-      "explanation": "교안의 교육용 분류를 재구성한 것이며 현행 법률의 완전한 분류라고 주장하지 않는다.",
+      "explanation": "자격이 유효해도 승인된 목적과 범위를 벗어난 사용은 보안 사고가 될 수 있다.",
       "sourcePages": [
         1,
         2
-      ]
+      ],
+      "context": ""
     },
     {
       "id": "w14-q002",
@@ -554,40 +555,41 @@
       ]
     },
     {
-      "id": "w14-q003",
+      "id": "w14-q003-r2",
       "objectiveId": "w14-incident-team",
-      "family": "w14-incident-team-role-decision",
-      "kind": "contrast",
+      "family": "w14-incident-team-role-decision-r2",
+      "kind": "application",
       "difficulty": 2,
-      "prompt": "교안의 최고책임자와 담당자 역할 비교로 적절한 것은?",
+      "prompt": "보안 사고 대응에서 총괄 책임자와 기술 담당자의 역할 분담으로 적절한 것은?",
       "options": [
         {
           "id": "a",
-          "text": "담당자는 어떤 결과도 보고하지 않는다.",
-          "explanation": "실무 조치와 관리자 보고의 연결이 필요하다."
+          "text": "총괄 책임자 한 명이 모든 로그 수집과 기술 작업을 직접 수행해야 한다.",
+          "explanation": "총괄 책임을 모든 실무의 단독 수행과 혼동했다."
         },
         {
           "id": "b",
-          "text": "관제는 사건 전파를 하면 안 된다.",
-          "explanation": "관제의 초동 대응과 전파 역할에 반한다."
+          "text": "관제 담당자는 사고를 발견해도 연락망을 사용하지 않는다.",
+          "explanation": "탐지 이후 적절한 초동 대응과 전파가 지연된다."
         },
         {
           "id": "c",
-          "text": "최고책임자는 총괄·감독, 담당자는 사실 확인·원인 분석·조치 실무에 중점을 둔다.",
-          "explanation": "의사결정 책임과 기술 실무를 나누면서 보고로 연결한다."
+          "text": "총괄은 의사결정·자원 조정, 담당자는 사실 확인·원인 분석·조치 결과 보고를 맡는다.",
+          "explanation": "의사결정 책임과 기술 실무를 구분하되 보고와 협업으로 연결한다."
         },
         {
           "id": "d",
-          "text": "최고책임자만 모든 로그를 직접 작성해야 한다.",
-          "explanation": "총괄 책임과 모든 수집 실무를 같은 일로 보았다."
+          "text": "담당자는 조사 결과를 누구에게도 보고하지 않는다.",
+          "explanation": "위험에 맞는 의사결정과 공조를 위해 사실과 조치의 전달이 필요하다."
         }
       ],
       "answerId": "c",
-      "explanation": "의사결정 책임과 기술 실무를 나누면서 보고로 연결한다.",
+      "explanation": "의사결정 책임과 기술 실무를 구분하되 보고와 협업으로 연결한다.",
       "sourcePages": [
         2,
         3
-      ]
+      ],
+      "context": ""
     },
     {
       "id": "w14-q004",
@@ -802,39 +804,40 @@
       ]
     },
     {
-      "id": "w14-q010",
+      "id": "w14-q010-r2",
       "objectiveId": "w14-response-stages",
-      "family": "w14-response-stages-investigation-policy",
-      "kind": "evidence",
+      "family": "w14-response-stages-investigation-policy-r2",
+      "kind": "application",
       "difficulty": 2,
-      "prompt": "교안의 조사 착수 규모 기준에 못 미치지만 관리자 자격 탈취는 확인됐고 아직 자료 유출은 확인되지 않았다. 조사 필요성을 어떻게 판단할까?",
+      "prompt": "관리자 자격 탈취는 확인됐지만 자료 유출은 아직 확인되지 않았다. 적절한 대응은?",
       "options": [
         {
           "id": "a",
-          "text": "자료 유출 완료가 확인될 때까지 기록·판단을 보류한다.",
-          "explanation": "현대 사고 개념에는 임박한 위험도 포함하므로 확인된 자격 탈취를 피해 확정 전이라고 무시하면 안 된다."
+          "text": "유출이 완료됐다는 증거가 생길 때까지 조치를 미룬다.",
+          "explanation": "확인된 자격 탈취를 방치하면 추가 침해 기회를 준다."
         },
         {
           "id": "b",
-          "text": "중요 자격 탈취가 있어도 소규모이면 기밀성 위험은 없다.",
-          "explanation": "자료가 아직 유출되지 않았어도 관리자 자격 노출은 임박한 위험을 만들 수 있다."
+          "text": "현재 서비스가 응답하면 탈취된 자격도 계속 사용한다.",
+          "explanation": "가용성 유지가 인증 정보의 안전성을 보증하지 않는다."
         },
         {
           "id": "c",
-          "text": "모든 단일 경보도 증거 분석 없이 같은 확정 사고로 분류한다.",
-          "explanation": "이 사례에는 자격 탈취의 확인 근거가 있으며 모든 관찰 이벤트를 사고로 단정하는 것과 다르다."
+          "text": "검증 없이 모든 단일 경보도 동일한 확정 사고로 분류한다.",
+          "explanation": "이 사례의 확인된 근거와 검증되지 않은 경보를 구분해야 한다."
         },
         {
           "id": "d",
-          "text": "교안 표는 예시 정책이며 위험과 추가 조사 필요성을 검토한다.",
-          "explanation": "규모가 작아도 새 경로나 확산 위험 때문에 조사가 필요할 수 있다."
+          "text": "자격 악용 가능성을 차단하고 관련 접근·변경 기록과 피해 범위를 조사한다.",
+          "explanation": "피해가 모두 확정되기 전에도 확인된 자격 탈취와 확산 위험에 대응해야 한다."
         }
       ],
       "answerId": "d",
-      "explanation": "규모가 작아도 새 경로나 확산 위험 때문에 조사가 필요할 수 있다.",
+      "explanation": "피해가 모두 확정되기 전에도 확인된 자격 탈취와 확산 위험에 대응해야 한다.",
       "sourcePages": [
         4
-      ]
+      ],
+      "context": ""
     },
     {
       "id": "w14-q011",
@@ -1022,74 +1025,76 @@
       ]
     },
     {
-      "id": "w14-q016",
+      "id": "w14-q016-r2",
       "objectiveId": "w14-alert-support",
-      "family": "w14-alert-support-alert-order",
-      "kind": "concept",
-      "difficulty": 1,
-      "prompt": "교안의 교육용 위기 경보 순서는?",
+      "family": "w14-alert-support-alert-order-r2",
+      "kind": "application",
+      "difficulty": 2,
+      "prompt": "보안 경보 수준이 높아질수록 일반적으로 강화해야 할 활동은?",
       "options": [
         {
           "id": "a",
-          "text": "관심→주의→심각→경계",
-          "explanation": "마지막 두 단계가 반대다. 교안의 최고 단계는 심각이다."
+          "text": "경보 이름만 바꾸고 실제 대응은 항상 동일하게 유지하는 활동",
+          "explanation": "상태 표시만으로 증가한 영향과 대응 수요를 충족하지 못한다."
         },
         {
           "id": "b",
-          "text": "관심→주의→경계→심각",
-          "explanation": "위험 가능성에서 광범위 피해로 대응 강도가 커지는 네 단계다."
+          "text": "영향 범위에 맞춘 감시·연락·대응 자원과 조치 수준",
+          "explanation": "경보는 위험에 맞춰 대응 강도를 조정하는 신호이며 구체적인 조치는 실제 상황에 근거한다."
         },
         {
           "id": "c",
-          "text": "관심→경계→주의→심각",
-          "explanation": "주의와 경계의 순서를 바꾸었다. 교안은 국지적 피해에서 더 넓은 피해로 강도를 높인다."
+          "text": "원인 확인 전에 모든 조사 기록을 삭제하는 활동",
+          "explanation": "증거를 지우면 대응과 사후 개선이 어려워진다."
         },
         {
           "id": "d",
-          "text": "주의→관심→경계→심각",
-          "explanation": "첫 두 단계가 반대다. 교안은 관심에서 주의로 이어진다."
+          "text": "이미 하던 감시를 줄여 상황 보고를 중단하는 활동",
+          "explanation": "위험 증가에 따라 필요한 가시성과 공조를 잃게 된다."
         }
       ],
       "answerId": "b",
-      "explanation": "위험 가능성에서 광범위 피해로 대응 강도가 커지는 네 단계다.",
+      "explanation": "경보는 위험에 맞춰 대응 강도를 조정하는 신호이며 구체적인 조치는 실제 상황에 근거한다.",
       "sourcePages": [
         5
-      ]
+      ],
+      "context": ""
     },
     {
-      "id": "w14-q017",
+      "id": "w14-q017-r2",
       "objectiveId": "w14-alert-support",
-      "family": "w14-alert-support-continue-measures",
+      "family": "w14-alert-support-continue-measures-r2",
       "kind": "application",
       "difficulty": 2,
-      "prompt": "교안에서 주의에서 경계로 격상될 때 적절한 조치는?",
+      "prompt": "외부 위협과 내부 이상 징후가 증가해 비상 대응 수준을 높였다. 적절한 운영 방식은?",
       "options": [
         {
           "id": "a",
-          "text": "기존 모니터링을 계속하며 비상 대응과 집중 감시를 강화한다.",
-          "explanation": "상위 단계는 앞 단계의 대응을 이어 가면서 범위를 강화하는 구조다."
+          "text": "기존 모니터링을 유지하면서 집중 감시와 연락·대응 체계를 강화한다.",
+          "explanation": "기존 조치의 연속성을 지키며 위험에 맞는 추가 대응을 한다."
         },
         {
           "id": "b",
-          "text": "기존 감시를 전부 종료한다.",
-          "explanation": "조치 연속성을 끊어 가시성을 낮춘다."
+          "text": "기존 감시를 모두 중단하고 새로운 경보만 기다린다.",
+          "explanation": "감시 공백이 생겨 진행 중인 사건의 변화를 놓칠 수 있다."
         },
         {
           "id": "c",
-          "text": "연락망을 모두 폐기한다.",
-          "explanation": "공조 필요가 커지는 상황과 반대다."
+          "text": "연락망을 폐기해 보고량을 줄인다.",
+          "explanation": "상황 공유와 공조를 차단하는 조치다."
         },
         {
           "id": "d",
-          "text": "아직 심각이 아니므로 어떤 대응도 하지 않는다.",
-          "explanation": "하위 단계에도 모니터링과 초동 조치가 있다."
+          "text": "최고 단계가 아니므로 확인된 사고에도 조치하지 않는다.",
+          "explanation": "중간 단계에서도 실제 영향과 근거에 맞는 대응이 필요하다."
         }
       ],
       "answerId": "a",
-      "explanation": "상위 단계는 앞 단계의 대응을 이어 가면서 범위를 강화하는 구조다.",
+      "explanation": "기존 조치의 연속성을 지키며 위험에 맞는 추가 대응을 한다.",
       "sourcePages": [
         6
-      ]
+      ],
+      "context": ""
     },
     {
       "id": "w14-q018",
@@ -1127,40 +1132,41 @@
       ]
     },
     {
-      "id": "w14-q019",
+      "id": "w14-q019-r2",
       "objectiveId": "w14-alert-support",
-      "family": "w14-alert-support-warning-not-law",
-      "kind": "evidence",
+      "family": "w14-alert-support-warning-not-law-r2",
+      "kind": "application",
       "difficulty": 2,
-      "prompt": "교안의 심각 단계 설명만으로 현재 국가 경보와 법적 조치를 확정할 수 있나?",
+      "prompt": "조직의 핵심 서버 침해가 확인됐지만 국가 차원의 경보 격상은 없다. 조직의 판단으로 옳은 것은?",
       "options": [
         {
           "id": "a",
-          "text": "교안의 등급과 현재 공식 등급은 검증 없이 일대일 대응한다.",
-          "explanation": "같은 용어여도 적용 기준·공식 발령 사실을 별도 확인해야 한다."
+          "text": "모든 조직의 피해 규모가 같다고 가정한다.",
+          "explanation": "자산·노출·대응 상태에 따라 영향은 달라질 수 있다."
         },
         {
           "id": "b",
-          "text": "공식 경보가 없으면 조직 내부의 대응도 필요 없다.",
-          "explanation": "국가 경보 발령 여부만으로 개별 자산의 실제 위험과 대응 필요성을 배제할 수 없다."
+          "text": "최고 경보가 될 때까지 증거 수집을 미룬다.",
+          "explanation": "증거 보존과 확산 방지는 확인된 위험에 따라 제때 진행해야 한다."
         },
         {
           "id": "c",
-          "text": "현재 공식 상황과 규정을 별도로 확인해야 하며 이 자료는 교안 문맥이다.",
-          "explanation": "교육용 분류와 실제 시점의 공식 경보·의무는 구분해야 한다."
+          "text": "조직 자산의 확인된 위험과 영향에 맞춰 자체 대응한다.",
+          "explanation": "국가 수준 경보와 개별 조직의 실제 침해 상황은 범위가 다르므로 공식 경보 부재가 대응 면제는 아니다."
         },
         {
           "id": "d",
-          "text": "교안 문장만으로 모든 현재 조치가 자동 확정된다.",
-          "explanation": "시점·관할·공식 결정의 차이를 무시한 판단이다."
+          "text": "국가 경보가 없으므로 확인된 침해도 정상으로 분류한다.",
+          "explanation": "광역 경보 발령 여부가 구체적인 침해 증거를 없애지 않는다."
         }
       ],
       "answerId": "c",
-      "explanation": "교육용 분류와 실제 시점의 공식 경보·의무는 구분해야 한다.",
+      "explanation": "국가 수준 경보와 개별 조직의 실제 침해 상황은 범위가 다르므로 공식 경보 부재가 대응 면제는 아니다.",
       "sourcePages": [
         5,
         6
-      ]
+      ],
+      "context": ""
     },
     {
       "id": "w14-q020",
@@ -1198,40 +1204,41 @@
       ]
     },
     {
-      "id": "w14-q021",
+      "id": "w14-q021-r2",
       "objectiveId": "w14-windows-live",
-      "family": "w14-windows-live-netstat-scope",
-      "kind": "concept",
-      "difficulty": 1,
-      "prompt": "교안의 netstat -an 출력이 중심적으로 보여 주는 것은?",
+      "family": "w14-windows-live-netstat-scope-r2",
+      "kind": "application",
+      "difficulty": 2,
+      "prompt": "Windows에서 netstat -an으로 중심적으로 확인하는 정보는?",
       "options": [
         {
           "id": "a",
-          "text": "네트워크 주소·포트와 연결 상태",
-          "explanation": "연결·대기 상태를 보는 자료이며 실제 행위 분석은 다른 자료가 필요하다."
+          "text": "숫자로 표시한 네트워크 주소·포트와 연결·대기 상태",
+          "explanation": "연결 상태의 관찰 자료이며 사용자 인증 성공이나 전송 내용까지 증명하지 않는다."
         },
         {
           "id": "b",
-          "text": "각 연결의 사용자 인증 성공 여부",
-          "explanation": "네트워크 연결·대기 상태만으로 서비스가 계정을 검증한 결과를 알 수 없다."
+          "text": "각 연결의 비밀번호와 인증 성공 내역",
+          "explanation": "주소·포트·상태 출력은 서비스의 인증 감사 로그가 아니다."
         },
         {
           "id": "c",
-          "text": "모든 연결의 실행 파일 경로와 서명",
-          "explanation": "질문의 netstat -an만으로 프로세스별 실행 파일 정체까지 확인되었다고 볼 수 없다."
+          "text": "모든 프로세스의 전체 메모리 덤프",
+          "explanation": "네트워크 연결 정보 조회와 메모리 수집은 다른 작업이다."
         },
         {
           "id": "d",
-          "text": "각 연결의 악성코드 이름과 유출 자료",
-          "explanation": "주소·포트 관찰은 프로그램 정체·실제 자료 이동 내용의 직접 증거가 아니다."
+          "text": "각 포트를 사용한 공격자의 실명",
+          "explanation": "포트와 주소만으로 행위자의 실명을 확인할 수 없다."
         }
       ],
       "answerId": "a",
-      "explanation": "연결·대기 상태를 보는 자료이며 실제 행위 분석은 다른 자료가 필요하다.",
+      "explanation": "연결 상태의 관찰 자료이며 사용자 인증 성공이나 전송 내용까지 증명하지 않는다.",
       "sourcePages": [
         9,
         10
-      ]
+      ],
+      "context": ""
     },
     {
       "id": "w14-q022",
@@ -1306,74 +1313,76 @@
       ]
     },
     {
-      "id": "w14-q024",
+      "id": "w14-q024-r2",
       "objectiveId": "w14-windows-live",
-      "family": "w14-windows-live-tool-failure",
-      "kind": "evidence",
+      "family": "w14-windows-live-tool-failure-r2",
+      "kind": "application",
       "difficulty": 2,
-      "prompt": "교안의 도구 화면에 어댑터 열기 실패가 표시된다. 정확한 해석은?",
+      "prompt": "조사 도구에 어댑터 열기 실패가 표시되었다. 결과 보고에 적절한 표현은?",
       "options": [
         {
           "id": "a",
-          "text": "모든 네트워크 조사 방법이 영구적으로 불가능하다.",
-          "explanation": "다른 도구·권한·환경에서 대안 확인이 가능할 수 있다."
+          "text": "이 장치에 대한 모든 조사 방법은 영구적으로 불가능하다.",
+          "explanation": "다른 권한·도구·환경에서 조사할 가능성을 배제한 단정이다."
         },
         {
           "id": "b",
-          "text": "그 어댑터에 대한 검사가 수행되지 못했다.",
-          "explanation": "도구 실패를 정상 또는 감염 없음으로 바꾸어 읽으면 안 된다."
+          "text": "해당 어댑터 검사는 수행되지 못했으므로 원인과 대체 수집 경로를 확인한다.",
+          "explanation": "수집 실패와 정상·감염 없음은 다른 상태다."
         },
         {
           "id": "c",
-          "text": "어댑터가 정상임이 검증됐다.",
-          "explanation": "정상 확인이 아니라 수집 실패다."
+          "text": "어댑터가 정상임을 검증했다.",
+          "explanation": "검사 자체가 실패했으므로 정상이라는 근거가 없다."
         },
         {
           "id": "d",
-          "text": "스니핑 악성코드가 반드시 탐지됐다.",
-          "explanation": "실패 메시지는 악성 행위의 직접 증거가 아니다."
+          "text": "스니핑 악성코드를 확실히 탐지했다.",
+          "explanation": "오류 메시지만으로 악성 행위를 입증할 수 없다."
         }
       ],
       "answerId": "b",
-      "explanation": "도구 실패를 정상 또는 감염 없음으로 바꾸어 읽으면 안 된다.",
+      "explanation": "수집 실패와 정상·감염 없음은 다른 상태다.",
       "sourcePages": [
         10
-      ]
+      ],
+      "context": ""
     },
     {
-      "id": "w14-q025",
+      "id": "w14-q025-r2",
       "objectiveId": "w14-windows-live",
-      "family": "w14-windows-live-filemon",
-      "kind": "contrast",
+      "family": "w14-windows-live-filemon-r2",
+      "kind": "application",
       "difficulty": 2,
-      "prompt": "교안 FileMon 설명을 현대 도구 문서로 보정한 것은?",
+      "prompt": "프로세스가 어떤 파일과 레지스트리에 접근하는지 시간순으로 추적하려 한다. 도구와 자료의 관계로 옳은 것은?",
       "options": [
         {
           "id": "a",
-          "text": "파일 접근 추적과 메모리 덤프를 구분하며 Process Monitor는 파일·레지스트리 활동 등을 기록한다.",
-          "explanation": "FileMon 계열의 활동 관찰을 메모리 전체 수집과 같은 기능으로 보면 안 된다."
+          "text": "Process Monitor의 활동 기록을 사용하되 이를 전체 메모리 덤프와 구분한다.",
+          "explanation": "파일·레지스트리 등의 이벤트 기록은 프로세스 메모리 전체 바이트를 획득한 것과 다르다."
         },
         {
           "id": "b",
-          "text": "FileMon은 파일 활동 기록과 동시에 항상 완전한 메모리 덤프를 만든다.",
-          "explanation": "활동 추적과 메모리 획득은 다른 작업이며 완전 덤프를 일반 기능으로 보면 안 된다."
+          "text": "파일 이벤트가 하나 있으면 전체 메모리를 수집한 것이다.",
+          "explanation": "행위 기록과 메모리 원본 수집은 서로 다른 자료다."
         },
         {
           "id": "c",
-          "text": "Process Explorer는 파일·레지스트리 이벤트를 시간순으로 모두 기록하는 도구다.",
-          "explanation": "프로세스·핸들·모듈 조사와 Process Monitor의 활동 추적 중심 역할을 혼동했다."
+          "text": "Process Explorer의 프로세스 목록만으로 모든 과거 파일 이벤트를 복원한다.",
+          "explanation": "현재 프로세스 정보와 모든 과거 활동의 기록을 혼동했다."
         },
         {
           "id": "d",
-          "text": "Process Monitor의 파일 접근 기록은 그 자체로 전체 메모리 내용이다.",
-          "explanation": "파일 이벤트 기록만으로 프로세스 메모리의 전체 바이트를 수집했다고 볼 수 없다."
+          "text": "도구 이름만 정하면 실제 수집 성공 여부는 확인하지 않아도 된다.",
+          "explanation": "도구 선택 이후에도 수집 범위와 오류·누락 여부를 확인해야 한다."
         }
       ],
       "answerId": "a",
-      "explanation": "FileMon 계열의 활동 관찰을 메모리 전체 수집과 같은 기능으로 보면 안 된다.",
+      "explanation": "파일·레지스트리 등의 이벤트 기록은 프로세스 메모리 전체 바이트를 획득한 것과 다르다.",
       "sourcePages": [
         12
-      ]
+      ],
+      "context": ""
     },
     {
       "id": "w14-q026",
@@ -1483,40 +1492,41 @@
       ]
     },
     {
-      "id": "w14-q029",
+      "id": "w14-q029-r2",
       "objectiveId": "w14-windows-persistence",
-      "family": "w14-windows-persistence-registry-paths",
+      "family": "w14-windows-persistence-registry-paths-r2",
       "kind": "application",
       "difficulty": 2,
-      "prompt": "교안의 오래된 레지스트리 경로를 현재 OS 조사에 사용할 때는?",
+      "prompt": "새 자동 실행 항목이 발견되었다. 정상 업데이트인지 악성 지속성인지 판단하는 방법은?",
       "options": [
         {
           "id": "a",
-          "text": "OS별 공식 위치·지원 상태를 확인하고 조사 목적에 맞게 적용한다.",
-          "explanation": "철자·버전 의존성이 있어 옛 목록을 그대로 조작 지침으로 삼으면 안 된다."
+          "text": "실행 대상·서명·경로·변경 시각과 승인된 설치 이력을 교차 확인한다.",
+          "explanation": "자동 실행 위치는 단서이며 실제 대상과 정상 기준선을 확인한 뒤 조치해야 한다."
         },
         {
           "id": "b",
-          "text": "띄어쓰기와 철자 차이를 무시하고 모두 삭제",
-          "explanation": "실제 경로를 오인하고 정상 설정을 파괴할 수 있다."
+          "text": "자동 실행 항목은 모두 악성이므로 즉시 전부 삭제한다.",
+          "explanation": "정상 운영 기능도 있어 확인 없이 삭제하면 업무를 손상시킬 수 있다."
         },
         {
           "id": "c",
-          "text": "옛 목록에 없는 시작 위치는 절대 없다.",
-          "explanation": "OS와 제품의 자동 실행 경로는 다양하다."
+          "text": "파일 이름이 익숙하면 경로와 서명은 확인하지 않는다.",
+          "explanation": "같은 이름을 사용한 다른 파일이나 변조 가능성이 남는다."
         },
         {
           "id": "d",
-          "text": "경로 목록만 있으면 모든 지속성이 제거된다.",
-          "explanation": "목록 보유와 실제 조사·제거 결과는 다르다."
+          "text": "목록을 읽었으므로 모든 지속성 위협이 이미 제거되었다.",
+          "explanation": "관찰과 실제 제거·효과 검증은 다른 단계다."
         }
       ],
       "answerId": "a",
-      "explanation": "철자·버전 의존성이 있어 옛 목록을 그대로 조작 지침으로 삼으면 안 된다.",
+      "explanation": "자동 실행 위치는 단서이며 실제 대상과 정상 기준선을 확인한 뒤 조치해야 한다.",
       "sourcePages": [
         13,
         14
-      ]
+      ],
+      "context": ""
     },
     {
       "id": "w14-q030",
@@ -1556,39 +1566,40 @@
       ]
     },
     {
-      "id": "w14-q031",
+      "id": "w14-q031-r2",
       "objectiveId": "w14-windows-events-web",
-      "family": "w14-windows-events-web-event-version",
-      "kind": "evidence",
+      "family": "w14-windows-events-web-event-version-r2",
+      "kind": "application",
       "difficulty": 2,
-      "prompt": "교안의 보안 이벤트 529를 현재 Windows 조사에 적용할 때 필요한 것은?",
+      "prompt": "로그인 실패를 조사할 때 이벤트 번호만 비교하면 해석을 잘못할 수 있는 이유는?",
       "options": [
         {
           "id": "a",
-          "text": "이벤트 번호가 같으면 제공자가 달라도 의미는 항상 동일하다고 가정",
-          "explanation": "번호는 제공자·버전 문맥과 함께 해석해야 한다."
+          "text": "해당 번호가 없으면 로그인 실패도 절대 없었다.",
+          "explanation": "감사 설정·보존·다른 번호 사용 등으로 기록이 보이지 않을 수 있다."
         },
         {
           "id": "b",
-          "text": "번호가 다르면 로그인 실패가 없었다고 결론",
-          "explanation": "다른 번호·설정·제공자로 기록될 수 있어 부재를 확정하지 못한다."
+          "text": "모든 운영체제는 동일한 번호 체계를 영구 유지한다.",
+          "explanation": "플랫폼과 버전별 감사 체계 차이를 무시했다."
         },
         {
           "id": "c",
-          "text": "OS 버전·이벤트 제공자·감사 정책과 공식 의미를 확인한다.",
-          "explanation": "구형 번호를 모든 Windows의 보편 규칙으로 적용하면 수집과 해석이 틀릴 수 있다."
+          "text": "운영체제·제공자·이벤트 버전과 감사 설정에 따라 의미와 수집 여부가 달라질 수 있다.",
+          "explanation": "번호를 필드와 발생 문맥에 연결하고 로그 누락 가능성도 검토해야 한다."
         },
         {
           "id": "d",
-          "text": "모든 Windows가 529만으로 로그인 실패를 기록한다고 가정",
-          "explanation": "버전별 감사 체계 차이를 무시한 일반화다."
+          "text": "이벤트 번호가 같으면 제공자와 무관하게 항상 같은 사건이다.",
+          "explanation": "번호만으로 서로 다른 이벤트 체계의 의미를 같다고 볼 수 없다."
         }
       ],
       "answerId": "c",
-      "explanation": "구형 번호를 모든 Windows의 보편 규칙으로 적용하면 수집과 해석이 틀릴 수 있다.",
+      "explanation": "번호를 필드와 발생 문맥에 연결하고 로그 누락 가능성도 검토해야 한다.",
       "sourcePages": [
         15
-      ]
+      ],
+      "context": ""
     },
     {
       "id": "w14-q032",
@@ -2594,6 +2605,409 @@
     {
       "title": "NIST National Software Reference Library",
       "url": "https://www.nist.gov/itl/csd/secure-systems-and-applications/national-software-reference-library-nsrl"
+    }
+  ],
+  "retiredQuestions": [
+    {
+      "id": "w14-q001",
+      "objectiveId": "w14-incident-team",
+      "family": "w14-incident-team-five-types",
+      "kind": "concept",
+      "difficulty": 1,
+      "prompt": "교안의 다섯 침해사고 유형에 해당하는 묶음은?",
+      "options": [
+        {
+          "id": "a",
+          "text": "악성코드 감염·비인가 접근·서비스 거부·웹 해킹·오남용",
+          "explanation": "교안의 교육용 분류를 재구성한 것이며 현행 법률의 완전한 분류라고 주장하지 않는다."
+        },
+        {
+          "id": "b",
+          "text": "악성코드 감염·비인가 접근·서비스 거부·웹 해킹·증거 보존",
+          "explanation": "증거 보존은 조사 절차다. 교안의 다섯 유형에서는 이 자리에 오남용이 들어간다."
+        },
+        {
+          "id": "c",
+          "text": "악성코드 감염·비인가 접근·서비스 거부·위기 경보·오남용",
+          "explanation": "위기 경보는 대응 강도 분류이며 교안 사고 유형의 웹 해킹을 대신하지 않는다."
+        },
+        {
+          "id": "d",
+          "text": "악성코드 감염·비인가 접근·사고 보고·웹 해킹·오남용",
+          "explanation": "사고 보고는 대응 활동이며 교안의 서비스 거부 유형과 구분한다."
+        }
+      ],
+      "answerId": "a",
+      "explanation": "교안의 교육용 분류를 재구성한 것이며 현행 법률의 완전한 분류라고 주장하지 않는다.",
+      "sourcePages": [
+        1,
+        2
+      ],
+      "supersededBy": "w14-q001-r2"
+    },
+    {
+      "id": "w14-q003",
+      "objectiveId": "w14-incident-team",
+      "family": "w14-incident-team-role-decision",
+      "kind": "contrast",
+      "difficulty": 2,
+      "prompt": "교안의 최고책임자와 담당자 역할 비교로 적절한 것은?",
+      "options": [
+        {
+          "id": "a",
+          "text": "담당자는 어떤 결과도 보고하지 않는다.",
+          "explanation": "실무 조치와 관리자 보고의 연결이 필요하다."
+        },
+        {
+          "id": "b",
+          "text": "관제는 사건 전파를 하면 안 된다.",
+          "explanation": "관제의 초동 대응과 전파 역할에 반한다."
+        },
+        {
+          "id": "c",
+          "text": "최고책임자는 총괄·감독, 담당자는 사실 확인·원인 분석·조치 실무에 중점을 둔다.",
+          "explanation": "의사결정 책임과 기술 실무를 나누면서 보고로 연결한다."
+        },
+        {
+          "id": "d",
+          "text": "최고책임자만 모든 로그를 직접 작성해야 한다.",
+          "explanation": "총괄 책임과 모든 수집 실무를 같은 일로 보았다."
+        }
+      ],
+      "answerId": "c",
+      "explanation": "의사결정 책임과 기술 실무를 나누면서 보고로 연결한다.",
+      "sourcePages": [
+        2,
+        3
+      ],
+      "supersededBy": "w14-q003-r2"
+    },
+    {
+      "id": "w14-q010",
+      "objectiveId": "w14-response-stages",
+      "family": "w14-response-stages-investigation-policy",
+      "kind": "evidence",
+      "difficulty": 2,
+      "prompt": "교안의 조사 착수 규모 기준에 못 미치지만 관리자 자격 탈취는 확인됐고 아직 자료 유출은 확인되지 않았다. 조사 필요성을 어떻게 판단할까?",
+      "options": [
+        {
+          "id": "a",
+          "text": "자료 유출 완료가 확인될 때까지 기록·판단을 보류한다.",
+          "explanation": "현대 사고 개념에는 임박한 위험도 포함하므로 확인된 자격 탈취를 피해 확정 전이라고 무시하면 안 된다."
+        },
+        {
+          "id": "b",
+          "text": "중요 자격 탈취가 있어도 소규모이면 기밀성 위험은 없다.",
+          "explanation": "자료가 아직 유출되지 않았어도 관리자 자격 노출은 임박한 위험을 만들 수 있다."
+        },
+        {
+          "id": "c",
+          "text": "모든 단일 경보도 증거 분석 없이 같은 확정 사고로 분류한다.",
+          "explanation": "이 사례에는 자격 탈취의 확인 근거가 있으며 모든 관찰 이벤트를 사고로 단정하는 것과 다르다."
+        },
+        {
+          "id": "d",
+          "text": "교안 표는 예시 정책이며 위험과 추가 조사 필요성을 검토한다.",
+          "explanation": "규모가 작아도 새 경로나 확산 위험 때문에 조사가 필요할 수 있다."
+        }
+      ],
+      "answerId": "d",
+      "explanation": "규모가 작아도 새 경로나 확산 위험 때문에 조사가 필요할 수 있다.",
+      "sourcePages": [
+        4
+      ],
+      "supersededBy": "w14-q010-r2"
+    },
+    {
+      "id": "w14-q016",
+      "objectiveId": "w14-alert-support",
+      "family": "w14-alert-support-alert-order",
+      "kind": "concept",
+      "difficulty": 1,
+      "prompt": "교안의 교육용 위기 경보 순서는?",
+      "options": [
+        {
+          "id": "a",
+          "text": "관심→주의→심각→경계",
+          "explanation": "마지막 두 단계가 반대다. 교안의 최고 단계는 심각이다."
+        },
+        {
+          "id": "b",
+          "text": "관심→주의→경계→심각",
+          "explanation": "위험 가능성에서 광범위 피해로 대응 강도가 커지는 네 단계다."
+        },
+        {
+          "id": "c",
+          "text": "관심→경계→주의→심각",
+          "explanation": "주의와 경계의 순서를 바꾸었다. 교안은 국지적 피해에서 더 넓은 피해로 강도를 높인다."
+        },
+        {
+          "id": "d",
+          "text": "주의→관심→경계→심각",
+          "explanation": "첫 두 단계가 반대다. 교안은 관심에서 주의로 이어진다."
+        }
+      ],
+      "answerId": "b",
+      "explanation": "위험 가능성에서 광범위 피해로 대응 강도가 커지는 네 단계다.",
+      "sourcePages": [
+        5
+      ],
+      "supersededBy": "w14-q016-r2"
+    },
+    {
+      "id": "w14-q017",
+      "objectiveId": "w14-alert-support",
+      "family": "w14-alert-support-continue-measures",
+      "kind": "application",
+      "difficulty": 2,
+      "prompt": "교안에서 주의에서 경계로 격상될 때 적절한 조치는?",
+      "options": [
+        {
+          "id": "a",
+          "text": "기존 모니터링을 계속하며 비상 대응과 집중 감시를 강화한다.",
+          "explanation": "상위 단계는 앞 단계의 대응을 이어 가면서 범위를 강화하는 구조다."
+        },
+        {
+          "id": "b",
+          "text": "기존 감시를 전부 종료한다.",
+          "explanation": "조치 연속성을 끊어 가시성을 낮춘다."
+        },
+        {
+          "id": "c",
+          "text": "연락망을 모두 폐기한다.",
+          "explanation": "공조 필요가 커지는 상황과 반대다."
+        },
+        {
+          "id": "d",
+          "text": "아직 심각이 아니므로 어떤 대응도 하지 않는다.",
+          "explanation": "하위 단계에도 모니터링과 초동 조치가 있다."
+        }
+      ],
+      "answerId": "a",
+      "explanation": "상위 단계는 앞 단계의 대응을 이어 가면서 범위를 강화하는 구조다.",
+      "sourcePages": [
+        6
+      ],
+      "supersededBy": "w14-q017-r2"
+    },
+    {
+      "id": "w14-q019",
+      "objectiveId": "w14-alert-support",
+      "family": "w14-alert-support-warning-not-law",
+      "kind": "evidence",
+      "difficulty": 2,
+      "prompt": "교안의 심각 단계 설명만으로 현재 국가 경보와 법적 조치를 확정할 수 있나?",
+      "options": [
+        {
+          "id": "a",
+          "text": "교안의 등급과 현재 공식 등급은 검증 없이 일대일 대응한다.",
+          "explanation": "같은 용어여도 적용 기준·공식 발령 사실을 별도 확인해야 한다."
+        },
+        {
+          "id": "b",
+          "text": "공식 경보가 없으면 조직 내부의 대응도 필요 없다.",
+          "explanation": "국가 경보 발령 여부만으로 개별 자산의 실제 위험과 대응 필요성을 배제할 수 없다."
+        },
+        {
+          "id": "c",
+          "text": "현재 공식 상황과 규정을 별도로 확인해야 하며 이 자료는 교안 문맥이다.",
+          "explanation": "교육용 분류와 실제 시점의 공식 경보·의무는 구분해야 한다."
+        },
+        {
+          "id": "d",
+          "text": "교안 문장만으로 모든 현재 조치가 자동 확정된다.",
+          "explanation": "시점·관할·공식 결정의 차이를 무시한 판단이다."
+        }
+      ],
+      "answerId": "c",
+      "explanation": "교육용 분류와 실제 시점의 공식 경보·의무는 구분해야 한다.",
+      "sourcePages": [
+        5,
+        6
+      ],
+      "supersededBy": "w14-q019-r2"
+    },
+    {
+      "id": "w14-q021",
+      "objectiveId": "w14-windows-live",
+      "family": "w14-windows-live-netstat-scope",
+      "kind": "concept",
+      "difficulty": 1,
+      "prompt": "교안의 netstat -an 출력이 중심적으로 보여 주는 것은?",
+      "options": [
+        {
+          "id": "a",
+          "text": "네트워크 주소·포트와 연결 상태",
+          "explanation": "연결·대기 상태를 보는 자료이며 실제 행위 분석은 다른 자료가 필요하다."
+        },
+        {
+          "id": "b",
+          "text": "각 연결의 사용자 인증 성공 여부",
+          "explanation": "네트워크 연결·대기 상태만으로 서비스가 계정을 검증한 결과를 알 수 없다."
+        },
+        {
+          "id": "c",
+          "text": "모든 연결의 실행 파일 경로와 서명",
+          "explanation": "질문의 netstat -an만으로 프로세스별 실행 파일 정체까지 확인되었다고 볼 수 없다."
+        },
+        {
+          "id": "d",
+          "text": "각 연결의 악성코드 이름과 유출 자료",
+          "explanation": "주소·포트 관찰은 프로그램 정체·실제 자료 이동 내용의 직접 증거가 아니다."
+        }
+      ],
+      "answerId": "a",
+      "explanation": "연결·대기 상태를 보는 자료이며 실제 행위 분석은 다른 자료가 필요하다.",
+      "sourcePages": [
+        9,
+        10
+      ],
+      "supersededBy": "w14-q021-r2"
+    },
+    {
+      "id": "w14-q024",
+      "objectiveId": "w14-windows-live",
+      "family": "w14-windows-live-tool-failure",
+      "kind": "evidence",
+      "difficulty": 2,
+      "prompt": "교안의 도구 화면에 어댑터 열기 실패가 표시된다. 정확한 해석은?",
+      "options": [
+        {
+          "id": "a",
+          "text": "모든 네트워크 조사 방법이 영구적으로 불가능하다.",
+          "explanation": "다른 도구·권한·환경에서 대안 확인이 가능할 수 있다."
+        },
+        {
+          "id": "b",
+          "text": "그 어댑터에 대한 검사가 수행되지 못했다.",
+          "explanation": "도구 실패를 정상 또는 감염 없음으로 바꾸어 읽으면 안 된다."
+        },
+        {
+          "id": "c",
+          "text": "어댑터가 정상임이 검증됐다.",
+          "explanation": "정상 확인이 아니라 수집 실패다."
+        },
+        {
+          "id": "d",
+          "text": "스니핑 악성코드가 반드시 탐지됐다.",
+          "explanation": "실패 메시지는 악성 행위의 직접 증거가 아니다."
+        }
+      ],
+      "answerId": "b",
+      "explanation": "도구 실패를 정상 또는 감염 없음으로 바꾸어 읽으면 안 된다.",
+      "sourcePages": [
+        10
+      ],
+      "supersededBy": "w14-q024-r2"
+    },
+    {
+      "id": "w14-q025",
+      "objectiveId": "w14-windows-live",
+      "family": "w14-windows-live-filemon",
+      "kind": "contrast",
+      "difficulty": 2,
+      "prompt": "교안 FileMon 설명을 현대 도구 문서로 보정한 것은?",
+      "options": [
+        {
+          "id": "a",
+          "text": "파일 접근 추적과 메모리 덤프를 구분하며 Process Monitor는 파일·레지스트리 활동 등을 기록한다.",
+          "explanation": "FileMon 계열의 활동 관찰을 메모리 전체 수집과 같은 기능으로 보면 안 된다."
+        },
+        {
+          "id": "b",
+          "text": "FileMon은 파일 활동 기록과 동시에 항상 완전한 메모리 덤프를 만든다.",
+          "explanation": "활동 추적과 메모리 획득은 다른 작업이며 완전 덤프를 일반 기능으로 보면 안 된다."
+        },
+        {
+          "id": "c",
+          "text": "Process Explorer는 파일·레지스트리 이벤트를 시간순으로 모두 기록하는 도구다.",
+          "explanation": "프로세스·핸들·모듈 조사와 Process Monitor의 활동 추적 중심 역할을 혼동했다."
+        },
+        {
+          "id": "d",
+          "text": "Process Monitor의 파일 접근 기록은 그 자체로 전체 메모리 내용이다.",
+          "explanation": "파일 이벤트 기록만으로 프로세스 메모리의 전체 바이트를 수집했다고 볼 수 없다."
+        }
+      ],
+      "answerId": "a",
+      "explanation": "FileMon 계열의 활동 관찰을 메모리 전체 수집과 같은 기능으로 보면 안 된다.",
+      "sourcePages": [
+        12
+      ],
+      "supersededBy": "w14-q025-r2"
+    },
+    {
+      "id": "w14-q029",
+      "objectiveId": "w14-windows-persistence",
+      "family": "w14-windows-persistence-registry-paths",
+      "kind": "application",
+      "difficulty": 2,
+      "prompt": "교안의 오래된 레지스트리 경로를 현재 OS 조사에 사용할 때는?",
+      "options": [
+        {
+          "id": "a",
+          "text": "OS별 공식 위치·지원 상태를 확인하고 조사 목적에 맞게 적용한다.",
+          "explanation": "철자·버전 의존성이 있어 옛 목록을 그대로 조작 지침으로 삼으면 안 된다."
+        },
+        {
+          "id": "b",
+          "text": "띄어쓰기와 철자 차이를 무시하고 모두 삭제",
+          "explanation": "실제 경로를 오인하고 정상 설정을 파괴할 수 있다."
+        },
+        {
+          "id": "c",
+          "text": "옛 목록에 없는 시작 위치는 절대 없다.",
+          "explanation": "OS와 제품의 자동 실행 경로는 다양하다."
+        },
+        {
+          "id": "d",
+          "text": "경로 목록만 있으면 모든 지속성이 제거된다.",
+          "explanation": "목록 보유와 실제 조사·제거 결과는 다르다."
+        }
+      ],
+      "answerId": "a",
+      "explanation": "철자·버전 의존성이 있어 옛 목록을 그대로 조작 지침으로 삼으면 안 된다.",
+      "sourcePages": [
+        13,
+        14
+      ],
+      "supersededBy": "w14-q029-r2"
+    },
+    {
+      "id": "w14-q031",
+      "objectiveId": "w14-windows-events-web",
+      "family": "w14-windows-events-web-event-version",
+      "kind": "evidence",
+      "difficulty": 2,
+      "prompt": "교안의 보안 이벤트 529를 현재 Windows 조사에 적용할 때 필요한 것은?",
+      "options": [
+        {
+          "id": "a",
+          "text": "이벤트 번호가 같으면 제공자가 달라도 의미는 항상 동일하다고 가정",
+          "explanation": "번호는 제공자·버전 문맥과 함께 해석해야 한다."
+        },
+        {
+          "id": "b",
+          "text": "번호가 다르면 로그인 실패가 없었다고 결론",
+          "explanation": "다른 번호·설정·제공자로 기록될 수 있어 부재를 확정하지 못한다."
+        },
+        {
+          "id": "c",
+          "text": "OS 버전·이벤트 제공자·감사 정책과 공식 의미를 확인한다.",
+          "explanation": "구형 번호를 모든 Windows의 보편 규칙으로 적용하면 수집과 해석이 틀릴 수 있다."
+        },
+        {
+          "id": "d",
+          "text": "모든 Windows가 529만으로 로그인 실패를 기록한다고 가정",
+          "explanation": "버전별 감사 체계 차이를 무시한 일반화다."
+        }
+      ],
+      "answerId": "c",
+      "explanation": "구형 번호를 모든 Windows의 보편 규칙으로 적용하면 수집과 해석이 틀릴 수 있다.",
+      "sourcePages": [
+        15
+      ],
+      "supersededBy": "w14-q031-r2"
     }
   ]
 }

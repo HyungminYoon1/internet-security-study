@@ -51,13 +51,13 @@ test('PR4-04: fixed and moving half-open windows produce the taught boundary cou
 test('PR4-03: no cosmetic or unrelated physical-display distractors remain', () => {
   const cosmetic = /글꼴|폰트|배경색|바탕화면 색|화면 밝기|모니터 제조사|케이블의 색|장비의 색상|모니터의 가로|큰 글씨|대문자 수|제목의 글자 수|이름의 글자색/;
   for (const w of weeks) for (const q of w.questions) for (const option of q.options) assert.doesNotMatch(option.text, cosmetic, `${q.id}/${option.id}`);
-  const q = question('w14-q016');
+  const q = weeks[2].retiredQuestions.find(q=>q.id==='w14-q016');
   for (const option of q.options) assert.deepEqual(option.text.split('→').sort(), ['관심', '경계', '심각', '주의'].sort());
 });
 
 test('part4 retains counts, stable IDs/families, four distinct options, source pages and validator integrity', () => {
   // Captured from the accepted pre-revision content, not recomputed by the generator.
-  const identity = weeks.flatMap(w => w.questions.map(q => [q.id, q.objectiveId, q.family, q.answerId]));
+  const identity = weeks.flatMap(w => w.questions.map(q => (w.retiredQuestions??[]).find(old=>old.supersededBy===q.id)??q).map(q => [q.id, q.objectiveId, q.family, q.answerId]));
   assert.equal(createHash('sha256').update(JSON.stringify(identity)).digest('hex'), '524fc7948034c96c64ba334db5787614ab0f1a0a2e98844153e382def2561570');
   for (const [i, w] of weeks.entries()) {
     validateWeek(w);
@@ -67,7 +67,9 @@ test('part4 retains counts, stable IDs/families, four distinct options, source p
     assert.equal(new Set(w.coverage.flatMap(c => c.pages)).size, [19, 19, 18][i]);
     assert.equal(new Set(w.questions.map(q => q.family)).size, w.questions.length);
     w.questions.forEach((q, j) => {
-      assert.equal(q.id, `w${w.number}-q${String(j + 1).padStart(3, '0')}`);
+      const originalId=`w${w.number}-q${String(j + 1).padStart(3, '0')}`;
+      assert.equal(q.id.replace(/-r2$/,''), originalId);
+      if(q.id.endsWith('-r2'))assert(w.retiredQuestions.some(old=>old.id===originalId&&old.supersededBy===q.id));
       assert.equal(q.options.length, 4);
       assert.equal(new Set(q.options.map(o => o.text)).size, 4);
       assert.equal(q.options.filter(o => o.id === q.answerId).length, 1);

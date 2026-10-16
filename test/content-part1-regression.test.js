@@ -58,7 +58,7 @@ test('corrected cryptographic facts remain keyed after distractor replacement', 
   assert.match(keyed('w02-q046'), /서명자의 개인키/);
   assert.match(keyed('w02-q047'), /민수의 공개키/);
   assert.match(keyed('w04-q021'), /기밀성/);
-  assert.match(keyed('w04-q031'), /16라운드/);
+  assert.match(keyed('w04-q031-r2'), /16라운드/);
 });
 
 test('w04 IKE teaching separates the first Child SA and IKEv2 local lifetime policies', () => {

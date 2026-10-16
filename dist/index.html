@@ -6,7 +6,7 @@
   <meta name="description" content="인터넷보안 중간·기말 범위의 개념, 풀이 예제, 사건 분석과 60분 모의고사를 연결하는 학습실.">
   <meta name="theme-color" content="#143e3a">
   <meta name="referrer" content="no-referrer">
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'self'; object-src 'none'; frame-src 'none'; base-uri 'self'; form-action 'none'">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'self' https://ep-raspy-moon-aosbozvt.neonauth.c-2.ap-southeast-1.aws.neon.tech https://ep-raspy-moon-aosbozvt.apirest.c-2.ap-southeast-1.aws.neon.tech; object-src 'none'; frame-src 'none'; base-uri 'self'; form-action 'none'">
   <title>인터넷보안 학습실</title>
   <link rel="icon" href="assets/mark.svg" type="image/svg+xml">
   <link rel="stylesheet" href="styles.css">
@@ -25,10 +25,11 @@
       <a href="#cases" data-route="cases"><span aria-hidden="true">⌘</span>사건 분석</a>
       <a href="#exam" data-route="exam"><span aria-hidden="true">◷</span>60분 모의고사</a>
     </nav>
-    <div class="nav-bottom"><a href="#scope" data-route="scope">범위·정정 안내 <span aria-hidden="true">↗</span></a><a href="#records" data-route="records">기록·백업</a><a href="https://hyungminyoon1.github.io/web-lab/">WEB LAB <span aria-hidden="true">↗</span></a><p>기록은 이 브라우저에 저장됩니다.</p></div>
+    <div class="nav-bottom"><a href="#account" data-route="account">계정·동기화</a><a href="#scope" data-route="scope">범위·정정 안내 <span aria-hidden="true">↗</span></a><a href="#records" data-route="records">기록·백업</a><a href="https://hyungminyoon1.github.io/web-lab/">WEB LAB <span aria-hidden="true">↗</span></a><p id="storage-mode">비로그인 · 이 브라우저에 저장</p></div>
   </aside>
   <div class="workspace">
-    <header class="topbar"><div class="course-label"><span class="live-dot" aria-hidden="true"></span>인터넷보안 <span class="muted">/ 학습 과정</span></div><div class="exam-switch" role="group" aria-label="학습 범위"><button type="button" data-exam="midterm" aria-pressed="true">중간 <span>1–7주</span></button><button type="button" data-exam="final" aria-pressed="false">기말 <span>9–14주</span></button></div></header>
+    <header class="topbar"><div class="course-label"><span class="live-dot" aria-hidden="true"></span>인터넷보안 <span class="muted">/ 학습 과정</span></div><div class="top-actions"><a href="#account" class="account-link" id="sync-summary">로그인·동기화</a><div class="exam-switch" role="group" aria-label="학습 범위"><button type="button" data-exam="midterm" aria-pressed="true">중간 <span>1–7주</span></button><button type="button" data-exam="final" aria-pressed="false">기말 <span>9–14주</span></button></div></div></header>
+    <div id="account-notice" class="notice error" role="status" hidden></div>
     <div id="storage-notice" class="notice error" role="status" hidden></div>
     <a id="exam-running" class="exam-running" href="#exam" hidden>모의고사 진행 중 <strong id="running-time"></strong><span>이어서 풀기 →</span></a>
     <main id="main" tabindex="-1"><div id="view"><section class="loading"><span class="eyebrow">INTERNET SECURITY</span><h1>학습 자료를 불러오고 있습니다.</h1><p>개념과 예제를 읽고, 문제와 사건 분석으로 확인하세요.</p></section></div></main>

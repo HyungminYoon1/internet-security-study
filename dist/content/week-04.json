@@ -672,40 +672,41 @@
       ]
     },
     {
-      "id": "w04-q007",
+      "id": "w04-q007-r2",
       "objectiveId": "w04-functions",
-      "family": "w04-vpn-integrity-mechanism",
-      "kind": "evidence",
+      "family": "w04-vpn-integrity-mechanism-r2",
+      "kind": "application",
       "difficulty": 2,
-      "prompt": "VPN 패킷 무결성에 관한 교안 표현을 보완한 것은?",
+      "prompt": "VPN에서 공격자가 전송 중인 암호문을 바꾸었는지 검증하려 한다. 적절한 보호 수단은?",
       "options": [
         {
           "id": "a",
-          "text": "키 없는 해시만 보내면 적극적 변경을 항상 막는다.",
-          "explanation": "공격자가 내용과 해시를 함께 바꿀 수 있다."
+          "text": "터널 헤더를 추가하기만 함",
+          "explanation": "캡슐화 자체는 키 기반 무결성 검증이 아니다."
         },
         {
           "id": "b",
-          "text": "터널 헤더가 있으면 인증 검사가 필요 없다.",
-          "explanation": "캡슐화는 발신자 검증을 대체하지 않는다."
+          "text": "압축률이 이전과 비슷한지만 비교함",
+          "explanation": "압축률은 악의적 변조를 검증하는 인증 수단이 아니다."
         },
         {
           "id": "c",
-          "text": "MAC 또는 인증된 암호화로도 제공할 수 있다.",
-          "explanation": "모든 패킷에 공개키 서명이 필수인 것은 아니다."
+          "text": "MAC 또는 인증된 암호화의 인증 태그 검증",
+          "explanation": "비밀키를 가진 주체가 만든 검증값을 통해 변경을 탐지한다. 알고리즘과 키·nonce 관리 조건도 지켜야 한다."
         },
         {
           "id": "d",
-          "text": "공개키 서명 외에는 어떤 방법도 없다.",
-          "explanation": "대칭키 메시지 인증을 배제한 오류다."
+          "text": "키 없는 해시를 자료와 함께 보내기만 함",
+          "explanation": "공격자가 자료와 해시를 함께 바꾸면 이 방식만으로 능동적 변조를 막지 못한다."
         }
       ],
       "answerId": "c",
-      "explanation": "목표 성질과 구체적 검증 수단을 연결한다.",
+      "explanation": "비밀키를 가진 주체가 만든 검증값을 통해 변경을 탐지한다. 알고리즘과 키·nonce 관리 조건도 지켜야 한다.",
       "sourcePages": [
         4,
         17
-      ]
+      ],
+      "context": ""
     },
     {
       "id": "w04-q008",
@@ -778,74 +779,76 @@
       ]
     },
     {
-      "id": "w04-q010",
+      "id": "w04-q010-r2",
       "objectiveId": "w04-functions",
-      "family": "w04-layer-examples",
-      "kind": "concept",
-      "difficulty": 1,
-      "prompt": "교안의 터널 계열 분류를 정확하게 읽은 것은?",
+      "family": "w04-layer-examples-r2",
+      "kind": "application",
+      "difficulty": 2,
+      "prompt": "L2TP와 IPsec의 역할을 비교한 설명으로 옳은 것은?",
       "options": [
         {
           "id": "a",
-          "text": "IPsec과 L2TP는 같은 2계층 터널 이름이다.",
-          "explanation": "IP 계층의 보호 체계와 2계층 계열 터널을 구분해야 한다."
+          "text": "두 기술 모두 사용자 비밀번호를 저장하는 파일시스템이다.",
+          "explanation": "터널·통신 보호 기술을 저장장치 구조와 혼동했다."
         },
         {
           "id": "b",
-          "text": "L2TP는 2계층 계열 예시이며 IPsec은 IP 계층 보호 체계다.",
-          "explanation": "계층별 기능 차이를 설명하는 역사적 분류다."
+          "text": "L2TP의 터널링과 IPsec의 IP 계층 보호는 서로 다른 역할이다.",
+          "explanation": "캡슐화 기능만으로 암호화·인증까지 제공된다고 단정할 수 없다."
         },
         {
           "id": "c",
-          "text": "목록에 있는 모든 프로토콜은 자체 암호화와 현재 권고를 보증한다.",
-          "explanation": "분류에 등장하는 것과 제공 서비스·지원 상태는 다르다."
+          "text": "L2TP라는 이름만으로 모든 자료의 암호화가 보장된다.",
+          "explanation": "터널링과 기밀성 제공은 구분해야 한다."
         },
         {
           "id": "d",
-          "text": "PPTP와 L2TP의 캡슐화 기능만으로 별도 보호 없이 내용이 비밀이 된다.",
-          "explanation": "터널 형식 자체가 모든 기밀성 기능을 의미하지 않는다."
+          "text": "IPsec은 DNS 이름을 IP 주소로 바꾸는 기능이다.",
+          "explanation": "IP 계층의 보안 보호와 이름 조회는 다른 기능이다."
         }
       ],
       "answerId": "b",
-      "explanation": "분류를 외울 때 현재 권고 여부와 자체 보호 기능은 따로 검토한다.",
+      "explanation": "캡슐화 기능만으로 암호화·인증까지 제공된다고 단정할 수 없다.",
       "sourcePages": [
         4
-      ]
+      ],
+      "context": ""
     },
     {
-      "id": "w04-q011",
+      "id": "w04-q011-r2",
       "objectiveId": "w04-deployment",
-      "family": "w04-site-site",
-      "kind": "concept",
-      "difficulty": 1,
-      "prompt": "본사 LAN과 지사 LAN을 지속적으로 잇는 교안의 분류는?",
+      "family": "w04-site-site-r2",
+      "kind": "application",
+      "difficulty": 2,
+      "prompt": "본사 LAN과 지사 LAN 사이를 VPN 게이트웨이로 지속 연결하려 한다. 적합한 연결 유형은?",
       "options": [
         {
           "id": "a",
-          "text": "외부 네트워크 방식",
-          "explanation": "협력업체 등 별도 조직과 연결하는 분류이며 본사·지사 예와 다르다."
+          "text": "웹 서버 인증서 갱신만",
+          "explanation": "인증서 갱신만으로 두 망을 연결하는 VPN이 구성되지 않는다."
         },
         {
           "id": "b",
-          "text": "원격접속 방식",
-          "explanation": "이동 사용자 한 단말의 접속과 LAN-to-LAN 연결을 구분한다."
+          "text": "DNS 캐시 교체만",
+          "explanation": "이름 조회 정보 갱신은 사이트 간 보호 경로를 만드는 작업이 아니다."
         },
         {
           "id": "c",
-          "text": "내부 네트워크 방식",
-          "explanation": "LAN-to-LAN의 조직 내 연결 예시다."
+          "text": "사이트 간 VPN",
+          "explanation": "망과 망을 게이트웨이로 잇는 LAN-to-LAN 구성이다."
         },
         {
           "id": "d",
-          "text": "인터넷 회선을 쓰면 연결 주체와 무관하게 모두 원격접속 방식",
-          "explanation": "이 분류는 회선 종류가 아니라 망 대 망·단말 대 망 같은 접속 범위를 구분한다."
+          "text": "이동 직원 한 단말의 원격접속 VPN만",
+          "explanation": "단말 대 망 연결과 제시된 망 대 망 연결을 구분해야 한다."
         }
       ],
       "answerId": "c",
-      "explanation": "분류의 기준은 연결하는 주체와 범위다.",
+      "explanation": "망과 망을 게이트웨이로 잇는 LAN-to-LAN 구성이다.",
       "sourcePages": [
         6
-      ]
+      ],
+      "context": ""
     },
     {
       "id": "w04-q012",
@@ -883,39 +886,40 @@
       ]
     },
     {
-      "id": "w04-q013",
+      "id": "w04-q013-r2",
       "objectiveId": "w04-deployment",
-      "family": "w04-mobile-to-lan",
+      "family": "w04-mobile-to-lan-r2",
       "kind": "application",
-      "difficulty": 1,
-      "prompt": "허가된 이동 직원이 노트북에서 업무망에 접속한다. 교안의 대표 유형은?",
+      "difficulty": 2,
+      "prompt": "외근 직원이 노트북에서 회사의 허용된 업무 자원에 VPN으로 접속한다. 적합한 연결 유형은?",
       "options": [
         {
           "id": "a",
-          "text": "원격접속 방식",
-          "explanation": "Mobile-to-LAN의 사용자 연결이다."
+          "text": "원격접속 VPN",
+          "explanation": "사용자 단말에서 업무망으로 접속하는 구성으로 사용자 인증과 단말·자원 권한을 함께 관리한다."
         },
         {
           "id": "b",
-          "text": "본사와 지사 LAN을 잇는 내부 네트워크 방식",
-          "explanation": "조직의 두 망 사이 연결과 한 이동 사용자 단말 접속을 구분한다."
+          "text": "본사와 지사 게이트웨이 간 사이트 VPN",
+          "explanation": "망 대 망 연결이며 제시된 사용자 단말 접속과 다르다."
         },
         {
           "id": "c",
-          "text": "협력사와 필요한 자료를 공유하는 외부 네트워크 방식",
-          "explanation": "별도 조직과의 연결이 아닌 허가 직원의 원격 접속 사례다."
+          "text": "협력사 전체 망을 동일 권한으로 합치는 연결",
+          "explanation": "직원 한 명의 필요한 자원 접근을 전체 조직 망 통합으로 확대했다."
         },
         {
           "id": "d",
-          "text": "인터넷을 경유하면 직원 단말도 모두 협력망 연결 방식",
-          "explanation": "외부 회선 사용과 별도 조직을 연결하는 접속 범위는 다르다."
+          "text": "인터넷을 사용하므로 인증 없는 공용 접속",
+          "explanation": "인터넷 회선의 사용은 VPN 인증과 권한 통제를 없애지 않는다."
         }
       ],
       "answerId": "a",
-      "explanation": "이동 사용자의 인증과 단말·접근 정책을 함께 검토하는 유형이다.",
+      "explanation": "사용자 단말에서 업무망으로 접속하는 구성으로 사용자 인증과 단말·자원 권한을 함께 관리한다.",
       "sourcePages": [
         8
-      ]
+      ],
+      "context": ""
     },
     {
       "id": "w04-q014",
@@ -1343,41 +1347,42 @@
       ]
     },
     {
-      "id": "w04-q026",
+      "id": "w04-q026-r2",
       "objectiveId": "w04-ike",
-      "family": "w04-ike-version-phases",
-      "kind": "evidence",
+      "family": "w04-ike-version-phases-r2",
+      "kind": "application",
       "difficulty": 2,
-      "prompt": "교안의 IKE 1·1.5·2단계 설명을 읽는 올바른 방법은?",
+      "prompt": "IKEv2의 일반적인 초기 연결에서 IKE_SA_INIT과 IKE_AUTH의 역할을 바르게 연결한 것은?",
       "options": [
         {
           "id": "a",
-          "text": "IKEv1은 현재도 모든 신규 설계의 기본 권고다.",
-          "explanation": "공식 폐기 상태를 반영하지 못한다."
+          "text": "IKEv2에서는 항상 공식 1.5단계를 추가로 수행한다.",
+          "explanation": "IKEv1 시기의 확장 명칭을 IKEv2의 보편적인 필수 단계로 옮길 수 없다."
         },
         {
           "id": "b",
-          "text": "IKEv1·당시 확장 맥락으로 한정하고 IKEv2와 구분한다.",
-          "explanation": "현재 버전의 보편 필수 단계 명칭이 아니다."
+          "text": "초기 알고리즘·키 교환 협상 후 상대 인증과 첫 Child SA 설정을 진행한다.",
+          "explanation": "초기 교환과 인증 교환을 통해 IKE 보호 관계와 데이터 보호용 SA를 구성한다."
         },
         {
           "id": "c",
-          "text": "모든 IKEv2에 공식 1.5단계가 필수다.",
-          "explanation": "버전과 확장 기능의 범위를 혼동했다."
+          "text": "IKE_SA_INIT만으로 모든 업무 자원 접근 권한까지 승인된다.",
+          "explanation": "키 교환 협상은 상대 인증 및 응용 자원의 인가를 모두 대체하지 않는다."
         },
         {
           "id": "d",
-          "text": "1단계가 끝나면 모든 업무 패킷 보호가 자동 완료된다.",
-          "explanation": "데이터 SA와 정책 선택은 별도다."
+          "text": "IKE_AUTH는 암호화 키를 공개 게시하는 단계다.",
+          "explanation": "인증과 보호 관계 설정을 위한 교환이며 비밀키 공개가 목적이 아니다."
         }
       ],
       "answerId": "b",
-      "explanation": "역사적 협상 흐름은 기능 이해에 쓰되 현행 구현 기준으로 오인하지 않는다.",
+      "explanation": "초기 교환과 인증 교환을 통해 IKE 보호 관계와 데이터 보호용 SA를 구성한다.",
       "sourcePages": [
         13,
         14,
         15
-      ]
+      ],
+      "context": ""
     },
     {
       "id": "w04-q027",
@@ -1524,39 +1529,40 @@
       ]
     },
     {
-      "id": "w04-q031",
+      "id": "w04-q031-r2",
       "objectiveId": "w04-vpncrypto",
-      "family": "w04-des-round-conflict",
-      "kind": "evidence",
-      "difficulty": 1,
-      "prompt": "교안 간 DES 반복 횟수 충돌을 바로잡은 것은?",
+      "family": "w04-des-round-conflict-r2",
+      "kind": "application",
+      "difficulty": 2,
+      "prompt": "DES의 내부 구조에 관한 설명으로 옳은 것은?",
       "options": [
         {
           "id": "a",
-          "text": "3DES가 있으므로 DES 내부 라운드는 3개다.",
-          "explanation": "결합 적용 횟수와 본체의 반복 수는 다르다."
+          "text": "3DES가 존재하므로 DES 내부 라운드는 3개이다.",
+          "explanation": "DES를 결합 적용하는 횟수와 한 DES 내부 반복 수는 다르다."
         },
         {
           "id": "b",
-          "text": "유효 키가 56비트이므로 56라운드다.",
-          "explanation": "키 길이와 반복 횟수를 혼동했다."
+          "text": "블록이 64비트이므로 64라운드이다.",
+          "explanation": "블록 크기를 반복 횟수와 혼동했다."
         },
         {
           "id": "c",
-          "text": "표준 DES는 16라운드다.",
-          "explanation": "4주차의 9회 설명은 잘못된 제원이다."
+          "text": "64비트 블록을 처리하는 16라운드 Feistel 구조이다.",
+          "explanation": "DES의 블록 크기·유효 키 길이·라운드 수는 서로 다른 제원이다. 신규 보호 설계에는 적합하지 않은 구형 암호다."
         },
         {
           "id": "d",
-          "text": "DES는 9라운드이고 16은 블록 분할 수다.",
-          "explanation": "서로 다른 제원을 섞어 표준 라운드 수를 잘못 설명했다."
+          "text": "유효 키가 56비트이므로 56라운드이다.",
+          "explanation": "키 길이를 라운드 수로 잘못 해석했다."
         }
       ],
       "answerId": "c",
-      "explanation": "다른 교안 문장보다 공식 제원과 구조를 기준으로 정정한다.",
+      "explanation": "DES의 블록 크기·유효 키 길이·라운드 수는 서로 다른 제원이다. 신규 보호 설계에는 적합하지 않은 구형 암호다.",
       "sourcePages": [
         16
-      ]
+      ],
+      "context": ""
     },
     {
       "id": "w04-q032",
@@ -2308,6 +2314,227 @@
     {
       "title": "IETF RFC 3948: UDP encapsulation of ESP",
       "url": "https://www.rfc-editor.org/rfc/rfc3948"
+    }
+  ],
+  "retiredQuestions": [
+    {
+      "id": "w04-q007",
+      "objectiveId": "w04-functions",
+      "family": "w04-vpn-integrity-mechanism",
+      "kind": "evidence",
+      "difficulty": 2,
+      "prompt": "VPN 패킷 무결성에 관한 교안 표현을 보완한 것은?",
+      "options": [
+        {
+          "id": "a",
+          "text": "키 없는 해시만 보내면 적극적 변경을 항상 막는다.",
+          "explanation": "공격자가 내용과 해시를 함께 바꿀 수 있다."
+        },
+        {
+          "id": "b",
+          "text": "터널 헤더가 있으면 인증 검사가 필요 없다.",
+          "explanation": "캡슐화는 발신자 검증을 대체하지 않는다."
+        },
+        {
+          "id": "c",
+          "text": "MAC 또는 인증된 암호화로도 제공할 수 있다.",
+          "explanation": "모든 패킷에 공개키 서명이 필수인 것은 아니다."
+        },
+        {
+          "id": "d",
+          "text": "공개키 서명 외에는 어떤 방법도 없다.",
+          "explanation": "대칭키 메시지 인증을 배제한 오류다."
+        }
+      ],
+      "answerId": "c",
+      "explanation": "목표 성질과 구체적 검증 수단을 연결한다.",
+      "sourcePages": [
+        4,
+        17
+      ],
+      "supersededBy": "w04-q007-r2"
+    },
+    {
+      "id": "w04-q010",
+      "objectiveId": "w04-functions",
+      "family": "w04-layer-examples",
+      "kind": "concept",
+      "difficulty": 1,
+      "prompt": "교안의 터널 계열 분류를 정확하게 읽은 것은?",
+      "options": [
+        {
+          "id": "a",
+          "text": "IPsec과 L2TP는 같은 2계층 터널 이름이다.",
+          "explanation": "IP 계층의 보호 체계와 2계층 계열 터널을 구분해야 한다."
+        },
+        {
+          "id": "b",
+          "text": "L2TP는 2계층 계열 예시이며 IPsec은 IP 계층 보호 체계다.",
+          "explanation": "계층별 기능 차이를 설명하는 역사적 분류다."
+        },
+        {
+          "id": "c",
+          "text": "목록에 있는 모든 프로토콜은 자체 암호화와 현재 권고를 보증한다.",
+          "explanation": "분류에 등장하는 것과 제공 서비스·지원 상태는 다르다."
+        },
+        {
+          "id": "d",
+          "text": "PPTP와 L2TP의 캡슐화 기능만으로 별도 보호 없이 내용이 비밀이 된다.",
+          "explanation": "터널 형식 자체가 모든 기밀성 기능을 의미하지 않는다."
+        }
+      ],
+      "answerId": "b",
+      "explanation": "분류를 외울 때 현재 권고 여부와 자체 보호 기능은 따로 검토한다.",
+      "sourcePages": [
+        4
+      ],
+      "supersededBy": "w04-q010-r2"
+    },
+    {
+      "id": "w04-q011",
+      "objectiveId": "w04-deployment",
+      "family": "w04-site-site",
+      "kind": "concept",
+      "difficulty": 1,
+      "prompt": "본사 LAN과 지사 LAN을 지속적으로 잇는 교안의 분류는?",
+      "options": [
+        {
+          "id": "a",
+          "text": "외부 네트워크 방식",
+          "explanation": "협력업체 등 별도 조직과 연결하는 분류이며 본사·지사 예와 다르다."
+        },
+        {
+          "id": "b",
+          "text": "원격접속 방식",
+          "explanation": "이동 사용자 한 단말의 접속과 LAN-to-LAN 연결을 구분한다."
+        },
+        {
+          "id": "c",
+          "text": "내부 네트워크 방식",
+          "explanation": "LAN-to-LAN의 조직 내 연결 예시다."
+        },
+        {
+          "id": "d",
+          "text": "인터넷 회선을 쓰면 연결 주체와 무관하게 모두 원격접속 방식",
+          "explanation": "이 분류는 회선 종류가 아니라 망 대 망·단말 대 망 같은 접속 범위를 구분한다."
+        }
+      ],
+      "answerId": "c",
+      "explanation": "분류의 기준은 연결하는 주체와 범위다.",
+      "sourcePages": [
+        6
+      ],
+      "supersededBy": "w04-q011-r2"
+    },
+    {
+      "id": "w04-q013",
+      "objectiveId": "w04-deployment",
+      "family": "w04-mobile-to-lan",
+      "kind": "application",
+      "difficulty": 1,
+      "prompt": "허가된 이동 직원이 노트북에서 업무망에 접속한다. 교안의 대표 유형은?",
+      "options": [
+        {
+          "id": "a",
+          "text": "원격접속 방식",
+          "explanation": "Mobile-to-LAN의 사용자 연결이다."
+        },
+        {
+          "id": "b",
+          "text": "본사와 지사 LAN을 잇는 내부 네트워크 방식",
+          "explanation": "조직의 두 망 사이 연결과 한 이동 사용자 단말 접속을 구분한다."
+        },
+        {
+          "id": "c",
+          "text": "협력사와 필요한 자료를 공유하는 외부 네트워크 방식",
+          "explanation": "별도 조직과의 연결이 아닌 허가 직원의 원격 접속 사례다."
+        },
+        {
+          "id": "d",
+          "text": "인터넷을 경유하면 직원 단말도 모두 협력망 연결 방식",
+          "explanation": "외부 회선 사용과 별도 조직을 연결하는 접속 범위는 다르다."
+        }
+      ],
+      "answerId": "a",
+      "explanation": "이동 사용자의 인증과 단말·접근 정책을 함께 검토하는 유형이다.",
+      "sourcePages": [
+        8
+      ],
+      "supersededBy": "w04-q013-r2"
+    },
+    {
+      "id": "w04-q026",
+      "objectiveId": "w04-ike",
+      "family": "w04-ike-version-phases",
+      "kind": "evidence",
+      "difficulty": 2,
+      "prompt": "교안의 IKE 1·1.5·2단계 설명을 읽는 올바른 방법은?",
+      "options": [
+        {
+          "id": "a",
+          "text": "IKEv1은 현재도 모든 신규 설계의 기본 권고다.",
+          "explanation": "공식 폐기 상태를 반영하지 못한다."
+        },
+        {
+          "id": "b",
+          "text": "IKEv1·당시 확장 맥락으로 한정하고 IKEv2와 구분한다.",
+          "explanation": "현재 버전의 보편 필수 단계 명칭이 아니다."
+        },
+        {
+          "id": "c",
+          "text": "모든 IKEv2에 공식 1.5단계가 필수다.",
+          "explanation": "버전과 확장 기능의 범위를 혼동했다."
+        },
+        {
+          "id": "d",
+          "text": "1단계가 끝나면 모든 업무 패킷 보호가 자동 완료된다.",
+          "explanation": "데이터 SA와 정책 선택은 별도다."
+        }
+      ],
+      "answerId": "b",
+      "explanation": "역사적 협상 흐름은 기능 이해에 쓰되 현행 구현 기준으로 오인하지 않는다.",
+      "sourcePages": [
+        13,
+        14,
+        15
+      ],
+      "supersededBy": "w04-q026-r2"
+    },
+    {
+      "id": "w04-q031",
+      "objectiveId": "w04-vpncrypto",
+      "family": "w04-des-round-conflict",
+      "kind": "evidence",
+      "difficulty": 1,
+      "prompt": "교안 간 DES 반복 횟수 충돌을 바로잡은 것은?",
+      "options": [
+        {
+          "id": "a",
+          "text": "3DES가 있으므로 DES 내부 라운드는 3개다.",
+          "explanation": "결합 적용 횟수와 본체의 반복 수는 다르다."
+        },
+        {
+          "id": "b",
+          "text": "유효 키가 56비트이므로 56라운드다.",
+          "explanation": "키 길이와 반복 횟수를 혼동했다."
+        },
+        {
+          "id": "c",
+          "text": "표준 DES는 16라운드다.",
+          "explanation": "4주차의 9회 설명은 잘못된 제원이다."
+        },
+        {
+          "id": "d",
+          "text": "DES는 9라운드이고 16은 블록 분할 수다.",
+          "explanation": "서로 다른 제원을 섞어 표준 라운드 수를 잘못 설명했다."
+        }
+      ],
+      "answerId": "c",
+      "explanation": "다른 교안 문장보다 공식 제원과 구조를 기준으로 정정한다.",
+      "sourcePages": [
+        16
+      ],
+      "supersededBy": "w04-q031-r2"
     }
   ]
 }

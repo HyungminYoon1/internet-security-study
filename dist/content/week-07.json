@@ -1814,40 +1814,41 @@
       ]
     },
     {
-      "id": "w07-q031",
+      "id": "w07-q031-r2",
       "objectiveId": "w07-snort-pipeline",
-      "family": "w07-snort-version-config",
-      "kind": "evidence",
+      "family": "w07-snort-version-config-r2",
+      "kind": "application",
       "difficulty": 2,
-      "prompt": "교안의 snort.conf와 플러그인 목록을 Snort 3 학습에 사용할 때 적절한 설명은?",
+      "prompt": "침입 탐지 시스템이 필요한 트래픽을 수집하지 못한다. 탐지 규칙만 추가했을 때의 한계는?",
       "options": [
         {
           "id": "a",
-          "text": "3에서도 snort.conf와 구형 플러그인 설정을 변경 없이 적용하면 됨",
-          "explanation": "구성 방식과 검사기 구조의 버전 차이를 확인해야 하며 구형 설정 호환을 가정하지 않는다."
+          "text": "로그 출력 형식만 바꾸면 누락 패킷이 모두 수집된다.",
+          "explanation": "출력 설정과 수집 경로는 다른 단계다."
         },
         {
           "id": "b",
-          "text": "출력은 반드시 텍스트 DB 한 종류뿐이다",
-          "explanation": "출력 방식은 제품·설정에 따라 달라질 수 있다."
+          "text": "입력이 없으므로 공격이 없었다고 확정할 수 있다.",
+          "explanation": "관측 실패를 정상 상태의 증거로 바꾸어 해석하면 안 된다."
         },
         {
           "id": "c",
-          "text": "과거 구조와 기능 흐름을 설명하고 3의 구성·검사기 차이를 밝힌다",
-          "explanation": "버전별 내부 구성은 달라도 수집·해석·판단·출력이라는 역할을 비교할 수 있다."
+          "text": "규칙이 분석할 입력 자체가 없어 해당 트래픽의 탐지를 보장하지 못한다.",
+          "explanation": "수집·해석·탐지·출력 각 단계가 연결되어야 하며 규칙의 존재만으로 관측 공백이 해결되지는 않는다."
         },
         {
           "id": "d",
-          "text": "모든 명칭을 그대로 현대 필수 조건으로 채점",
-          "explanation": "구성 파일·검사기 구조의 변화를 무시한다."
+          "text": "규칙 이름만 있으면 수집 없이 실제 패킷 내용을 복원한다.",
+          "explanation": "탐지 규칙은 관찰하지 않은 실제 통신을 자동 복원하는 기능이 아니다."
         }
       ],
       "answerId": "c",
-      "explanation": "버전별 내부 구성은 달라도 수집·해석·판단·출력이라는 역할을 비교할 수 있다.",
+      "explanation": "수집·해석·탐지·출력 각 단계가 연결되어야 하며 규칙의 존재만으로 관측 공백이 해결되지는 않는다.",
       "sourcePages": [
         14,
         15
-      ]
+      ],
+      "context": ""
     },
     {
       "id": "w07-q032",
@@ -1958,39 +1959,40 @@
       ]
     },
     {
-      "id": "w07-q035",
+      "id": "w07-q035-r2",
       "objectiveId": "w07-snort-header",
-      "family": "w07-snort-port-range",
+      "family": "w07-snort-port-range-r2",
       "kind": "application",
       "difficulty": 2,
-      "prompt": "교안의 범위 표기 1:1024가 1부터 1024까지 포함한다는 조건에서 포트 1024는?",
+      "prompt": "탐지 규칙의 목적지 포트 범위가 1:1024이며 양 끝을 포함한다. TCP 목적지 포트가 1024인 패킷은?",
       "options": [
         {
           "id": "a",
-          "text": "예약·특권 포트 분류를 이유로 자동 제외된다",
-          "explanation": "포트의 용도 분류와 명시한 숫자 구간 포함 여부는 다른 기준이다."
+          "text": "목적지 포트가 일치하면 프로토콜과 방향 검사는 생략한다.",
+          "explanation": "규칙의 여러 조건은 각각 확인해야 한다."
         },
         {
           "id": "b",
-          "text": "현재 연결된 포트일 때만 숫자 범위에 들어간다",
-          "explanation": "범위 포함 판단은 연결 상태와 별개이며 상태는 추가 조건으로 평가한다."
+          "text": "포트가 1024이면 모든 응용에서 같은 서비스다.",
+          "explanation": "포트 번호만으로 실제 실행 서비스의 정체까지 확정할 수 없다."
         },
         {
           "id": "c",
-          "text": "해당 범위 안에 있다",
-          "explanation": "명시된 양 끝을 포함하므로 1024도 일치한다. 프로토콜 등 다른 조건은 별도로 확인한다."
+          "text": "포트 조건에는 일치하며 나머지 조건은 별도로 평가한다.",
+          "explanation": "1024는 포함된 상한이다. 포트 일치만으로 규칙 전체 일치가 확정되지는 않는다."
         },
         {
           "id": "d",
-          "text": "상한은 제외하므로 범위 밖이다",
-          "explanation": "문제에서 양 끝 포함을 명시했으므로 상한 제외 해석은 조건과 모순이다."
+          "text": "상한은 항상 제외되므로 범위 밖이다.",
+          "explanation": "문제에서 양 끝 포함을 명시했으므로 그 조건과 모순이다."
         }
       ],
       "answerId": "c",
-      "explanation": "명시된 양 끝을 포함하므로 1024도 일치한다. 프로토콜 등 다른 조건은 별도로 확인한다.",
+      "explanation": "1024는 포함된 상한이다. 포트 일치만으로 규칙 전체 일치가 확정되지는 않는다.",
       "sourcePages": [
         17
-      ]
+      ],
+      "context": ""
     },
     {
       "id": "w07-q036",
@@ -2529,77 +2531,79 @@
       ]
     },
     {
-      "id": "w07-q051",
+      "id": "w07-q051-r2",
       "objectiveId": "w07-waf-engine",
-      "family": "w07-waf-mirror-enforcement",
-      "kind": "evidence",
-      "difficulty": 3,
-      "prompt": "교안형 미러 수집 모델이 의심 요청을 기록했다. 실제 차단 성공에 필요한 별도 증거는?",
+      "family": "w07-waf-mirror-enforcement-r2",
+      "kind": "application",
+      "difficulty": 2,
+      "prompt": "미러 포트에서 복사한 요청을 탐지 장비가 경보로 기록했다. 원본 요청의 차단 여부를 확인하려면?",
       "options": [
         {
           "id": "a",
-          "text": "관리 화면의 정책 적용 성공 표시만",
-          "explanation": "정책 적용 상태와 해당 요청이 실제로 차단됐는지는 다르므로 전달 결과가 필요하다."
+          "text": "로그 파일 크기가 커졌는지만 확인한다.",
+          "explanation": "로그의 크기는 대상 요청이 서버에 도달했는지 보여 주지 않는다."
         },
         {
           "id": "b",
-          "text": "헤더에 alert라는 단어만",
-          "explanation": "alert는 경보 동작으로 차단 성공을 보장하지 않는다."
+          "text": "관리 화면에 정책 이름이 있으면 차단 검증을 끝낸다.",
+          "explanation": "설정의 존재와 실행 결과는 별도의 증거가 필요하다."
         },
         {
           "id": "c",
-          "text": "집행 모드와 서버 도달·응답 결과 확인",
-          "explanation": "복사본 탐지·로그만으로 원본의 전달을 멈췄다고 볼 수 없으므로 집행과 대상 결과가 필요하다."
+          "text": "실제 집행 경로와 서버 도달·응답 결과를 확인한다.",
+          "explanation": "복사본 관찰은 원본 전달 중단과 다르며 차단 능력과 결과를 따로 확인해야 한다."
         },
         {
           "id": "d",
-          "text": "로그 파일이 존재한다는 사실만",
-          "explanation": "관찰 기록은 차단 결과와 다르다."
+          "text": "경보가 생겼으므로 원본도 반드시 폐기되었다고 본다.",
+          "explanation": "탐지와 차단을 같은 동작으로 취급했다."
         }
       ],
       "answerId": "c",
-      "explanation": "복사본 탐지·로그만으로 원본의 전달을 멈췄다고 볼 수 없으므로 집행과 대상 결과가 필요하다.",
+      "explanation": "복사본 관찰은 원본 전달 중단과 다르며 차단 능력과 결과를 따로 확인해야 한다.",
       "sourcePages": [
         27,
         29,
         30
-      ]
+      ],
+      "context": ""
     },
     {
-      "id": "w07-q052",
+      "id": "w07-q052-r2",
       "objectiveId": "w07-waf-engine",
-      "family": "w07-waf-policy-composition",
-      "kind": "concept",
+      "family": "w07-waf-policy-composition-r2",
+      "kind": "application",
       "difficulty": 2,
-      "prompt": "교안의 헤더·URL·웹·일반 이벤트 정책을 조합한다는 뜻으로 적절한 것은?",
+      "prompt": "WAF 정책은 특정 호스트의 /admin 경로이면서 허용되지 않은 메서드일 때 차단하도록 구성했다. 요청 판단에 필요한 것은?",
       "options": [
         {
           "id": "a",
-          "text": "모든 정책은 IP 하나만 비교한다",
-          "explanation": "URL·웹 문맥 조건을 생략한 설명이다."
+          "text": "출발지 IP 하나만 보고 나머지 조건을 버린다.",
+          "explanation": "주어진 정책의 호스트·경로·메서드 조건을 누락했다."
         },
         {
           "id": "b",
-          "text": "어느 조건도 없어도 무조건 악성 확정",
-          "explanation": "정책의 판단 근거가 사라진다."
+          "text": "URL에 admin이라는 문자열이 어디든 있으면 모두 같은 경로로 본다.",
+          "explanation": "문자열 포함과 정규화된 경로의 의미는 다를 수 있다."
         },
         {
           "id": "c",
-          "text": "각 파일은 실제 공격 성공을 자동 증명한다",
-          "explanation": "규칙 매칭과 실제 실행·피해 결과는 다르다."
+          "text": "조건에 일치하면 데이터 유출까지 이미 성공했다고 확정한다.",
+          "explanation": "탐지·차단 조건과 실제 공격 피해는 별도 사실이다."
         },
         {
           "id": "d",
-          "text": "대상 흐름·동작과 해당 문맥의 탐지 조건을 함께 평가",
-          "explanation": "적용 범위와 추가 특징을 연결해 완성된 판단을 만드는 흐름이다."
+          "text": "호스트·정규화한 경로·메서드 조건을 함께 평가한다.",
+          "explanation": "여러 조건이 결합된 적용 범위를 확인해야 정책과 요청을 정확히 연결할 수 있다."
         }
       ],
       "answerId": "d",
-      "explanation": "적용 범위와 추가 특징을 연결해 완성된 판단을 만드는 흐름이다.",
+      "explanation": "여러 조건이 결합된 적용 범위를 확인해야 정책과 요청을 정확히 연결할 수 있다.",
       "sourcePages": [
         28,
         31
-      ]
+      ],
+      "context": ""
     },
     {
       "id": "w07-q053",
@@ -3417,6 +3421,156 @@
     {
       "title": "NIST SP 800-92 로그 기밀성·저장·폐기 관리",
       "url": "https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-92.pdf"
+    }
+  ],
+  "retiredQuestions": [
+    {
+      "id": "w07-q031",
+      "objectiveId": "w07-snort-pipeline",
+      "family": "w07-snort-version-config",
+      "kind": "evidence",
+      "difficulty": 2,
+      "prompt": "교안의 snort.conf와 플러그인 목록을 Snort 3 학습에 사용할 때 적절한 설명은?",
+      "options": [
+        {
+          "id": "a",
+          "text": "3에서도 snort.conf와 구형 플러그인 설정을 변경 없이 적용하면 됨",
+          "explanation": "구성 방식과 검사기 구조의 버전 차이를 확인해야 하며 구형 설정 호환을 가정하지 않는다."
+        },
+        {
+          "id": "b",
+          "text": "출력은 반드시 텍스트 DB 한 종류뿐이다",
+          "explanation": "출력 방식은 제품·설정에 따라 달라질 수 있다."
+        },
+        {
+          "id": "c",
+          "text": "과거 구조와 기능 흐름을 설명하고 3의 구성·검사기 차이를 밝힌다",
+          "explanation": "버전별 내부 구성은 달라도 수집·해석·판단·출력이라는 역할을 비교할 수 있다."
+        },
+        {
+          "id": "d",
+          "text": "모든 명칭을 그대로 현대 필수 조건으로 채점",
+          "explanation": "구성 파일·검사기 구조의 변화를 무시한다."
+        }
+      ],
+      "answerId": "c",
+      "explanation": "버전별 내부 구성은 달라도 수집·해석·판단·출력이라는 역할을 비교할 수 있다.",
+      "sourcePages": [
+        14,
+        15
+      ],
+      "supersededBy": "w07-q031-r2"
+    },
+    {
+      "id": "w07-q035",
+      "objectiveId": "w07-snort-header",
+      "family": "w07-snort-port-range",
+      "kind": "application",
+      "difficulty": 2,
+      "prompt": "교안의 범위 표기 1:1024가 1부터 1024까지 포함한다는 조건에서 포트 1024는?",
+      "options": [
+        {
+          "id": "a",
+          "text": "예약·특권 포트 분류를 이유로 자동 제외된다",
+          "explanation": "포트의 용도 분류와 명시한 숫자 구간 포함 여부는 다른 기준이다."
+        },
+        {
+          "id": "b",
+          "text": "현재 연결된 포트일 때만 숫자 범위에 들어간다",
+          "explanation": "범위 포함 판단은 연결 상태와 별개이며 상태는 추가 조건으로 평가한다."
+        },
+        {
+          "id": "c",
+          "text": "해당 범위 안에 있다",
+          "explanation": "명시된 양 끝을 포함하므로 1024도 일치한다. 프로토콜 등 다른 조건은 별도로 확인한다."
+        },
+        {
+          "id": "d",
+          "text": "상한은 제외하므로 범위 밖이다",
+          "explanation": "문제에서 양 끝 포함을 명시했으므로 상한 제외 해석은 조건과 모순이다."
+        }
+      ],
+      "answerId": "c",
+      "explanation": "명시된 양 끝을 포함하므로 1024도 일치한다. 프로토콜 등 다른 조건은 별도로 확인한다.",
+      "sourcePages": [
+        17
+      ],
+      "supersededBy": "w07-q035-r2"
+    },
+    {
+      "id": "w07-q051",
+      "objectiveId": "w07-waf-engine",
+      "family": "w07-waf-mirror-enforcement",
+      "kind": "evidence",
+      "difficulty": 3,
+      "prompt": "교안형 미러 수집 모델이 의심 요청을 기록했다. 실제 차단 성공에 필요한 별도 증거는?",
+      "options": [
+        {
+          "id": "a",
+          "text": "관리 화면의 정책 적용 성공 표시만",
+          "explanation": "정책 적용 상태와 해당 요청이 실제로 차단됐는지는 다르므로 전달 결과가 필요하다."
+        },
+        {
+          "id": "b",
+          "text": "헤더에 alert라는 단어만",
+          "explanation": "alert는 경보 동작으로 차단 성공을 보장하지 않는다."
+        },
+        {
+          "id": "c",
+          "text": "집행 모드와 서버 도달·응답 결과 확인",
+          "explanation": "복사본 탐지·로그만으로 원본의 전달을 멈췄다고 볼 수 없으므로 집행과 대상 결과가 필요하다."
+        },
+        {
+          "id": "d",
+          "text": "로그 파일이 존재한다는 사실만",
+          "explanation": "관찰 기록은 차단 결과와 다르다."
+        }
+      ],
+      "answerId": "c",
+      "explanation": "복사본 탐지·로그만으로 원본의 전달을 멈췄다고 볼 수 없으므로 집행과 대상 결과가 필요하다.",
+      "sourcePages": [
+        27,
+        29,
+        30
+      ],
+      "supersededBy": "w07-q051-r2"
+    },
+    {
+      "id": "w07-q052",
+      "objectiveId": "w07-waf-engine",
+      "family": "w07-waf-policy-composition",
+      "kind": "concept",
+      "difficulty": 2,
+      "prompt": "교안의 헤더·URL·웹·일반 이벤트 정책을 조합한다는 뜻으로 적절한 것은?",
+      "options": [
+        {
+          "id": "a",
+          "text": "모든 정책은 IP 하나만 비교한다",
+          "explanation": "URL·웹 문맥 조건을 생략한 설명이다."
+        },
+        {
+          "id": "b",
+          "text": "어느 조건도 없어도 무조건 악성 확정",
+          "explanation": "정책의 판단 근거가 사라진다."
+        },
+        {
+          "id": "c",
+          "text": "각 파일은 실제 공격 성공을 자동 증명한다",
+          "explanation": "규칙 매칭과 실제 실행·피해 결과는 다르다."
+        },
+        {
+          "id": "d",
+          "text": "대상 흐름·동작과 해당 문맥의 탐지 조건을 함께 평가",
+          "explanation": "적용 범위와 추가 특징을 연결해 완성된 판단을 만드는 흐름이다."
+        }
+      ],
+      "answerId": "d",
+      "explanation": "적용 범위와 추가 특징을 연결해 완성된 판단을 만드는 흐름이다.",
+      "sourcePages": [
+        28,
+        31
+      ],
+      "supersededBy": "w07-q052-r2"
     }
   ]
 }

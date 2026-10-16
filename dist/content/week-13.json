@@ -1189,40 +1189,41 @@
       ]
     },
     {
-      "id": "w13-q019",
+      "id": "w13-q019-r2",
       "objectiveId": "w13-network-patterns",
-      "family": "w13-network-patterns-port-not-proof",
-      "kind": "evidence",
+      "family": "w13-network-patterns-port-not-proof-r2",
+      "kind": "application",
       "difficulty": 2,
-      "prompt": "교안의 특정 트로이목마 관련 포트에 접속한 PC가 있다. 적절한 다음 확인은?",
+      "prompt": "악성코드가 쓰기도 하는 포트로 통신한 PC를 발견했다. 감염 여부를 판단하기 위한 다음 확인은?",
       "options": [
         {
           "id": "a",
-          "text": "관련 로그를 없애 오탐 가능성을 지운다.",
-          "explanation": "오탐 여부를 판단할 증거까지 잃는다."
+          "text": "오탐을 없애기 위해 조사 전에 관련 로그를 삭제한다.",
+          "explanation": "증거를 지우면 정상·악성 여부를 검증할 수 없게 된다."
         },
         {
           "id": "b",
-          "text": "같은 포트를 쓰는 모든 서비스를 영구 폐쇄한다.",
-          "explanation": "서비스 목적과 영향 검토 없이 과도한 결론을 내린다."
+          "text": "정상 프로그램도 쓰는 포트라면 모든 의심을 즉시 배제한다.",
+          "explanation": "정상 용도 가능성이 악성 행위 가능성을 완전히 제거하지는 않는다."
         },
         {
           "id": "c",
-          "text": "해당 프로세스·파일·업무 용도와 실제 통신을 확인한다.",
-          "explanation": "포트는 단서지만 합법적 재사용과 다른 프로그램 가능성을 배제하지 못한다."
+          "text": "해당 프로세스·파일과 업무 용도·실제 통신 내용을 함께 확인한다.",
+          "explanation": "포트는 단서이며 다른 정상 프로그램도 같은 번호를 사용할 수 있다."
         },
         {
           "id": "d",
-          "text": "포트 일치만으로 감염 제품명과 공격자를 확정한다.",
-          "explanation": "번호는 프로그램 정체와 행위 주체의 충분한 증거가 아니다."
+          "text": "포트 번호만으로 악성코드 이름과 공격자를 확정한다.",
+          "explanation": "번호는 프로그램의 정체나 행위 주체를 증명하지 않는다."
         }
       ],
       "answerId": "c",
-      "explanation": "포트는 단서지만 합법적 재사용과 다른 프로그램 가능성을 배제하지 못한다.",
+      "explanation": "포트는 단서이며 다른 정상 프로그램도 같은 번호를 사용할 수 있다.",
       "sourcePages": [
         9,
         10
-      ]
+      ],
+      "context": ""
     },
     {
       "id": "w13-q020",
@@ -1984,39 +1985,40 @@
       ]
     },
     {
-      "id": "w13-q041",
+      "id": "w13-q041-r2",
       "objectiveId": "w13-exfil-chain",
-      "family": "w13-exfil-chain-compound",
-      "kind": "concept",
+      "family": "w13-exfil-chain-compound-r2",
+      "kind": "application",
       "difficulty": 2,
-      "prompt": "교안의 복합 시나리오에 가장 가까운 것은?",
+      "prompt": "개인정보의 비인가 반출을 조사할 때 복합 상관분석으로 적절한 것은?",
       "options": [
         {
           "id": "a",
-          "text": "중앙 시스템의 개인정보 조회와 같은 자료의 외부 전송을 연결한다.",
-          "explanation": "여러 정보원의 관련 행위를 주체·자료·시간 조건으로 조합한다."
+          "text": "같은 주체가 조회한 자료와 이후 외부 전송된 자료를 시각·대상까지 연결한다.",
+          "explanation": "여러 정보원의 관련 행위를 연결해 동일 자료의 이동인지 검증한다."
         },
         {
           "id": "b",
-          "text": "한 센서의 과다 조회 횟수만 단독 평가한다.",
-          "explanation": "하나의 관찰 조건을 보는 단일 룰과 여러 관련 행위 연결을 구분한다."
+          "text": "한 경보의 중복 사본을 독립 사건으로 합산한다.",
+          "explanation": "중복 수집은 별개 행위가 발생했다는 증거가 아니다."
         },
         {
           "id": "c",
-          "text": "동일 이벤트를 수집기 두 곳에서 받은 사본 수로 합산한다.",
-          "explanation": "중복 사본은 독립 행위의 연속성을 입증하지 않는다."
+          "text": "같은 시각의 모든 경보를 주체·자료와 무관하게 결합한다.",
+          "explanation": "시간 근접만으로 같은 사건의 연속성을 입증할 수 없다."
         },
         {
           "id": "d",
-          "text": "주체·자료 관계 없이 같은 시각의 모든 경보를 합친다.",
-          "explanation": "시간 근접만으로 같은 자료의 이동 경로를 설명할 수 없다."
+          "text": "조회 건수만 보고 실제 외부 전송 여부는 생략한다.",
+          "explanation": "조회와 전송은 서로 다른 행위이므로 둘을 연결할 증거가 필요하다."
         }
       ],
       "answerId": "a",
-      "explanation": "여러 정보원의 관련 행위를 주체·자료·시간 조건으로 조합한다.",
+      "explanation": "여러 정보원의 관련 행위를 연결해 동일 자료의 이동인지 검증한다.",
       "sourcePages": [
         17
-      ]
+      ],
+      "context": ""
     },
     {
       "id": "w13-q042",
@@ -2802,6 +2804,81 @@
     {
       "title": "Apache Beam Programming Guide §8.2.1–8.2.2 고정·이동 시간 창",
       "url": "https://beam.apache.org/documentation/programming-guide/#windowing"
+    }
+  ],
+  "retiredQuestions": [
+    {
+      "id": "w13-q019",
+      "objectiveId": "w13-network-patterns",
+      "family": "w13-network-patterns-port-not-proof",
+      "kind": "evidence",
+      "difficulty": 2,
+      "prompt": "교안의 특정 트로이목마 관련 포트에 접속한 PC가 있다. 적절한 다음 확인은?",
+      "options": [
+        {
+          "id": "a",
+          "text": "관련 로그를 없애 오탐 가능성을 지운다.",
+          "explanation": "오탐 여부를 판단할 증거까지 잃는다."
+        },
+        {
+          "id": "b",
+          "text": "같은 포트를 쓰는 모든 서비스를 영구 폐쇄한다.",
+          "explanation": "서비스 목적과 영향 검토 없이 과도한 결론을 내린다."
+        },
+        {
+          "id": "c",
+          "text": "해당 프로세스·파일·업무 용도와 실제 통신을 확인한다.",
+          "explanation": "포트는 단서지만 합법적 재사용과 다른 프로그램 가능성을 배제하지 못한다."
+        },
+        {
+          "id": "d",
+          "text": "포트 일치만으로 감염 제품명과 공격자를 확정한다.",
+          "explanation": "번호는 프로그램 정체와 행위 주체의 충분한 증거가 아니다."
+        }
+      ],
+      "answerId": "c",
+      "explanation": "포트는 단서지만 합법적 재사용과 다른 프로그램 가능성을 배제하지 못한다.",
+      "sourcePages": [
+        9,
+        10
+      ],
+      "supersededBy": "w13-q019-r2"
+    },
+    {
+      "id": "w13-q041",
+      "objectiveId": "w13-exfil-chain",
+      "family": "w13-exfil-chain-compound",
+      "kind": "concept",
+      "difficulty": 2,
+      "prompt": "교안의 복합 시나리오에 가장 가까운 것은?",
+      "options": [
+        {
+          "id": "a",
+          "text": "중앙 시스템의 개인정보 조회와 같은 자료의 외부 전송을 연결한다.",
+          "explanation": "여러 정보원의 관련 행위를 주체·자료·시간 조건으로 조합한다."
+        },
+        {
+          "id": "b",
+          "text": "한 센서의 과다 조회 횟수만 단독 평가한다.",
+          "explanation": "하나의 관찰 조건을 보는 단일 룰과 여러 관련 행위 연결을 구분한다."
+        },
+        {
+          "id": "c",
+          "text": "동일 이벤트를 수집기 두 곳에서 받은 사본 수로 합산한다.",
+          "explanation": "중복 사본은 독립 행위의 연속성을 입증하지 않는다."
+        },
+        {
+          "id": "d",
+          "text": "주체·자료 관계 없이 같은 시각의 모든 경보를 합친다.",
+          "explanation": "시간 근접만으로 같은 자료의 이동 경로를 설명할 수 없다."
+        }
+      ],
+      "answerId": "a",
+      "explanation": "여러 정보원의 관련 행위를 주체·자료·시간 조건으로 조합한다.",
+      "sourcePages": [
+        17
+      ],
+      "supersededBy": "w13-q041-r2"
     }
   ]
 }

@@ -552,39 +552,40 @@
   ],
   "questions": [
     {
-      "id": "w12-q001",
+      "id": "w12-q001-r2",
       "objectiveId": "w12-sql-boundary",
-      "family": "w12-sql-boundary-dml",
-      "kind": "concept",
-      "difficulty": 1,
-      "prompt": "교안의 SQL 분류에서 기존 회원의 주소 값을 바꾸는 작업은?",
+      "family": "w12-sql-boundary-dml-r2",
+      "kind": "application",
+      "difficulty": 2,
+      "prompt": "기존 회원 행의 주소 값을 바꾸되 테이블 구조는 유지하려 한다. 적절한 SQL 작업은?",
       "options": [
         {
           "id": "a",
           "text": "UPDATE를 사용하는 DML",
-          "explanation": "저장된 행의 값을 바꾸므로 데이터 조작에 해당한다."
+          "explanation": "기존 행의 값을 수정하는 데이터 조작 작업이다."
         },
         {
           "id": "b",
-          "text": "CREATE를 사용하는 DDL",
-          "explanation": "CREATE는 구조 정의이며 기존 행의 값 갱신과 다르다."
+          "text": "CREATE로 새 테이블 정의",
+          "explanation": "객체 구조를 정의하는 작업이며 기존 회원 값 수정과 다르다."
         },
         {
           "id": "c",
-          "text": "DROP을 사용하는 DDL",
-          "explanation": "DROP은 객체 제거이며 주소 값만 변경하는 목적과 다르다."
+          "text": "DROP으로 회원 테이블 제거",
+          "explanation": "자료 구조를 제거하므로 주소만 바꾸려는 목적과 맞지 않는다."
         },
         {
           "id": "d",
-          "text": "INSERT를 사용하는 DML",
-          "explanation": "INSERT는 새 행 추가다. DML 분류는 맞아도 기존 회원의 주소 갱신에는 맞지 않는다."
+          "text": "INSERT로 같은 회원의 행 추가",
+          "explanation": "새 행을 추가하는 작업이며 기존 행 갱신이 아니다."
         }
       ],
       "answerId": "a",
-      "explanation": "저장된 행의 값을 바꾸므로 데이터 조작에 해당한다.",
+      "explanation": "기존 행의 값을 수정하는 데이터 조작 작업이다.",
       "sourcePages": [
         1
-      ]
+      ],
+      "context": ""
     },
     {
       "id": "w12-q002",
@@ -849,76 +850,78 @@
       ]
     },
     {
-      "id": "w12-q009",
+      "id": "w12-q009-r2",
       "objectiveId": "w12-sql-evidence",
-      "family": "w12-sql-evidence-catalog",
-      "kind": "contrast",
+      "family": "w12-sql-evidence-catalog-r2",
+      "kind": "application",
       "difficulty": 2,
-      "prompt": "교안의 sysobjects·syscolumns를 읽을 때 적절한 태도는?",
+      "prompt": "DB 오류 응답에 테이블·열 이름이 포함되었다. 확인된 위험과 보완 방향은?",
       "options": [
         {
           "id": "a",
-          "text": "SQL Server의 역사적 메타데이터 예시로 이해한다.",
-          "explanation": "제품과 버전에 따라 메타데이터 접근 방식이 달라지므로 범위를 붙여야 한다."
+          "text": "내부 구조 정보가 노출되었으므로 외부 오류 응답을 제한하고 상세 기록은 보호한다.",
+          "explanation": "메타데이터 노출은 추가 공격의 단서가 될 수 있다. 실제 자료 조회 권한이나 침입 성공 여부는 따로 확인한다."
         },
         {
           "id": "b",
-          "text": "모든 DB가 공통으로 제공하는 표준 카탈로그로 본다.",
-          "explanation": "제품별 내부 카탈로그 이름과 지원 인터페이스는 서로 다를 수 있다."
+          "text": "열 이름이 보이면 모든 테이블의 읽기 권한도 확보된 것이다.",
+          "explanation": "구조 식별과 실제 권한 획득은 다른 사실이다."
         },
         {
           "id": "c",
-          "text": "현재 SQL Server의 메타데이터 접근은 이 이름들만 가능하다고 본다.",
-          "explanation": "역사적 예시를 현재 지원 방식 전체로 일반화하면 버전 차이를 놓친다."
+          "text": "오류를 숨기면 문자열 결합 쿼리의 주입 취약점도 자동 수정된다.",
+          "explanation": "정보 노출 감소와 안전한 쿼리 구성은 각각 필요한 통제다."
         },
         {
           "id": "d",
-          "text": "이 이름이 노출됐으므로 모든 테이블 조회 권한도 확보됐다고 본다.",
-          "explanation": "메타데이터 식별과 실제 자료 접근 권한은 별도의 증거를 요구한다."
+          "text": "이용자에게 DB 내부 오류와 비밀값을 모두 제공한다.",
+          "explanation": "불필요한 내부 정보와 비밀 노출을 확대하는 조치다."
         }
       ],
       "answerId": "a",
-      "explanation": "제품과 버전에 따라 메타데이터 접근 방식이 달라지므로 범위를 붙여야 한다.",
+      "explanation": "메타데이터 노출은 추가 공격의 단서가 될 수 있다. 실제 자료 조회 권한이나 침입 성공 여부는 따로 확인한다.",
       "sourcePages": [
         4,
         5
-      ]
+      ],
+      "context": ""
     },
     {
-      "id": "w12-q010",
+      "id": "w12-q010-r2",
       "objectiveId": "w12-sql-evidence",
-      "family": "w12-sql-evidence-union-context",
-      "kind": "concept",
-      "difficulty": 3,
-      "prompt": "교안의 UNION 사례를 모든 쿼리에 그대로 적용할 수 없는 이유는?",
+      "family": "w12-sql-evidence-union-context-r2",
+      "kind": "application",
+      "difficulty": 2,
+      "prompt": "두 SELECT의 결과를 UNION으로 결합하려 한다. 결과 구조에서 확인할 조건은?",
       "options": [
         {
           "id": "a",
-          "text": "UNION은 열 이름만 같으면 열 수가 달라도 결합한다.",
-          "explanation": "열 이름만으로 충분하지 않고 결합할 조회 구조·형식 조건을 확인해야 한다."
+          "text": "열 이름만 같으면 열 수가 달라도 항상 결합된다.",
+          "explanation": "이름 일치만으로 결과 구조의 차이가 해결되지 않는다."
         },
         {
           "id": "b",
-          "text": "DB 종류와 열 구성은 전혀 상관없다.",
-          "explanation": "실행 가능성은 제품 문법과 결과 구조에 의존한다."
+          "text": "조회 권한은 UNION을 쓰면 자동 생략된다.",
+          "explanation": "집합 연산은 각 대상의 접근 권한을 우회하는 기능이 아니다."
         },
         {
           "id": "c",
-          "text": "오류 응답이 있으면 결합 조회의 성공으로 본다.",
-          "explanation": "오류 발생과 결과 결합 성공은 다르며 실제 응답·쿼리를 확인해야 한다."
+          "text": "한 쿼리에 오류가 발생하면 다른 결과와 결합 성공으로 간주한다.",
+          "explanation": "실행 오류와 유효한 결과 결합은 다른 상태다."
         },
         {
           "id": "d",
-          "text": "결과 열의 수·형식과 DB 문법 등 조건이 맞아야 하기 때문이다.",
-          "explanation": "결합되는 조회의 구조와 제품별 구문 조건에 영향을 받는다."
+          "text": "열 수가 같고 대응하는 열의 데이터 형식이 호환되는지 확인한다.",
+          "explanation": "결합 가능한 구조와 제품별 형 변환·문법 조건이 필요하다."
         }
       ],
       "answerId": "d",
-      "explanation": "결합되는 조회의 구조와 제품별 구문 조건에 영향을 받는다.",
+      "explanation": "결합 가능한 구조와 제품별 형 변환·문법 조건이 필요하다.",
       "sourcePages": [
         3,
         4
-      ]
+      ],
+      "context": ""
     },
     {
       "id": "w12-q011",
@@ -996,41 +999,42 @@
       ]
     },
     {
-      "id": "w12-q013",
+      "id": "w12-q013-r2",
       "objectiveId": "w12-sql-privilege",
-      "family": "w12-sql-privilege-xp-default",
-      "kind": "contrast",
+      "family": "w12-sql-privilege-xp-default-r2",
+      "kind": "application",
       "difficulty": 2,
-      "prompt": "현대 SQL Server의 xp_cmdshell을 교안과 비교할 때 올바른 설명은?",
+      "prompt": "DB의 운영체제 명령 실행 기능을 비활성화했다. 여전히 필요한 SQL 주입 방어는?",
       "options": [
         {
           "id": "a",
-          "text": "기본 비활성화와 실행 권한·실행 계정을 함께 고려한다.",
-          "explanation": "기능이 존재한다고 모든 DB 사용자에게 OS 명령 권한이 생기지 않는다."
+          "text": "값의 매개변수 바인딩과 최소 DB 권한·자원별 접근 통제",
+          "explanation": "운영체제 실행을 막아도 비인가 데이터 조회·수정 위험이 남을 수 있다."
         },
         {
           "id": "b",
-          "text": "모든 설치에서 누구나 즉시 관리자 명령을 실행한다.",
-          "explanation": "기본 상태와 호출 권한 제한을 무시한 단정이다."
+          "text": "운영체제 명령이 차단됐으므로 모든 쿼리를 문자열 결합으로 만든다.",
+          "explanation": "OS 실행 차단은 데이터와 SQL 명령의 경계를 보호하지 않는다."
         },
         {
           "id": "c",
-          "text": "이름 앞에 DB 이름을 붙이면 권한이 사라진다.",
-          "explanation": "이름 한정은 객체 위치를 지정할 뿐 권한 우회가 아니다."
+          "text": "웹 서버 오류 화면만 바꾸고 쿼리 코드는 그대로 둔다.",
+          "explanation": "오류 정보 노출을 줄여도 주입의 원인은 남을 수 있다."
         },
         {
           "id": "d",
-          "text": "기능이 비활성화면 모든 SQL 주입도 없어진다.",
-          "explanation": "운영체제 실행 기능 제한과 SQL 주입 방지는 다른 층의 통제다."
+          "text": "응용 DB 계정에 관리자 권한을 줘서 오류를 없앤다.",
+          "explanation": "과도한 권한은 침해가 발생했을 때 피해 범위를 넓힌다."
         }
       ],
       "answerId": "a",
-      "explanation": "기능이 존재한다고 모든 DB 사용자에게 OS 명령 권한이 생기지 않는다.",
+      "explanation": "운영체제 실행을 막아도 비인가 데이터 조회·수정 위험이 남을 수 있다.",
       "sourcePages": [
         5,
         6,
         18
-      ]
+      ],
+      "context": ""
     },
     {
       "id": "w12-q014",
@@ -1452,41 +1456,42 @@
       ]
     },
     {
-      "id": "w12-q025",
+      "id": "w12-q025-r2",
       "objectiveId": "w12-xss-context",
-      "family": "w12-xss-context-legacy-browser",
-      "kind": "evidence",
+      "family": "w12-xss-context-legacy-browser-r2",
+      "kind": "application",
       "difficulty": 2,
-      "prompt": "교안의 오래된 CSS·Flash 실행 예시를 최신 브라우저 학습에 적용하는 방법은?",
+      "prompt": "사용자 입력을 웹 페이지의 일반 텍스트로 표시해야 한다. XSS 방어에 적절한 것은?",
       "options": [
         {
           "id": "a",
-          "text": "역사적 문맥을 표시하고 현대 출력 방어 원리를 따로 설명한다.",
-          "explanation": "환경 의존 기능과 재사용 가능한 신뢰 경계 원리를 구분해야 한다."
+          "text": "textContent 같은 텍스트 출력 기능을 사용하고 출력 문맥에 맞게 처리한다.",
+          "explanation": "입력을 실행 가능한 HTML로 해석하지 않는 경계를 만든다. 속성·URL 등 다른 문맥에는 각각 적절한 처리가 필요하다."
         },
         {
           "id": "b",
-          "text": "모든 예시가 모든 현재 브라우저에서 실행된다고 채점한다.",
-          "explanation": "브라우저 지원과 보안 모델의 버전 차이를 무시한다."
+          "text": "입력 문자열을 그대로 innerHTML에 넣는다.",
+          "explanation": "입력을 HTML로 해석하므로 공격자 제어 마크업이 실행 문맥에 들어갈 수 있다."
         },
         {
           "id": "c",
-          "text": "예시가 오래되었으므로 XSS 자체가 사라졌다고 한다.",
-          "explanation": "과거 구문의 퇴장은 현재 출력 취약점의 소멸을 뜻하지 않는다."
+          "text": "CSP가 있으면 어떤 문자열도 무조건 안전한 HTML이 된다.",
+          "explanation": "CSP는 보조 방어이며 안전한 출력 처리를 대체하지 않는다."
         },
         {
           "id": "d",
-          "text": "이용자에게 실제 사이트에서 실행해 보게 한다.",
-          "explanation": "학습 범위는 가상 자료이며 실제 대상의 공격 실행은 포함하지 않는다."
+          "text": "입력 길이가 짧으면 출력 처리를 생략한다.",
+          "explanation": "짧은 입력도 해석 문맥에 따라 위험할 수 있다."
         }
       ],
       "answerId": "a",
-      "explanation": "환경 의존 기능과 재사용 가능한 신뢰 경계 원리를 구분해야 한다.",
+      "explanation": "입력을 실행 가능한 HTML로 해석하지 않는 경계를 만든다. 속성·URL 등 다른 문맥에는 각각 적절한 처리가 필요하다.",
       "sourcePages": [
         7,
         8,
         16
-      ]
+      ],
+      "context": ""
     },
     {
       "id": "w12-q026",
@@ -1636,40 +1641,41 @@
       ]
     },
     {
-      "id": "w12-q030",
+      "id": "w12-q030-r2",
       "objectiveId": "w12-cookie-session",
-      "family": "w12-cookie-session-limits",
-      "kind": "evidence",
+      "family": "w12-cookie-session-limits-r2",
+      "kind": "application",
       "difficulty": 2,
-      "prompt": "교안의 쿠키 수량 제한을 다룰 때 정확한 문장은?",
+      "prompt": "로그아웃 후 복사해 둔 세션 쿠키로 서버에 다시 접근할 수 있다. 우선 보완해야 할 것은?",
       "options": [
         {
           "id": "a",
-          "text": "모든 브라우저는 총 300개만 저장한다.",
-          "explanation": "역사적 설명을 모든 현행 구현의 상한으로 일반화했다."
+          "text": "브라우저에 저장 가능한 쿠키 개수만 줄인다.",
+          "explanation": "수량 제한은 특정 유효 세션의 재사용을 막는 통제가 아니다."
         },
         {
           "id": "b",
-          "text": "RFC의 최소 지원 권고는 모든 제품의 최대 허용치다.",
-          "explanation": "최소 지원 권고와 최대 상한은 방향부터 다르다."
+          "text": "쿠키 이름을 더 길게 바꾸고 서버 세션은 유지한다.",
+          "explanation": "이름 변경은 유출된 자격의 유효성을 취소하지 않는다."
         },
         {
           "id": "c",
-          "text": "쿠키 제한이 있으면 세션 탈취가 불가능하다.",
-          "explanation": "수량 제한은 유효한 세션 값의 노출·재사용을 방지하지 않는다."
+          "text": "쿠키에 Secure만 붙이고 서버 세션은 계속 유효하게 둔다.",
+          "explanation": "Secure는 HTTPS 전송에 관한 속성이며 복사된 세션 자격의 서버 측 유효성을 취소하지 않는다."
         },
         {
           "id": "d",
-          "text": "오래된 수치이며 실제 제한은 브라우저·버전에 따라 확인한다.",
-          "explanation": "RFC의 구현 권고와 제품별 실제 상한을 구분하고 보편적 고정 수치로 채점하지 않는다."
+          "text": "서버의 세션 무효화와 만료·재사용 검사",
+          "explanation": "브라우저에서 쿠키를 지우는 것만으로 이미 복사된 자격의 재사용이 막히지는 않는다."
         }
       ],
       "answerId": "d",
-      "explanation": "RFC의 구현 권고와 제품별 실제 상한을 구분하고 보편적 고정 수치로 채점하지 않는다.",
+      "explanation": "브라우저에서 쿠키를 지우는 것만으로 이미 복사된 자격의 재사용이 막히지는 않는다.",
       "sourcePages": [
         7,
         9
-      ]
+      ],
+      "context": ""
     },
     {
       "id": "w12-q031",
@@ -3085,6 +3091,231 @@
     {
       "title": "shadow-utils shadow(5)",
       "url": "https://man7.org/linux/man-pages/man5/shadow.5.html"
+    }
+  ],
+  "retiredQuestions": [
+    {
+      "id": "w12-q001",
+      "objectiveId": "w12-sql-boundary",
+      "family": "w12-sql-boundary-dml",
+      "kind": "concept",
+      "difficulty": 1,
+      "prompt": "교안의 SQL 분류에서 기존 회원의 주소 값을 바꾸는 작업은?",
+      "options": [
+        {
+          "id": "a",
+          "text": "UPDATE를 사용하는 DML",
+          "explanation": "저장된 행의 값을 바꾸므로 데이터 조작에 해당한다."
+        },
+        {
+          "id": "b",
+          "text": "CREATE를 사용하는 DDL",
+          "explanation": "CREATE는 구조 정의이며 기존 행의 값 갱신과 다르다."
+        },
+        {
+          "id": "c",
+          "text": "DROP을 사용하는 DDL",
+          "explanation": "DROP은 객체 제거이며 주소 값만 변경하는 목적과 다르다."
+        },
+        {
+          "id": "d",
+          "text": "INSERT를 사용하는 DML",
+          "explanation": "INSERT는 새 행 추가다. DML 분류는 맞아도 기존 회원의 주소 갱신에는 맞지 않는다."
+        }
+      ],
+      "answerId": "a",
+      "explanation": "저장된 행의 값을 바꾸므로 데이터 조작에 해당한다.",
+      "sourcePages": [
+        1
+      ],
+      "supersededBy": "w12-q001-r2"
+    },
+    {
+      "id": "w12-q009",
+      "objectiveId": "w12-sql-evidence",
+      "family": "w12-sql-evidence-catalog",
+      "kind": "contrast",
+      "difficulty": 2,
+      "prompt": "교안의 sysobjects·syscolumns를 읽을 때 적절한 태도는?",
+      "options": [
+        {
+          "id": "a",
+          "text": "SQL Server의 역사적 메타데이터 예시로 이해한다.",
+          "explanation": "제품과 버전에 따라 메타데이터 접근 방식이 달라지므로 범위를 붙여야 한다."
+        },
+        {
+          "id": "b",
+          "text": "모든 DB가 공통으로 제공하는 표준 카탈로그로 본다.",
+          "explanation": "제품별 내부 카탈로그 이름과 지원 인터페이스는 서로 다를 수 있다."
+        },
+        {
+          "id": "c",
+          "text": "현재 SQL Server의 메타데이터 접근은 이 이름들만 가능하다고 본다.",
+          "explanation": "역사적 예시를 현재 지원 방식 전체로 일반화하면 버전 차이를 놓친다."
+        },
+        {
+          "id": "d",
+          "text": "이 이름이 노출됐으므로 모든 테이블 조회 권한도 확보됐다고 본다.",
+          "explanation": "메타데이터 식별과 실제 자료 접근 권한은 별도의 증거를 요구한다."
+        }
+      ],
+      "answerId": "a",
+      "explanation": "제품과 버전에 따라 메타데이터 접근 방식이 달라지므로 범위를 붙여야 한다.",
+      "sourcePages": [
+        4,
+        5
+      ],
+      "supersededBy": "w12-q009-r2"
+    },
+    {
+      "id": "w12-q010",
+      "objectiveId": "w12-sql-evidence",
+      "family": "w12-sql-evidence-union-context",
+      "kind": "concept",
+      "difficulty": 3,
+      "prompt": "교안의 UNION 사례를 모든 쿼리에 그대로 적용할 수 없는 이유는?",
+      "options": [
+        {
+          "id": "a",
+          "text": "UNION은 열 이름만 같으면 열 수가 달라도 결합한다.",
+          "explanation": "열 이름만으로 충분하지 않고 결합할 조회 구조·형식 조건을 확인해야 한다."
+        },
+        {
+          "id": "b",
+          "text": "DB 종류와 열 구성은 전혀 상관없다.",
+          "explanation": "실행 가능성은 제품 문법과 결과 구조에 의존한다."
+        },
+        {
+          "id": "c",
+          "text": "오류 응답이 있으면 결합 조회의 성공으로 본다.",
+          "explanation": "오류 발생과 결과 결합 성공은 다르며 실제 응답·쿼리를 확인해야 한다."
+        },
+        {
+          "id": "d",
+          "text": "결과 열의 수·형식과 DB 문법 등 조건이 맞아야 하기 때문이다.",
+          "explanation": "결합되는 조회의 구조와 제품별 구문 조건에 영향을 받는다."
+        }
+      ],
+      "answerId": "d",
+      "explanation": "결합되는 조회의 구조와 제품별 구문 조건에 영향을 받는다.",
+      "sourcePages": [
+        3,
+        4
+      ],
+      "supersededBy": "w12-q010-r2"
+    },
+    {
+      "id": "w12-q013",
+      "objectiveId": "w12-sql-privilege",
+      "family": "w12-sql-privilege-xp-default",
+      "kind": "contrast",
+      "difficulty": 2,
+      "prompt": "현대 SQL Server의 xp_cmdshell을 교안과 비교할 때 올바른 설명은?",
+      "options": [
+        {
+          "id": "a",
+          "text": "기본 비활성화와 실행 권한·실행 계정을 함께 고려한다.",
+          "explanation": "기능이 존재한다고 모든 DB 사용자에게 OS 명령 권한이 생기지 않는다."
+        },
+        {
+          "id": "b",
+          "text": "모든 설치에서 누구나 즉시 관리자 명령을 실행한다.",
+          "explanation": "기본 상태와 호출 권한 제한을 무시한 단정이다."
+        },
+        {
+          "id": "c",
+          "text": "이름 앞에 DB 이름을 붙이면 권한이 사라진다.",
+          "explanation": "이름 한정은 객체 위치를 지정할 뿐 권한 우회가 아니다."
+        },
+        {
+          "id": "d",
+          "text": "기능이 비활성화면 모든 SQL 주입도 없어진다.",
+          "explanation": "운영체제 실행 기능 제한과 SQL 주입 방지는 다른 층의 통제다."
+        }
+      ],
+      "answerId": "a",
+      "explanation": "기능이 존재한다고 모든 DB 사용자에게 OS 명령 권한이 생기지 않는다.",
+      "sourcePages": [
+        5,
+        6,
+        18
+      ],
+      "supersededBy": "w12-q013-r2"
+    },
+    {
+      "id": "w12-q025",
+      "objectiveId": "w12-xss-context",
+      "family": "w12-xss-context-legacy-browser",
+      "kind": "evidence",
+      "difficulty": 2,
+      "prompt": "교안의 오래된 CSS·Flash 실행 예시를 최신 브라우저 학습에 적용하는 방법은?",
+      "options": [
+        {
+          "id": "a",
+          "text": "역사적 문맥을 표시하고 현대 출력 방어 원리를 따로 설명한다.",
+          "explanation": "환경 의존 기능과 재사용 가능한 신뢰 경계 원리를 구분해야 한다."
+        },
+        {
+          "id": "b",
+          "text": "모든 예시가 모든 현재 브라우저에서 실행된다고 채점한다.",
+          "explanation": "브라우저 지원과 보안 모델의 버전 차이를 무시한다."
+        },
+        {
+          "id": "c",
+          "text": "예시가 오래되었으므로 XSS 자체가 사라졌다고 한다.",
+          "explanation": "과거 구문의 퇴장은 현재 출력 취약점의 소멸을 뜻하지 않는다."
+        },
+        {
+          "id": "d",
+          "text": "이용자에게 실제 사이트에서 실행해 보게 한다.",
+          "explanation": "학습 범위는 가상 자료이며 실제 대상의 공격 실행은 포함하지 않는다."
+        }
+      ],
+      "answerId": "a",
+      "explanation": "환경 의존 기능과 재사용 가능한 신뢰 경계 원리를 구분해야 한다.",
+      "sourcePages": [
+        7,
+        8,
+        16
+      ],
+      "supersededBy": "w12-q025-r2"
+    },
+    {
+      "id": "w12-q030",
+      "objectiveId": "w12-cookie-session",
+      "family": "w12-cookie-session-limits",
+      "kind": "evidence",
+      "difficulty": 2,
+      "prompt": "교안의 쿠키 수량 제한을 다룰 때 정확한 문장은?",
+      "options": [
+        {
+          "id": "a",
+          "text": "모든 브라우저는 총 300개만 저장한다.",
+          "explanation": "역사적 설명을 모든 현행 구현의 상한으로 일반화했다."
+        },
+        {
+          "id": "b",
+          "text": "RFC의 최소 지원 권고는 모든 제품의 최대 허용치다.",
+          "explanation": "최소 지원 권고와 최대 상한은 방향부터 다르다."
+        },
+        {
+          "id": "c",
+          "text": "쿠키 제한이 있으면 세션 탈취가 불가능하다.",
+          "explanation": "수량 제한은 유효한 세션 값의 노출·재사용을 방지하지 않는다."
+        },
+        {
+          "id": "d",
+          "text": "오래된 수치이며 실제 제한은 브라우저·버전에 따라 확인한다.",
+          "explanation": "RFC의 구현 권고와 제품별 실제 상한을 구분하고 보편적 고정 수치로 채점하지 않는다."
+        }
+      ],
+      "answerId": "d",
+      "explanation": "RFC의 구현 권고와 제품별 실제 상한을 구분하고 보편적 고정 수치로 채점하지 않는다.",
+      "sourcePages": [
+        7,
+        9
+      ],
+      "supersededBy": "w12-q030-r2"
     }
   ]
 }

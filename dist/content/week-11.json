@@ -979,75 +979,77 @@
       ]
     },
     {
-      "id": "w11-q012",
+      "id": "w11-q012-r2",
       "objectiveId": "w11-web-boundaries",
-      "family": "w11-defensive-lifecycle",
+      "family": "w11-defensive-lifecycle-r2",
       "kind": "application",
       "difficulty": 2,
-      "prompt": "교안의 정보 수집→약점 확인→침입→지속 접근 흐름을 방어 학습에 활용하는 적절한 방식은?",
+      "prompt": "웹 요청 오류가 발생한 뒤 비인가 파일 변경과 새 자동 실행 항목이 확인되었다. 사고 분석에 적절한 접근은?",
       "options": [
         {
           "id": "a",
-          "text": "침입 단계가 반드시 이 순서라는 가정으로 예외 기록을 버린다",
-          "explanation": "개념 흐름을 모든 사건의 필수 순서로 일반화하면 안 된다."
+          "text": "사건은 언제나 같은 순서이므로 순서가 다른 기록은 폐기한다.",
+          "explanation": "관념적인 단계 순서에 맞추려고 증거를 제거해서는 안 된다."
         },
         {
           "id": "b",
-          "text": "서버 오류가 한 번 있으면 지속 접근까지 성공했다고 기록한다",
-          "explanation": "각 단계의 성공에는 각각의 근거가 필요하다."
+          "text": "비인가 변경이 있어도 서버가 응답하면 조사할 필요가 없다.",
+          "explanation": "서비스 가용성과 자료·설정의 무결성은 별개다."
         },
         {
           "id": "c",
-          "text": "가상 기록에서 노출·검증 누락·비인가 변경 단서를 연결한다",
-          "explanation": "공격 실행 없이도 단계별 방어 경계와 관찰 근거를 학습할 수 있다."
+          "text": "각 기록의 주체·시각·대상을 연결해 접근 경로와 변경 원인을 조사한다.",
+          "explanation": "오류, 변경, 지속 접근 단서를 구분해 연관성을 검증해야 한다."
         },
         {
           "id": "d",
-          "text": "공개 정보가 있으면 실제 대상에 대한 시험 권한도 얻었다고 본다",
-          "explanation": "정보 공개와 시험 허가는 별개다."
+          "text": "처음 발생한 오류 하나만으로 모든 후속 행위의 성공을 확정한다.",
+          "explanation": "단계별 결과에는 각각의 증거가 필요하다."
         }
       ],
       "answerId": "c",
-      "explanation": "과정을 아는 목적은 어느 경계에서 탐지·차단·복구할지 이해하는 것이다.",
+      "explanation": "오류, 변경, 지속 접근 단서를 구분해 연관성을 검증해야 한다.",
       "sourcePages": [
         6
-      ]
+      ],
+      "context": ""
     },
     {
-      "id": "w11-q013",
+      "id": "w11-q013-r2",
       "objectiveId": "w11-owasp-context",
-      "family": "w11-version-mismatch",
-      "kind": "evidence",
+      "family": "w11-version-mismatch-r2",
+      "kind": "application",
       "difficulty": 2,
-      "prompt": "교안 표와 공식 OWASP 2017 최종판의 항목 번호가 다르다. 타당한 처리 방식은?",
+      "prompt": "로그인 사용자가 URL의 문서 번호를 바꾸어 다른 사용자의 비공개 문서를 읽었다. 핵심 결함과 보완책은?",
       "options": [
         {
           "id": "a",
-          "text": "판본 차이를 표시하고 개념은 학습하되 잘못된 최종 순위는 정답으로 쓰지 않는다",
-          "explanation": "역사적 분류와 공식 최종판을 구분하여 출처 충돌을 남긴다."
+          "text": "객체별 접근 통제 누락이며 서버에서 문서마다 소유·권한을 검증한다.",
+          "explanation": "로그인 여부만으로 모든 객체 접근을 허용하지 않고 요청 주체와 자원의 권한 관계를 확인해야 한다."
         },
         {
           "id": "b",
-          "text": "숫자가 모두 10개이므로 항목과 순서도 같은 것으로 취급한다",
-          "explanation": "같은 항목 수가 내용과 순서의 동일성을 뜻하지 않는다."
+          "text": "문서 번호가 숫자이기 때문이므로 글자로만 바꾸면 해결된다.",
+          "explanation": "식별자 표현 변경은 권한 검사를 대체하지 못한다."
         },
         {
           "id": "c",
-          "text": "교안 표의 순서를 공식 최종판 순서로 다시 이름 붙인다",
-          "explanation": "다른 판본을 최종판으로 오인하게 만들 수 있다."
+          "text": "TLS 부재만의 문제이므로 HTTPS면 소유권 검사는 필요 없다.",
+          "explanation": "전송 암호화와 응용의 자원별 인가는 별개의 보호다."
         },
         {
           "id": "d",
-          "text": "최종판에 독립 항목이 없으면 해당 위험의 방어도 제거한다",
-          "explanation": "분류 변화와 실제 취약점의 존재는 별개다."
+          "text": "DB 백업 주기가 길기 때문이므로 백업 횟수만 늘린다.",
+          "explanation": "백업은 비인가 조회를 차단하는 접근 통제 수단이 아니다."
         }
       ],
       "answerId": "a",
-      "explanation": "역사적 교안과 특정 최종판을 구분해야 잘못된 암기를 피할 수 있다.",
+      "explanation": "로그인 여부만으로 모든 객체 접근을 허용하지 않고 요청 주체와 자원의 권한 관계를 확인해야 한다.",
       "sourcePages": [
         9,
         10
-      ]
+      ],
+      "context": ""
     },
     {
       "id": "w11-q014",
@@ -2703,6 +2705,81 @@
     {
       "title": "WHATWG: HTML Living Standard",
       "url": "https://html.spec.whatwg.org/multipage/introduction.html"
+    }
+  ],
+  "retiredQuestions": [
+    {
+      "id": "w11-q012",
+      "objectiveId": "w11-web-boundaries",
+      "family": "w11-defensive-lifecycle",
+      "kind": "application",
+      "difficulty": 2,
+      "prompt": "교안의 정보 수집→약점 확인→침입→지속 접근 흐름을 방어 학습에 활용하는 적절한 방식은?",
+      "options": [
+        {
+          "id": "a",
+          "text": "침입 단계가 반드시 이 순서라는 가정으로 예외 기록을 버린다",
+          "explanation": "개념 흐름을 모든 사건의 필수 순서로 일반화하면 안 된다."
+        },
+        {
+          "id": "b",
+          "text": "서버 오류가 한 번 있으면 지속 접근까지 성공했다고 기록한다",
+          "explanation": "각 단계의 성공에는 각각의 근거가 필요하다."
+        },
+        {
+          "id": "c",
+          "text": "가상 기록에서 노출·검증 누락·비인가 변경 단서를 연결한다",
+          "explanation": "공격 실행 없이도 단계별 방어 경계와 관찰 근거를 학습할 수 있다."
+        },
+        {
+          "id": "d",
+          "text": "공개 정보가 있으면 실제 대상에 대한 시험 권한도 얻었다고 본다",
+          "explanation": "정보 공개와 시험 허가는 별개다."
+        }
+      ],
+      "answerId": "c",
+      "explanation": "과정을 아는 목적은 어느 경계에서 탐지·차단·복구할지 이해하는 것이다.",
+      "sourcePages": [
+        6
+      ],
+      "supersededBy": "w11-q012-r2"
+    },
+    {
+      "id": "w11-q013",
+      "objectiveId": "w11-owasp-context",
+      "family": "w11-version-mismatch",
+      "kind": "evidence",
+      "difficulty": 2,
+      "prompt": "교안 표와 공식 OWASP 2017 최종판의 항목 번호가 다르다. 타당한 처리 방식은?",
+      "options": [
+        {
+          "id": "a",
+          "text": "판본 차이를 표시하고 개념은 학습하되 잘못된 최종 순위는 정답으로 쓰지 않는다",
+          "explanation": "역사적 분류와 공식 최종판을 구분하여 출처 충돌을 남긴다."
+        },
+        {
+          "id": "b",
+          "text": "숫자가 모두 10개이므로 항목과 순서도 같은 것으로 취급한다",
+          "explanation": "같은 항목 수가 내용과 순서의 동일성을 뜻하지 않는다."
+        },
+        {
+          "id": "c",
+          "text": "교안 표의 순서를 공식 최종판 순서로 다시 이름 붙인다",
+          "explanation": "다른 판본을 최종판으로 오인하게 만들 수 있다."
+        },
+        {
+          "id": "d",
+          "text": "최종판에 독립 항목이 없으면 해당 위험의 방어도 제거한다",
+          "explanation": "분류 변화와 실제 취약점의 존재는 별개다."
+        }
+      ],
+      "answerId": "a",
+      "explanation": "역사적 교안과 특정 최종판을 구분해야 잘못된 암기를 피할 수 있다.",
+      "sourcePages": [
+        9,
+        10
+      ],
+      "supersededBy": "w11-q013-r2"
     }
   ]
 }

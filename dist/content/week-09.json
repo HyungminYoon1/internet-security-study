@@ -1118,39 +1118,40 @@
       ]
     },
     {
-      "id": "w09-q015",
+      "id": "w09-q015-r2",
       "objectiveId": "w09-spoof",
-      "family": "w09-zero-window",
-      "kind": "contrast",
+      "family": "w09-zero-window-r2",
+      "kind": "application",
       "difficulty": 2,
-      "prompt": "교안의 TCP 윈도우 0 조작 사례에서 직접 악용하는 기능은?",
+      "prompt": "TCP 수신 윈도우가 0으로 광고되면 송신 측이 영향을 받는 기능은?",
       "options": [
         {
           "id": "a",
-          "text": "수신 가능량을 알리는 흐름 제어",
-          "explanation": "TCP 윈도우는 상대의 송신량을 조절하는 데 사용된다."
+          "text": "수신 가능한 데이터량에 맞추는 흐름 제어",
+          "explanation": "수신 윈도우는 수신 측의 여유를 알린다. 혼잡 제어나 암호학적 상대 인증과 구분한다."
         },
         {
           "id": "b",
-          "text": "연결 생성 때 사용할 초기 시퀀스 번호 선택",
-          "explanation": "연결 번호 선택과 이미 연결된 상대에게 알리는 수신 여유는 다르다."
+          "text": "웹 서버 인증서의 신원 검증",
+          "explanation": "TCP 윈도우는 인증서를 검증하는 필드가 아니다."
         },
         {
           "id": "c",
-          "text": "TCP 포트를 응용 프로세스에 대응시키는 기능",
-          "explanation": "포트 대응은 서비스 식별이고 윈도우는 흐름 조절 정보다."
+          "text": "IP 패킷의 최대 홉 수 제한",
+          "explanation": "TTL 등의 역할과 TCP 수신 윈도우의 역할은 다르다."
         },
         {
           "id": "d",
-          "text": "IP 헤더의 TTL로 중간 경로의 수를 제한하는 기능",
-          "explanation": "홉 제한과 TCP 수신 여유는 서로 다른 계층의 상태다."
+          "text": "도메인 이름의 DNS 변환",
+          "explanation": "수신 여유량은 이름 조회와 관련 없는 전송 계층 정보다."
         }
       ],
       "answerId": "a",
-      "explanation": "교안의 명칭을 외우기보다 어떤 상태 정보를 거짓으로 주어 어떤 동작을 유도하는지 이해한다.",
+      "explanation": "수신 윈도우는 수신 측의 여유를 알린다. 혼잡 제어나 암호학적 상대 인증과 구분한다.",
       "sourcePages": [
         9
-      ]
+      ],
+      "context": ""
     },
     {
       "id": "w09-q016",
@@ -1259,39 +1260,40 @@
       ]
     },
     {
-      "id": "w09-q019",
+      "id": "w09-q019-r2",
       "objectiveId": "w09-dos",
-      "family": "w09-ipv4-size",
-      "kind": "concept",
+      "family": "w09-ipv4-size-r2",
+      "kind": "application",
       "difficulty": 2,
-      "prompt": "교안의 65,535바이트 수치를 정확히 설명한 것은?",
+      "prompt": "IPv4 전체 길이 필드가 16비트일 때 65,535바이트라는 값이 나타내는 것은?",
       "options": [
         {
           "id": "a",
-          "text": "일반 ICMP echo 요청의 기본 데이터 크기",
-          "explanation": "IPv4 전체 길이 상한을 개별 구현의 기본 ping 데이터량으로 오해했다."
+          "text": "모든 링크에서 단편화 없이 전송되는 기본 MTU",
+          "explanation": "실제 링크와 경로의 MTU는 이 형식상 상한보다 작을 수 있다."
         },
         {
           "id": "b",
-          "text": "모든 경로에서 단편화 없이 전송 가능한 MTU",
-          "explanation": "전체 데이터그램 상한과 링크·경로 MTU는 다르다."
+          "text": "IP와 ICMP 헤더를 제외한 echo 데이터만의 크기",
+          "explanation": "전체 길이에는 IP 헤더와 그 안의 페이로드가 함께 포함된다."
         },
         {
           "id": "c",
-          "text": "ICMP 헤더를 뺀 echo 데이터만의 최대값",
-          "explanation": "이 수치는 IP 헤더와 그 안의 페이로드 전체를 포함한다."
+          "text": "모든 서버가 기본으로 허용하는 HTTP 요청 크기",
+          "explanation": "응용 요청 제한과 IP 헤더의 길이 필드는 서로 다른 계층의 제약이다."
         },
         {
           "id": "d",
-          "text": "IPv4 데이터그램 전체 길이 필드의 상한",
-          "explanation": "헤더를 포함한 IPv4 전체 길이의 형식상 최대값을 가리킨다."
+          "text": "IP 헤더를 포함한 IPv4 데이터그램 전체 길이의 형식상 상한",
+          "explanation": "링크 MTU나 응용 데이터만의 크기와 구별해야 한다."
         }
       ],
       "answerId": "d",
-      "explanation": "Ping of Death는 과거의 비정상 재조립 처리 문제로 배우며 큰 ping이 모든 현대 시스템을 중단시킨다고 외우지 않는다.",
+      "explanation": "링크 MTU나 응용 데이터만의 크기와 구별해야 한다.",
       "sourcePages": [
         12
-      ]
+      ],
+      "context": ""
     },
     {
       "id": "w09-q020",
@@ -1962,39 +1964,40 @@
       ]
     },
     {
-      "id": "w09-q039",
+      "id": "w09-q039-r2",
       "objectiveId": "w09-accounts",
-      "family": "w09-windows-version-scope",
-      "kind": "evidence",
+      "family": "w09-windows-version-scope-r2",
+      "kind": "application",
       "difficulty": 2,
-      "prompt": "오래된 교안만 보고 최신 서버에서 Guests와 Users의 권한이 같다고 단정했다. 보완해야 할 것은?",
+      "prompt": "어떤 사용자는 파일 읽기는 되지만 서비스 시작은 거부된다. 실제 권한을 판단하려면 무엇을 봐야 하는가?",
       "options": [
         {
           "id": "a",
-          "text": "그룹 표시 이름이 같으면 모든 버전의 권한도 같다고 간주",
-          "explanation": "이름은 같아도 구성과 권한 할당이 달라질 수 있다."
+          "text": "계정 생성 날짜만으로 모든 권한을 결정한다.",
+          "explanation": "생성 시각은 실제 접근 권한을 대신하는 기준이 아니다."
         },
         {
           "id": "b",
-          "text": "버전·서버 역할·실제 권한 및 정책 확인",
-          "explanation": "그룹의 권한 의미는 제품·역할·실제 적용 정책의 문맥이 필요하다."
+          "text": "그룹 소속과 대상별 ACL·사용자 권한 할당 등 적용 정책",
+          "explanation": "그룹 이름만 아니라 자원 및 작업별 실제 허용·거부 조건을 확인해야 한다."
         },
         {
           "id": "c",
-          "text": "교안에 적힌 기본 권한만 보고 실제 정책은 생략",
-          "explanation": "현재 적용된 정책이 기본 설정과 다를 수 있다."
+          "text": "그룹 이름이 Users이면 모든 작업이 허용된다고 본다.",
+          "explanation": "같은 그룹이라도 작업과 자원별 정책이 다를 수 있다."
         },
         {
           "id": "d",
-          "text": "현재 그룹 멤버 수만 세면 각 작업 권한도 확정",
-          "explanation": "인원수는 사용자 권한 할당과 자원 접근의 허용 범위를 보여 주지 않는다."
+          "text": "파일을 읽었으므로 관리자 권한도 있다고 본다.",
+          "explanation": "특정 자료 읽기와 시스템 서비스 관리 권한은 다르다."
         }
       ],
       "answerId": "b",
-      "explanation": "Windows 역할 표는 개념 학습 자료로 쓰되 실제 접근 권한은 현재 구성에서 검증한다.",
+      "explanation": "그룹 이름만 아니라 자원 및 작업별 실제 허용·거부 조건을 확인해야 한다.",
       "sourcePages": [
         22
-      ]
+      ],
+      "context": ""
     },
     {
       "id": "w09-q040",
@@ -2454,39 +2457,40 @@
       ]
     },
     {
-      "id": "w09-q053",
+      "id": "w09-q053-r2",
       "objectiveId": "w09-buffer",
-      "family": "w09-overflow-privilege",
-      "kind": "concept",
+      "family": "w09-overflow-privilege-r2",
+      "kind": "application",
       "difficulty": 2,
-      "prompt": "교안 그림의 SetUID·관리자 소유 조건을 해석할 때 옳은 것은?",
+      "prompt": "일반 사용자 권한으로 실행되는 프로그램에 버퍼 경계 초과 쓰기가 발생했다. 영향 평가로 옳은 것은?",
       "options": [
         {
           "id": "a",
-          "text": "특정 권한 상승 예의 조건이지 모든 오버플로의 필요조건은 아니다",
-          "explanation": "메모리 경계 오류와 그 오류로 얻는 권한은 별개의 조건이다."
+          "text": "오류 자체는 관리자 권한이 없어도 발생하며 해당 프로세스의 자료와 기능에 피해를 줄 수 있다.",
+          "explanation": "경계 오류의 발생과 침해 후 얻는 권한 범위는 구분해야 한다."
         },
         {
           "id": "b",
-          "text": "SetUID가 없으면 경계 초과 쓰기 자체가 불가능하다",
-          "explanation": "권한 설정과 메모리 경계 오류의 발생은 별개다."
+          "text": "SetUID가 없으므로 메모리 경계 오류는 발생할 수 없다.",
+          "explanation": "권한 설정은 메모리 경계 검사 자체를 보장하지 않는다."
         },
         {
           "id": "c",
-          "text": "관리자 소유 파일은 항상 관리자 권한으로 실행된다",
-          "explanation": "파일 소유자만으로 모든 실행 권한이 결정되는 것은 아니다."
+          "text": "일반 사용자 프로세스이면 기밀 자료를 전혀 다루지 않는다.",
+          "explanation": "사용자 문서와 자격 등 민감한 자료에 접근할 수 있다."
         },
         {
           "id": "d",
-          "text": "일반 권한 프로세스의 오버플로는 아무 피해도 줄 수 없다",
-          "explanation": "프로세스가 접근하는 자료와 기능은 일반 권한에서도 손상될 수 있다."
+          "text": "파일 소유자가 관리자이면 실행 권한도 항상 관리자이다.",
+          "explanation": "소유자와 실제 프로세스의 실행 권한은 동일하지 않을 수 있다."
         }
       ],
       "answerId": "a",
-      "explanation": "권한은 영향 범위에 관여하고 경계 밖 쓰기 자체의 발생 가능성과는 다르다.",
+      "explanation": "경계 오류의 발생과 침해 후 얻는 권한 범위는 구분해야 한다.",
       "sourcePages": [
         26
-      ]
+      ],
+      "context": ""
     },
     {
       "id": "w09-q054",
@@ -3249,6 +3253,152 @@
     {
       "title": "Wireshark: WLAN 수신 범위·모니터 모드",
       "url": "https://wiki.wireshark.org/CaptureSetup/WLAN"
+    }
+  ],
+  "retiredQuestions": [
+    {
+      "id": "w09-q015",
+      "objectiveId": "w09-spoof",
+      "family": "w09-zero-window",
+      "kind": "contrast",
+      "difficulty": 2,
+      "prompt": "교안의 TCP 윈도우 0 조작 사례에서 직접 악용하는 기능은?",
+      "options": [
+        {
+          "id": "a",
+          "text": "수신 가능량을 알리는 흐름 제어",
+          "explanation": "TCP 윈도우는 상대의 송신량을 조절하는 데 사용된다."
+        },
+        {
+          "id": "b",
+          "text": "연결 생성 때 사용할 초기 시퀀스 번호 선택",
+          "explanation": "연결 번호 선택과 이미 연결된 상대에게 알리는 수신 여유는 다르다."
+        },
+        {
+          "id": "c",
+          "text": "TCP 포트를 응용 프로세스에 대응시키는 기능",
+          "explanation": "포트 대응은 서비스 식별이고 윈도우는 흐름 조절 정보다."
+        },
+        {
+          "id": "d",
+          "text": "IP 헤더의 TTL로 중간 경로의 수를 제한하는 기능",
+          "explanation": "홉 제한과 TCP 수신 여유는 서로 다른 계층의 상태다."
+        }
+      ],
+      "answerId": "a",
+      "explanation": "교안의 명칭을 외우기보다 어떤 상태 정보를 거짓으로 주어 어떤 동작을 유도하는지 이해한다.",
+      "sourcePages": [
+        9
+      ],
+      "supersededBy": "w09-q015-r2"
+    },
+    {
+      "id": "w09-q019",
+      "objectiveId": "w09-dos",
+      "family": "w09-ipv4-size",
+      "kind": "concept",
+      "difficulty": 2,
+      "prompt": "교안의 65,535바이트 수치를 정확히 설명한 것은?",
+      "options": [
+        {
+          "id": "a",
+          "text": "일반 ICMP echo 요청의 기본 데이터 크기",
+          "explanation": "IPv4 전체 길이 상한을 개별 구현의 기본 ping 데이터량으로 오해했다."
+        },
+        {
+          "id": "b",
+          "text": "모든 경로에서 단편화 없이 전송 가능한 MTU",
+          "explanation": "전체 데이터그램 상한과 링크·경로 MTU는 다르다."
+        },
+        {
+          "id": "c",
+          "text": "ICMP 헤더를 뺀 echo 데이터만의 최대값",
+          "explanation": "이 수치는 IP 헤더와 그 안의 페이로드 전체를 포함한다."
+        },
+        {
+          "id": "d",
+          "text": "IPv4 데이터그램 전체 길이 필드의 상한",
+          "explanation": "헤더를 포함한 IPv4 전체 길이의 형식상 최대값을 가리킨다."
+        }
+      ],
+      "answerId": "d",
+      "explanation": "Ping of Death는 과거의 비정상 재조립 처리 문제로 배우며 큰 ping이 모든 현대 시스템을 중단시킨다고 외우지 않는다.",
+      "sourcePages": [
+        12
+      ],
+      "supersededBy": "w09-q019-r2"
+    },
+    {
+      "id": "w09-q039",
+      "objectiveId": "w09-accounts",
+      "family": "w09-windows-version-scope",
+      "kind": "evidence",
+      "difficulty": 2,
+      "prompt": "오래된 교안만 보고 최신 서버에서 Guests와 Users의 권한이 같다고 단정했다. 보완해야 할 것은?",
+      "options": [
+        {
+          "id": "a",
+          "text": "그룹 표시 이름이 같으면 모든 버전의 권한도 같다고 간주",
+          "explanation": "이름은 같아도 구성과 권한 할당이 달라질 수 있다."
+        },
+        {
+          "id": "b",
+          "text": "버전·서버 역할·실제 권한 및 정책 확인",
+          "explanation": "그룹의 권한 의미는 제품·역할·실제 적용 정책의 문맥이 필요하다."
+        },
+        {
+          "id": "c",
+          "text": "교안에 적힌 기본 권한만 보고 실제 정책은 생략",
+          "explanation": "현재 적용된 정책이 기본 설정과 다를 수 있다."
+        },
+        {
+          "id": "d",
+          "text": "현재 그룹 멤버 수만 세면 각 작업 권한도 확정",
+          "explanation": "인원수는 사용자 권한 할당과 자원 접근의 허용 범위를 보여 주지 않는다."
+        }
+      ],
+      "answerId": "b",
+      "explanation": "Windows 역할 표는 개념 학습 자료로 쓰되 실제 접근 권한은 현재 구성에서 검증한다.",
+      "sourcePages": [
+        22
+      ],
+      "supersededBy": "w09-q039-r2"
+    },
+    {
+      "id": "w09-q053",
+      "objectiveId": "w09-buffer",
+      "family": "w09-overflow-privilege",
+      "kind": "concept",
+      "difficulty": 2,
+      "prompt": "교안 그림의 SetUID·관리자 소유 조건을 해석할 때 옳은 것은?",
+      "options": [
+        {
+          "id": "a",
+          "text": "특정 권한 상승 예의 조건이지 모든 오버플로의 필요조건은 아니다",
+          "explanation": "메모리 경계 오류와 그 오류로 얻는 권한은 별개의 조건이다."
+        },
+        {
+          "id": "b",
+          "text": "SetUID가 없으면 경계 초과 쓰기 자체가 불가능하다",
+          "explanation": "권한 설정과 메모리 경계 오류의 발생은 별개다."
+        },
+        {
+          "id": "c",
+          "text": "관리자 소유 파일은 항상 관리자 권한으로 실행된다",
+          "explanation": "파일 소유자만으로 모든 실행 권한이 결정되는 것은 아니다."
+        },
+        {
+          "id": "d",
+          "text": "일반 권한 프로세스의 오버플로는 아무 피해도 줄 수 없다",
+          "explanation": "프로세스가 접근하는 자료와 기능은 일반 권한에서도 손상될 수 있다."
+        }
+      ],
+      "answerId": "a",
+      "explanation": "권한은 영향 범위에 관여하고 경계 밖 쓰기 자체의 발생 가능성과는 다르다.",
+      "sourcePages": [
+        26
+      ],
+      "supersededBy": "w09-q053-r2"
     }
   ]
 }
